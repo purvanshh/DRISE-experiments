@@ -6,6 +6,7 @@ and field-level accuracy computations.
 
 from __future__ import annotations
 
+from datetime import datetime
 import json
 import re
 from collections import Counter
@@ -154,6 +155,8 @@ def compute_schema_validity(
             continue
         if not isinstance(value, expected_type):
             return 0.0
+        if field_name == "line_items" and any(not isinstance(item, dict) for item in value):
+            return 0.0
     return 1.0
 
 
@@ -246,9 +249,14 @@ def _normalized_field_payload(payload: dict[str, Any], fields: list[str] | tuple
     for field in fields:
         value = payload.get(field)
         if field == "line_items":
-            normalized[field] = [_normalize_line_item(item) for item in value or []]
-        elif isinstance(value, (int, float)):
-            normalized[field] = round(float(value), 2)
+            normalized[field] = sorted(
+                (_normalize_line_item(item) for item in value or []),
+                key=lambda item: json.dumps(item, sort_keys=True, default=str),
+            )
+        elif field == "total_amount":
+            normalized[field] = _normalize_amount(value)
+        elif field == "date":
+            normalized[field] = _normalize_date(value)
         elif value is None:
             normalized[field] = None
         else:
@@ -261,8 +269,10 @@ def _normalize_line_item(item: Any) -> dict[str, Any] | Any:
         return item
     normalized: dict[str, Any] = {}
     for key, value in sorted(item.items()):
-        if isinstance(value, (int, float)):
-            normalized[key] = round(float(value), 2)
+        if key in {"quantity", "unit_price", "price"}:
+            normalized[key] = _normalize_amount(value)
+        elif key == "date":
+            normalized[key] = _normalize_date(value)
         elif value is None:
             normalized[key] = None
         else:
@@ -278,3 +288,32 @@ def _serialize_line_item(item: Any) -> str:
 
 def _normalize_string(value: str) -> str:
     return re.sub(r"\s+", " ", str(value).strip().lower())
+
+
+def _normalize_amount(value: Any) -> float | None:
+    if value is None or value == "":
+        return None
+    if isinstance(value, (int, float)):
+        return round(float(value), 2)
+    cleaned = re.sub(r"[^0-9.\-]+", "", str(value))
+    if cleaned in {"", "-", ".", "-."}:
+        return None
+    try:
+        return round(float(cleaned), 2)
+    except ValueError:
+        return None
+
+
+def _normalize_date(value: Any) -> str | None:
+    if value is None or value == "":
+        return None
+    raw = str(value).strip()
+    for date_format in ("%Y-%m-%d", "%Y/%m/%d", "%m/%d/%Y", "%m-%d-%Y", "%d-%m-%Y", "%d/%m/%Y"):
+        try:
+            return datetime.strptime(raw, date_format).strftime("%Y-%m-%d")
+        except ValueError:
+            continue
+    iso_match = re.search(r"\b(\d{4}-\d{2}-\d{2})\b", raw)
+    if iso_match:
+        return iso_match.group(1)
+    return raw

@@ -48,6 +48,33 @@ def test_annotation_loader_resolves_relative_paths(tmp_path):
     assert records[0]["ocr_text"] == "Invoice"
 
 
+def test_annotation_loader_normalizes_ground_truth_defaults(tmp_path):
+    dataset_path = tmp_path / "dataset.jsonl"
+    image_path = tmp_path / "image.png"
+    image_path.write_bytes(b"placeholder")
+    dataset_path.write_text(
+        json.dumps(
+            {
+                "doc_id": "doc-2",
+                "image_path": "image.png",
+                "ground_truth": {"invoice_number": "INV-1"},
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    records = load_annotations(dataset_path)
+
+    assert records[0]["ground_truth"] == {
+        "invoice_number": "INV-1",
+        "date": "",
+        "vendor": "",
+        "total_amount": None,
+        "line_items": [],
+    }
+
+
 def test_experiment_runner_and_report_generation(tmp_path):
     dataset = [
         {

@@ -26,6 +26,31 @@ def test_experiment_metrics_exact_match_and_f1():
     assert compute_field_f1_scores(prediction, ground_truth)["vendor"] == 1.0
 
 
+def test_experiment_metrics_normalize_dates_amounts_and_line_item_order():
+    prediction = {
+        "invoice_number": "INV-1023",
+        "date": "01/12/2025",
+        "vendor": "ABC Corp",
+        "total_amount": "$1000.00",
+        "line_items": [
+            {"description": "Widget B", "quantity": "1", "unit_price": "$50.00"},
+            {"description": "Widget A", "quantity": 2.0, "unit_price": 500.0},
+        ],
+    }
+    ground_truth = {
+        "invoice_number": "INV-1023",
+        "date": "2025-01-12",
+        "vendor": "ABC Corp",
+        "total_amount": 1000.0,
+        "line_items": [
+            {"description": "Widget A", "quantity": 2.0, "unit_price": 500.0},
+            {"description": "Widget B", "quantity": 1.0, "unit_price": 50.0},
+        ],
+    }
+
+    assert compute_document_exact_match(prediction, ground_truth) == 1.0
+
+
 def test_experiment_metrics_schema_and_hallucination():
     prediction = {
         "invoice_number": "INV-404",
@@ -44,6 +69,25 @@ def test_experiment_metrics_schema_and_hallucination():
 
     assert compute_schema_validity(prediction, schema) == 1.0
     assert compute_hallucination_rate(prediction, "Invoice Number: INV-404\nDate: 2025-01-12\nTotal: 1000.00") > 0.0
+
+
+def test_experiment_metrics_schema_rejects_non_dict_line_items():
+    prediction = {
+        "invoice_number": "INV-404",
+        "date": "2025-01-12",
+        "vendor": "Ghost Corp",
+        "total_amount": 1000.0,
+        "line_items": ["bad-item"],
+    }
+    schema = {
+        "invoice_number": str,
+        "date": str,
+        "vendor": str,
+        "total_amount": (int, float),
+        "line_items": list,
+    }
+
+    assert compute_schema_validity(prediction, schema) == 0.0
 
 
 def test_evaluator_returns_document_metrics():

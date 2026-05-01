@@ -38,14 +38,14 @@ def _coerce_document(record: dict[str, Any], base_dir: Path) -> ProcessedDocumen
     ocr_tokens = list(record.get("ocr_tokens", []))
     ocr_text = str(record.get("ocr_text", "")).strip()
     if not ocr_text and ocr_tokens:
-        ocr_text = " ".join(str(token.get("text", "")).strip() for token in ocr_tokens if token.get("text"))
+        ocr_text = "\n".join(str(token.get("text", "")).strip() for token in ocr_tokens if token.get("text"))
 
     document: ProcessedDocument = {
         "doc_id": str(record.get("doc_id") or record.get("id") or _derive_doc_id(image_path, ocr_text)),
         "image_path": image_path,
         "ocr_text": ocr_text,
         "ocr_tokens": ocr_tokens,
-        "ground_truth": record.get("ground_truth"),
+        "ground_truth": _normalize_ground_truth(record.get("ground_truth")),
     }
     return document
 
@@ -56,3 +56,24 @@ def _derive_doc_id(image_path: str, ocr_text: str) -> str:
     if ocr_text:
         return ocr_text[:24].replace(" ", "_")
     return "document"
+
+
+def _normalize_ground_truth(ground_truth: Any) -> dict[str, Any] | None:
+    if ground_truth is None:
+        return None
+    if not isinstance(ground_truth, dict):
+        raise ValueError("ground_truth must be a JSON object when provided.")
+
+    normalized = dict(ground_truth)
+    normalized.setdefault("invoice_number", "")
+    normalized.setdefault("date", "")
+    normalized.setdefault("vendor", "")
+    normalized.setdefault("total_amount", None)
+    normalized.setdefault("line_items", [])
+
+    if normalized["line_items"] is None:
+        normalized["line_items"] = []
+    if not isinstance(normalized["line_items"], list):
+        raise ValueError("ground_truth.line_items must be a list.")
+
+    return normalized
