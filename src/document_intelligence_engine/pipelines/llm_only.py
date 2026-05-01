@@ -81,10 +81,23 @@ class LLMOnlyPipeline(BasePipeline):
 
 
 def _truncate_text(text: str, token_limit: int) -> str:
-    words = text.split()
-    if len(words) <= token_limit:
+    try:
+        import tiktoken
+    except ImportError:
+        words = text.split()
+        if len(words) <= token_limit:
+            return text
+        return " ".join(words[:token_limit])
+
+    try:
+        encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
+    except KeyError:
+        encoding = tiktoken.get_encoding("cl100k_base")
+
+    token_ids = encoding.encode(text)
+    if len(token_ids) <= token_limit:
         return text
-    return " ".join(words[:token_limit])
+    return encoding.decode(token_ids[:token_limit])
 
 
 def _coerce_output(parsed: Any) -> dict[str, Any]:
