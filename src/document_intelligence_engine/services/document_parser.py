@@ -45,6 +45,7 @@ class DocumentParserService:
         structured_document = postprocess_predictions(
             raw_predictions,
             apply_constraints=apply_constraints,
+            ocr_tokens=ocr_result["ocr_tokens"],
         )
         postprocessing_duration_ms = _elapsed_ms(postprocessing_started_at)
 

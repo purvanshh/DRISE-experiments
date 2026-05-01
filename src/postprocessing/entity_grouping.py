@@ -88,6 +88,9 @@ def canonicalize_field_name(key_text: str, field_aliases: dict[str, str]) -> str
     normalized = re.sub(r"[:\s]+", " ", key_text.strip()).lower().strip()
     if normalized in field_aliases:
         return field_aliases[normalized]
+    for alias in sorted(field_aliases, key=len, reverse=True):
+        if alias in normalized:
+            return field_aliases[alias]
     return normalized.replace(" ", "_")
 
 

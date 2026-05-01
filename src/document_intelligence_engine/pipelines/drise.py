@@ -89,6 +89,7 @@ class DRISEPipeline(BasePipeline):
         structured_document = postprocess_predictions(
             raw_predictions,
             apply_constraints=apply_constraints,
+            ocr_tokens=ocr_tokens,
         )
         postprocessing_duration_ms = round((time.perf_counter() - postprocessing_started_at) * 1000, 3)
         latency_ms = round((time.perf_counter() - started_at) * 1000, 3)

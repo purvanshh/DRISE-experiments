@@ -83,7 +83,7 @@ def _enforce_amount_consistency(
     for item in line_items:
         if not isinstance(item, dict):
             continue
-        price = item.get("price")
+        price = item.get("price", item.get("unit_price"))
         quantity = item.get("quantity", 1)
         if isinstance(price, (int, float)) and isinstance(quantity, (int, float)):
             computed_total += float(price) * float(quantity)

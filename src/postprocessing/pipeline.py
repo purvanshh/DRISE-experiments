@@ -10,6 +10,7 @@ from postprocessing.confidence import apply_confidence_policy
 from postprocessing.constraints import apply_constraints as apply_constraint_rules
 from postprocessing.entity_grouping import group_entities
 from postprocessing.normalization import normalize_entities
+from postprocessing.recovery import recover_missing_entities
 from postprocessing.validation import validate_fields
 
 
@@ -17,6 +18,7 @@ def postprocess_predictions(
     predictions: list[dict[str, Any]],
     *,
     apply_constraints: bool = True,
+    ocr_tokens: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     settings = get_settings()
 
@@ -24,7 +26,12 @@ def postprocess_predictions(
         predictions=predictions,
         field_aliases=settings.postprocessing.field_aliases,
     )
-    normalized_entities, normalization_errors = normalize_entities(grouped_entities, settings)
+    recovered_entities = recover_missing_entities(
+        grouped_entities,
+        ocr_tokens,
+        settings.postprocessing.field_aliases,
+    )
+    normalized_entities, normalization_errors = normalize_entities(recovered_entities, settings)
     validated_document, validation_errors = validate_fields(normalized_entities, settings)
     constraint_errors: list[dict[str, Any]] = []
     constraint_flags: list[str] = []

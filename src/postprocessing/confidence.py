@@ -16,6 +16,7 @@ def apply_confidence_policy(
 ) -> tuple[dict[str, dict[str, Any]], list[dict[str, str]]]:
     threshold = settings.postprocessing.confidence.min_field_confidence
     drop_below_threshold = settings.postprocessing.confidence.drop_below_threshold
+    retain_threshold = max(0.35, round(threshold - 0.2, 6))
 
     filtered_document: dict[str, dict[str, Any]] = {}
     errors: list[dict[str, str]] = []
@@ -36,9 +37,10 @@ def apply_confidence_policy(
                 "dropped_field",
                 extra={"field": field_name, "confidence": confidence, "threshold": threshold},
             )
-            if drop_below_threshold:
+            if drop_below_threshold and confidence < retain_threshold:
                 continue
             record["valid"] = False
+            record["retained_low_confidence"] = True
 
         filtered_document[field_name] = record
 

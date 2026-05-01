@@ -44,23 +44,28 @@ def normalize_entities(
             normalized_entities.append(normalized_entity)
             continue
 
-        cleaned_value = cleanup_text(str(original_value))
-        corrected_value = cleaned_value
-
-        if field_name in settings.postprocessing.normalization.date_fields:
-            corrected_value = fix_ocr_artifacts(
-                cleaned_value,
-                settings.postprocessing.normalization.artifact_map,
-            )
-            normalized_value = normalize_date(corrected_value)
-        elif field_name in settings.postprocessing.normalization.currency_fields:
-            corrected_value = fix_ocr_artifacts(
-                cleaned_value,
-                settings.postprocessing.normalization.artifact_map,
-            )
-            normalized_value = normalize_currency(corrected_value)
+        if isinstance(original_value, list):
+            normalized_value = _normalize_list_value(original_value)
+            cleaned_value = str(original_value)
+            corrected_value = cleaned_value
         else:
-            normalized_value = cleaned_value
+            cleaned_value = cleanup_text(str(original_value))
+            corrected_value = cleaned_value
+
+            if field_name in settings.postprocessing.normalization.date_fields:
+                corrected_value = fix_ocr_artifacts(
+                    cleaned_value,
+                    settings.postprocessing.normalization.artifact_map,
+                )
+                normalized_value = normalize_date(corrected_value)
+            elif field_name in settings.postprocessing.normalization.currency_fields:
+                corrected_value = fix_ocr_artifacts(
+                    cleaned_value,
+                    settings.postprocessing.normalization.artifact_map,
+                )
+                normalized_value = normalize_currency(corrected_value)
+            else:
+                normalized_value = cleaned_value
 
         normalized_entity["value"] = normalized_value
         normalized_entities.append(normalized_entity)
@@ -131,6 +136,22 @@ def normalize_currency(value: str) -> float | None:
     except InvalidOperation:
         return None
     return -amount if negative else amount
+
+
+def _normalize_list_value(items: list[Any]) -> list[Any]:
+    normalized_items: list[Any] = []
+    for item in items:
+        if not isinstance(item, dict):
+            normalized_items.append(item)
+            continue
+        normalized_item: dict[str, Any] = {}
+        for key, value in item.items():
+            if key in {"quantity", "unit_price", "price"}:
+                normalized_item[key] = normalize_currency(str(value)) if value not in (None, "") else None
+            else:
+                normalized_item[key] = cleanup_text(str(value)) if value not in (None, "") else value
+        normalized_items.append(normalized_item)
+    return normalized_items
 
 
 def _numeric_context(value: str, index: int) -> bool:

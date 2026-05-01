@@ -18,6 +18,9 @@ def validate_fields(
 ) -> tuple[dict[str, dict[str, Any]], list[dict[str, str]]]:
     document: dict[str, dict[str, Any]] = {}
     errors: list[dict[str, str]] = []
+    regex_rules = settings.postprocessing.validation.regex_rules
+    date_fields = set(settings.postprocessing.normalization.date_fields)
+    currency_fields = set(settings.postprocessing.normalization.currency_fields)
 
     for entity in entities:
         field_name = entity["field"]
@@ -34,7 +37,7 @@ def validate_fields(
         if field_name in document:
             existing = document[field_name]
             if existing["value"] != value:
-                preferred = existing if existing["confidence"] >= confidence else record
+                preferred = _preferred_record(existing, record, field_name, date_fields, currency_fields)
                 document[field_name] = preferred
                 errors.append(
                     _error(
@@ -52,10 +55,6 @@ def validate_fields(
             continue
 
         document[field_name] = record
-
-    regex_rules = settings.postprocessing.validation.regex_rules
-    date_fields = set(settings.postprocessing.normalization.date_fields)
-    currency_fields = set(settings.postprocessing.normalization.currency_fields)
 
     for field_name, record in document.items():
         field_errors: list[dict[str, str]] = []
@@ -109,6 +108,39 @@ def _is_iso_date(value: str) -> bool:
     except ValueError:
         return False
     return True
+
+
+def _preferred_record(
+    existing: dict[str, Any],
+    candidate: dict[str, Any],
+    field_name: str,
+    date_fields: set[str],
+    currency_fields: set[str],
+) -> dict[str, Any]:
+    existing_has_value = existing.get("value") not in (None, "")
+    candidate_has_value = candidate.get("value") not in (None, "")
+    if candidate_has_value and not existing_has_value:
+        return candidate
+    if existing_has_value and not candidate_has_value:
+        return existing
+
+    if field_name in date_fields:
+        existing_is_valid = existing_has_value and _is_iso_date(str(existing.get("value")))
+        candidate_is_valid = candidate_has_value and _is_iso_date(str(candidate.get("value")))
+        if candidate_is_valid and not existing_is_valid:
+            return candidate
+        if existing_is_valid and not candidate_is_valid:
+            return existing
+
+    if field_name in currency_fields:
+        existing_is_valid = isinstance(existing.get("value"), (int, float))
+        candidate_is_valid = isinstance(candidate.get("value"), (int, float))
+        if candidate_is_valid and not existing_is_valid:
+            return candidate
+        if existing_is_valid and not candidate_is_valid:
+            return existing
+
+    return existing if existing["confidence"] >= candidate["confidence"] else candidate
 
 
 def _error(field: str, code: str, message: str) -> dict[str, str]:
