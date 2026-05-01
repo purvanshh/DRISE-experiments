@@ -1,6 +1,0 @@
-{
-  "text": "[{\"description\": \"Widget A\", \"quantity\": 2.0, \"unit_price\": 500.0}]",
-  "prompt_tokens": 49,
-  "completion_tokens": 7,
-  "cost_usd": 0.0
-}
