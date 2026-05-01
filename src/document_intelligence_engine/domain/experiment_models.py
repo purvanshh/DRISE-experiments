@@ -12,11 +12,23 @@ class ProcessedOCRToken(TypedDict, total=False):
     page_number: int
 
 
+class ProcessedOCRMetadata(TypedDict, total=False):
+    source: str
+    engine: str
+    language: str
+    page_count: int
+    token_count: int
+    timing: dict[str, float]
+    reused_cached_ocr: bool
+
+
 class ProcessedDocument(TypedDict, total=False):
     doc_id: str
     image_path: str
+    raw_image_path: str
     ocr_text: str
     ocr_tokens: list[ProcessedOCRToken]
+    ocr_metadata: ProcessedOCRMetadata
     ground_truth: dict[str, Any] | None
 
 

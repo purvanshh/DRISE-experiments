@@ -35,6 +35,10 @@ def _coerce_document(record: dict[str, Any], base_dir: Path) -> ProcessedDocumen
     if image_path and not Path(image_path).is_absolute():
         image_path = str((base_dir / image_path).resolve())
 
+    raw_image_path = str(record.get("raw_image_path", image_path or ""))
+    if raw_image_path and not Path(raw_image_path).is_absolute():
+        raw_image_path = str((base_dir / raw_image_path).resolve())
+
     ocr_tokens = list(record.get("ocr_tokens", []))
     ocr_text = str(record.get("ocr_text", "")).strip()
     if not ocr_text and ocr_tokens:
@@ -43,8 +47,10 @@ def _coerce_document(record: dict[str, Any], base_dir: Path) -> ProcessedDocumen
     document: ProcessedDocument = {
         "doc_id": str(record.get("doc_id") or record.get("id") or _derive_doc_id(image_path, ocr_text)),
         "image_path": image_path,
+        "raw_image_path": raw_image_path or image_path,
         "ocr_text": ocr_text,
         "ocr_tokens": ocr_tokens,
+        "ocr_metadata": _normalize_ocr_metadata(record.get("ocr_metadata"), token_count=len(ocr_tokens)),
         "ground_truth": _normalize_ground_truth(record.get("ground_truth")),
     }
     return document
@@ -76,4 +82,25 @@ def _normalize_ground_truth(ground_truth: Any) -> dict[str, Any] | None:
     if not isinstance(normalized["line_items"], list):
         raise ValueError("ground_truth.line_items must be a list.")
 
+    return normalized
+
+
+def _normalize_ocr_metadata(ocr_metadata: Any, *, token_count: int) -> dict[str, Any]:
+    if not isinstance(ocr_metadata, dict):
+        return {
+            "source": "annotation",
+            "engine": "unknown",
+            "language": "en",
+            "page_count": 1,
+            "token_count": token_count,
+            "reused_cached_ocr": True,
+        }
+
+    normalized = dict(ocr_metadata)
+    normalized.setdefault("source", "annotation")
+    normalized.setdefault("engine", "unknown")
+    normalized.setdefault("language", "en")
+    normalized.setdefault("page_count", 1)
+    normalized.setdefault("token_count", token_count)
+    normalized.setdefault("reused_cached_ocr", True)
     return normalized

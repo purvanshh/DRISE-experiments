@@ -78,6 +78,7 @@ class DRISEPipeline(BasePipeline):
         apply_constraints = bool(self.config.get("use_constraints", True))
         model_service = self._parser_service.model_service
         page_image = _load_page_image(document.get("image_path"))
+        ocr_metadata = dict(document.get("ocr_metadata", {}))
 
         model_started_at = time.perf_counter()
         prediction_method = model_service.predict if use_layout else model_service.predict_text_only
@@ -96,15 +97,15 @@ class DRISEPipeline(BasePipeline):
         cost_usd = (float(latency_ms) / 1000.0 / 3600.0) * self._local_cost_per_hour
         metadata = {
             "filename": document.get("image_path") or document.get("doc_id", "document"),
-            "page_count": 1,
+            "page_count": int(ocr_metadata.get("page_count", 1) or 1),
             "ocr_token_count": len(ocr_tokens),
             "confidence_summary": build_confidence_summary(structured_document),
             "timing": {
-                "validation": 0.0,
-                "load": 0.0,
-                "preprocessing": 0.0,
-                "ocr": 0.0,
-                "bbox_alignment": 0.0,
+                "validation": float(ocr_metadata.get("timing", {}).get("validation", 0.0)),
+                "load": float(ocr_metadata.get("timing", {}).get("load", 0.0)),
+                "preprocessing": float(ocr_metadata.get("timing", {}).get("preprocessing", 0.0)),
+                "ocr": float(ocr_metadata.get("timing", {}).get("ocr", 0.0)),
+                "bbox_alignment": float(ocr_metadata.get("timing", {}).get("bbox_alignment", 0.0)),
                 "model": model_duration_ms,
                 "postprocessing": postprocessing_duration_ms,
                 "total": latency_ms,
@@ -112,14 +113,15 @@ class DRISEPipeline(BasePipeline):
             "warnings": derive_warnings(
                 ocr_tokens=ocr_tokens,
                 document=structured_document,
-                page_count=1,
+                page_count=int(ocr_metadata.get("page_count", 1) or 1),
             ),
             "model": {
                 "name": model_service.name,
                 "version": model_service.version,
                 "device": model_service.device,
             },
-            "source": "experiment_ocr_tokens",
+            "source": str(ocr_metadata.get("source", "experiment_ocr_tokens")),
+            "ocr": ocr_metadata,
         }
 
         return {
