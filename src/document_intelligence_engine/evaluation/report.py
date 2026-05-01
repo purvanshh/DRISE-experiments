@@ -29,22 +29,29 @@ def generate_experiment_report(
 
     summary = {system_name: _summarize_system(records) for system_name, records in results_by_system.items()}
     pairwise_stats = _pairwise_stats(results_by_system)
+    ablation_summary = _ablation_summary(summary)
 
     summary_csv = target_dir / "summary.csv"
     summary_json = target_dir / "summary.json"
     summary_md = target_dir / "summary.md"
     stats_json = target_dir / "pairwise_stats.json"
+    ablation_csv = target_dir / "ablation_summary.csv"
+    ablation_json = target_dir / "ablation_summary.json"
 
     _write_summary_csv(summary_csv, summary)
+    _write_ablation_csv(ablation_csv, ablation_summary)
     summary_json.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     summary_md.write_text(_render_markdown(summary, pairwise_stats), encoding="utf-8")
     stats_json.write_text(json.dumps(pairwise_stats, indent=2), encoding="utf-8")
+    ablation_json.write_text(json.dumps(ablation_summary, indent=2), encoding="utf-8")
 
     artifacts = {
         "summary_csv": str(summary_csv),
         "summary_json": str(summary_json),
         "summary_markdown": str(summary_md),
         "pairwise_stats_json": str(stats_json),
+        "ablation_summary_csv": str(ablation_csv),
+        "ablation_summary_json": str(ablation_json),
     }
     chart_path = _write_field_chart(results_by_system, target_dir)
     if chart_path is not None:
@@ -53,6 +60,7 @@ def generate_experiment_report(
     report = {
         "summary": summary,
         "pairwise_stats": pairwise_stats,
+        "ablation_summary": ablation_summary,
         "artifacts": artifacts,
     }
     (target_dir / "report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
@@ -90,6 +98,34 @@ def _pairwise_stats(results_by_system: dict[str, list[dict[str, Any]]]) -> dict[
     return comparisons
 
 
+def _ablation_summary(summary: dict[str, Any]) -> list[dict[str, Any]]:
+    baseline = summary.get("drise")
+    if baseline is None:
+        return []
+
+    variants = []
+    for system_name, metrics in summary.items():
+        if system_name == "drise" or not system_name.startswith("drise_"):
+            continue
+        variants.append(
+            {
+                "system": system_name,
+                "field_level_f1_mean": metrics["field_level_f1"]["mean"],
+                "exact_match_mean": metrics["exact_match"]["mean"],
+                "schema_valid_mean": metrics["schema_valid"]["mean"],
+                "hallucination_rate_mean": metrics["hallucination_rate"]["mean"],
+                "delta_field_level_f1": round(metrics["field_level_f1"]["mean"] - baseline["field_level_f1"]["mean"], 6),
+                "delta_exact_match": round(metrics["exact_match"]["mean"] - baseline["exact_match"]["mean"], 6),
+                "delta_schema_valid": round(metrics["schema_valid"]["mean"] - baseline["schema_valid"]["mean"], 6),
+                "delta_hallucination_rate": round(
+                    metrics["hallucination_rate"]["mean"] - baseline["hallucination_rate"]["mean"],
+                    6,
+                ),
+            }
+        )
+    return variants
+
+
 def _write_summary_csv(path: Path, summary: dict[str, Any]) -> None:
     with path.open("w", encoding="utf-8", newline="") as file_pointer:
         writer = csv.writer(file_pointer)
@@ -118,6 +154,38 @@ def _write_summary_csv(path: Path, summary: dict[str, Any]) -> None:
                     metrics["latency_ms"]["mean"],
                     metrics["cost_usd"]["mean"],
                     metrics["sample_count"],
+                ]
+            )
+
+
+def _write_ablation_csv(path: Path, ablations: list[dict[str, Any]]) -> None:
+    with path.open("w", encoding="utf-8", newline="") as file_pointer:
+        writer = csv.writer(file_pointer)
+        writer.writerow(
+            [
+                "system",
+                "field_level_f1_mean",
+                "exact_match_mean",
+                "schema_valid_mean",
+                "hallucination_rate_mean",
+                "delta_field_level_f1",
+                "delta_exact_match",
+                "delta_schema_valid",
+                "delta_hallucination_rate",
+            ]
+        )
+        for row in ablations:
+            writer.writerow(
+                [
+                    row["system"],
+                    row["field_level_f1_mean"],
+                    row["exact_match_mean"],
+                    row["schema_valid_mean"],
+                    row["hallucination_rate_mean"],
+                    row["delta_field_level_f1"],
+                    row["delta_exact_match"],
+                    row["delta_schema_valid"],
+                    row["delta_hallucination_rate"],
                 ]
             )
 

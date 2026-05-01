@@ -54,8 +54,34 @@ def _build_systems(experiment: dict[str, Any]) -> list[Any]:
     if "rag_llm" in system_names:
         systems.append(RAGLLMPipeline({**llm_config, **retrieval_config}))
     if "drise" in system_names:
-        systems.append(DRISEPipeline({**experiment.get("drise", {}), "results_dir": output_dir}))
+        drise_config = {**experiment.get("drise", {}), "results_dir": output_dir, "name": "drise"}
+        systems.append(DRISEPipeline(drise_config))
+        systems.extend(_build_drise_ablations(experiment, output_dir))
     return systems
+
+
+def _build_drise_ablations(experiment: dict[str, Any], output_dir: str) -> list[Any]:
+    ablation_config = dict(experiment.get("ablation", {}))
+    if not ablation_config.get("enabled", False):
+        return []
+
+    drise_defaults = dict(experiment.get("drise", {}))
+    ablations: list[Any] = []
+    variants = ablation_config.get("variants", {})
+    for variant_name, overrides in variants.items():
+        if not isinstance(overrides, dict):
+            continue
+        ablations.append(
+            DRISEPipeline(
+                {
+                    **drise_defaults,
+                    **overrides,
+                    "results_dir": output_dir,
+                    "name": variant_name,
+                }
+            )
+        )
+    return ablations
 
 
 def main() -> None:

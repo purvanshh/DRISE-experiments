@@ -23,6 +23,7 @@ class DRISEPipeline(BasePipeline):
         parser_service: DocumentParserService | None = None,
     ) -> None:
         self.config = config or {}
+        self.name = str(self.config.get("name", self.name))
         self._settings = get_settings()
         self._parser_service = parser_service or self._build_parser_service()
         self._local_cost_per_hour = float(self.config.get("local_cost_per_hour", 0.0))

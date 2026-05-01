@@ -1,7 +1,9 @@
 experiment:
   name: drise_vs_baselines
   dataset:
-    test_annotations: data/annotations/experiment_sample.jsonl
+    train_annotations: data/annotations/train.jsonl
+    val_annotations: data/annotations/val.jsonl
+    test_annotations: data/annotations/test.jsonl
   systems:
     - llm_only
     - rag_llm
@@ -14,7 +16,7 @@ experiment:
     cache_dir: experiments/cache/llm
     max_input_tokens: 4000
   retrieval:
-    embedder: hashing
+    embedder: all-MiniLM-L6-v2
     top_k: 3
     chunk_size: 500
     retrieval_cache_dir: experiments/cache/retrieval
@@ -22,4 +24,13 @@ experiment:
     use_layout: true
     use_constraints: true
     local_cost_per_hour: 0.5
+  ablation:
+    enabled: true
+    variants:
+      drise_no_layout:
+        use_layout: false
+        use_constraints: true
+      drise_no_constraints:
+        use_layout: true
+        use_constraints: false
   output_dir: experiments/results
