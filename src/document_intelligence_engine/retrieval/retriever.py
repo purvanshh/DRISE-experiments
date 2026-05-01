@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import hashlib
 import math
 import pickle
 from pathlib import Path
+from typing import Any
 
 from document_intelligence_engine.retrieval.embedder import Embedder
 
@@ -45,30 +47,48 @@ class DocumentRetriever:
                 current_length = projected_length
         if current:
             chunks.append("\n".join(current))
-        return chunks or [ocr_text.strip()]
+        fallback = ocr_text.strip()
+        return chunks or ([fallback] if fallback else [])
+
+    def build_index(self, doc_id: str, chunks: list[str]) -> Path:
+        cache_path = self.cache_dir / f"{doc_id}.pkl"
+        embeddings = self.embedder.encode(chunks)
+        payload = {
+            "doc_id": doc_id,
+            "chunk_count": len(chunks),
+            "chunk_hash": hashlib.sha256("\n\n".join(chunks).encode("utf-8")).hexdigest(),
+            "chunks": chunks,
+            "embeddings": embeddings,
+        }
+        with cache_path.open("wb") as file_pointer:
+            pickle.dump(payload, file_pointer)
+        return cache_path
+
+    def load_index(self, doc_id: str) -> dict[str, Any]:
+        cache_path = self.cache_dir / f"{doc_id}.pkl"
+        if not cache_path.exists():
+            raise FileNotFoundError(f"No retrieval index available for document '{doc_id}'.")
+        with cache_path.open("rb") as file_pointer:
+            payload = pickle.load(file_pointer)
+        return dict(payload)
 
     def ensure_index(self, doc_id: str, ocr_text: str) -> list[str]:
         cache_path = self.cache_dir / f"{doc_id}.pkl"
         if cache_path.exists():
-            with cache_path.open("rb") as file_pointer:
-                payload = pickle.load(file_pointer)
+            payload = self.load_index(doc_id)
             return list(payload["chunks"])
-
         chunks = self.chunk_text(ocr_text)
-        embeddings = self.embedder.encode(chunks)
-        with cache_path.open("wb") as file_pointer:
-            pickle.dump({"chunks": chunks, "embeddings": embeddings}, file_pointer)
+        self.build_index(doc_id, chunks)
         return chunks
 
     def retrieve(self, query: str, doc_id: str, ocr_text: str | None = None) -> list[str]:
-        cache_path = self.cache_dir / f"{doc_id}.pkl"
-        if not cache_path.exists():
+        try:
+            payload = self.load_index(doc_id)
+        except FileNotFoundError:
             if ocr_text is None:
-                raise FileNotFoundError(f"No retrieval index available for document '{doc_id}'.")
+                raise
             self.ensure_index(doc_id, ocr_text)
-
-        with cache_path.open("rb") as file_pointer:
-            payload = pickle.load(file_pointer)
+            payload = self.load_index(doc_id)
 
         chunks = list(payload["chunks"])
         embeddings = list(payload["embeddings"])

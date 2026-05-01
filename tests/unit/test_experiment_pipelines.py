@@ -54,6 +54,48 @@ def test_rag_pipeline_uses_retrieval_with_mock_backend(tmp_path):
     assert output["extracted_fields"]["invoice_number"] == "INV-1023"
     assert output["extracted_fields"]["total_amount"] == 1000.0
     assert output["extracted_fields"]["line_items"] == [{"description": "Widget A", "quantity": 2.0, "unit_price": 500.0}]
+    assert output["metadata"]["chunk_count"] >= 1
+    assert output["metadata"]["top_k"] == 2
+    assert "invoice_number" in output["metadata"]["retrieved_contexts"]
+
+
+def test_rag_pipeline_repairs_embedded_json_field_output(tmp_path):
+    class NoisyClient:
+        def generate(self, prompt: str, **kwargs):
+            if 'field "line_items"' in prompt:
+                text = 'answer: [{"description":"Widget A","quantity":2.0,"unit_price":500.0}]'
+            elif 'field "total_amount"' in prompt:
+                text = "answer: 1000.0"
+            elif 'field "invoice_number"' in prompt:
+                text = 'answer: "INV-1023"'
+            elif 'field "date"' in prompt:
+                text = 'answer: "2025-01-12"'
+            else:
+                text = 'answer: "ABC Corp"'
+            return {"text": text, "cost_usd": 0.0}
+
+    pipeline = RAGLLMPipeline(
+        {
+            "backend": "mock",
+            "model": "mock-llm",
+            "retrieval_cache_dir": str(tmp_path / "retrieval-cache"),
+        },
+        client=NoisyClient(),  # type: ignore[arg-type]
+    )
+
+    output = pipeline.run(
+        {
+            "doc_id": "doc-embedded",
+            "ocr_text": (
+                "Vendor: ABC Corp\nInvoice Number: INV-1023\nDate: 2025-01-12\n"
+                "Item: Widget A, Qty: 2, Price: $500.00\nTotal Amount: $1000.00"
+            ),
+        }
+    )
+
+    assert output["extracted_fields"]["invoice_number"] == "INV-1023"
+    assert output["extracted_fields"]["total_amount"] == 1000.0
+    assert output["extracted_fields"]["line_items"] == [{"description": "Widget A", "quantity": 2.0, "unit_price": 500.0}]
 
 
 def test_drise_pipeline_flattens_existing_parser_output():

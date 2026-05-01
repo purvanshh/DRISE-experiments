@@ -10,7 +10,7 @@ import re
 class Embedder:
     """Sentence embedding wrapper used by the RAG baseline."""
 
-    def __init__(self, model_name: str = "hashing", vector_size: int = 256) -> None:
+    def __init__(self, model_name: str = "all-MiniLM-L6-v2", vector_size: int = 256) -> None:
         self.model_name = model_name
         self.vector_size = vector_size
         self._model = None
@@ -20,7 +20,13 @@ class Embedder:
             except ImportError:
                 self.model_name = "hashing"
             else:  # pragma: no cover - depends on optional dependency
-                self._model = SentenceTransformer(model_name)
+                try:
+                    self._model = SentenceTransformer(model_name)
+                except Exception:
+                    self.model_name = "hashing"
+                    self._model = None
+        if self.model_name == "hashing":
+            self._model = None
 
     def encode(self, texts: list[str]) -> list[list[float]]:
         if self._model is not None:  # pragma: no cover - depends on optional dependency

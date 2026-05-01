@@ -9,7 +9,8 @@ from typing import Any
 
 from document_intelligence_engine.domain.experiment_models import ExtractionOutput, ProcessedDocument
 from document_intelligence_engine.llm.client import LLMClient
-from document_intelligence_engine.llm.prompts import FIELD_EXTRACTION_TEMPLATE
+from document_intelligence_engine.llm.client import _extract_json_candidate
+from document_intelligence_engine.llm.prompts import EXTRACTION_SYSTEM_PROMPT, FIELD_EXTRACTION_TEMPLATE
 from document_intelligence_engine.pipelines.base import BasePipeline
 from document_intelligence_engine.retrieval.embedder import Embedder
 from document_intelligence_engine.retrieval.retriever import DocumentRetriever
@@ -37,6 +38,7 @@ class RAGLLMPipeline(BasePipeline):
         retriever: DocumentRetriever | None = None,
     ) -> None:
         self.config = config or {}
+        self.target_fields = tuple(self.config.get("target_fields", FIELD_QUERIES.keys()))
         self.client = client or LLMClient(
             backend=str(self.config.get("backend", "mock")),
             model=str(self.config.get("model", "mock-llm")),
@@ -44,7 +46,7 @@ class RAGLLMPipeline(BasePipeline):
             base_url=self.config.get("base_url"),
         )
         self.retriever = retriever or DocumentRetriever(
-            embedder=Embedder(str(self.config.get("embedder", "hashing"))),
+            embedder=Embedder(str(self.config.get("embedder", "all-MiniLM-L6-v2"))),
             top_k=int(self.config.get("top_k", 3)),
             chunk_size=int(self.config.get("chunk_size", 500)),
             cache_dir=str(self.config.get("retrieval_cache_dir", "experiments/cache/retrieval")),
@@ -54,22 +56,26 @@ class RAGLLMPipeline(BasePipeline):
         started_at = time.perf_counter()
         ocr_text = str(document.get("ocr_text", ""))
         doc_id = str(document.get("doc_id") or _derive_doc_id(ocr_text))
-        self.retriever.ensure_index(doc_id, ocr_text)
+        chunk_count = len(self.retriever.ensure_index(doc_id, ocr_text))
 
         extracted_fields: dict[str, Any] = {}
         errors: list[str] = []
         total_cost = 0.0
         raw_payloads: dict[str, str] = {}
+        retrieved_contexts: dict[str, list[str]] = {}
 
-        for field_name, query in FIELD_QUERIES.items():
+        for field_name in self.target_fields:
+            query = FIELD_QUERIES.get(field_name, field_name.replace("_", " "))
             try:
                 retrieved_chunks = self.retriever.retrieve(query, doc_id, ocr_text=ocr_text)
+                retrieved_contexts[field_name] = retrieved_chunks
                 prompt = FIELD_EXTRACTION_TEMPLATE.format(
                     field_name=field_name,
                     context="\n\n".join(retrieved_chunks),
                 )
                 payload = self.client.generate(
                     prompt,
+                    system_prompt=EXTRACTION_SYSTEM_PROMPT,
                     max_tokens=int(self.config.get("field_max_tokens", 256)),
                     temperature=float(self.config.get("temperature", 0.0)),
                 )
@@ -90,7 +96,12 @@ class RAGLLMPipeline(BasePipeline):
             "_errors": errors,
             "latency_ms": latency_ms,
             "cost_usd": round(total_cost, 6),
-            "metadata": {"raw_field_responses": raw_payloads},
+            "metadata": {
+                "chunk_count": chunk_count,
+                "top_k": self.retriever.top_k,
+                "raw_field_responses": raw_payloads,
+                "retrieved_contexts": retrieved_contexts,
+            },
         }
 
 
@@ -99,7 +110,21 @@ def _derive_doc_id(ocr_text: str) -> str:
 
 
 def _parse_field_response(field_name: str, raw_text: str) -> Any:
-    parsed = json.loads(raw_text)
+    parsed = _loads_with_repair(raw_text)
     if field_name == "line_items":
         return parsed if isinstance(parsed, list) else []
     return parsed
+
+
+def _loads_with_repair(raw_text: str) -> Any:
+    try:
+        return json.loads(raw_text)
+    except json.JSONDecodeError:
+        candidate = _extract_json_candidate(raw_text)
+        if candidate is not None:
+            return json.loads(candidate)
+
+        stripped = raw_text.strip()
+        if ":" in stripped:
+            stripped = stripped.split(":", maxsplit=1)[1].strip()
+        return json.loads(stripped)
