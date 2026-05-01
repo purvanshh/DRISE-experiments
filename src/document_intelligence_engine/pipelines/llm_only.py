@@ -6,14 +6,14 @@ import json
 import time
 from typing import Any
 
-from document_intelligence_engine.domain.experiment_models import ExtractionOutput, ProcessedDocument
-from document_intelligence_engine.llm.client import LLMClient
-from document_intelligence_engine.llm.prompts import (
+from ..domain.experiment_models import ExtractionOutput, ProcessedDocument
+from ..llm.client import LLMClient
+from ..llm.prompts import (
     DEFAULT_EXTRACTION_SCHEMA,
     EXTRACTION_SYSTEM_PROMPT,
     EXTRACTION_USER_TEMPLATE,
 )
-from document_intelligence_engine.pipelines.base import BasePipeline
+from .base import BasePipeline
 
 
 EXPECTED_FIELDS = ("invoice_number", "date", "vendor", "total_amount", "line_items")
@@ -27,8 +27,8 @@ class LLMOnlyPipeline(BasePipeline):
     def __init__(self, config: dict[str, Any] | None = None, client: LLMClient | None = None) -> None:
         self.config = config or {}
         self.client = client or LLMClient(
-            backend=str(self.config.get("backend", "mock")),
-            model=str(self.config.get("model", "mock-llm")),
+            backend=str(self.config.get("backend", "openai")),
+            model=str(self.config.get("model", "gpt-3.5-turbo")),
             cache_dir=str(self.config.get("cache_dir", "experiments/cache/llm")),
             base_url=self.config.get("base_url"),
         )
@@ -47,6 +47,7 @@ class LLMOnlyPipeline(BasePipeline):
         total_cost = 0.0
         raw_response = ""
         extracted_fields: dict[str, Any] = {}
+        self.client.reset_call_tracking()
 
         for attempt in range(self.max_retries + 1):
             try:
@@ -57,7 +58,7 @@ class LLMOnlyPipeline(BasePipeline):
                     temperature=float(self.config.get("temperature", 0.0)),
                 )
                 raw_response = str(payload["text"])
-                total_cost += float(payload["cost_usd"])
+                total_cost += float(self.client.last_call_cost)
                 extracted_fields = _coerce_output(payload["parsed"])
                 break
             except Exception as exc:

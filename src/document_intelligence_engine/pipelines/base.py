@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from document_intelligence_engine.domain.experiment_models import ExtractionOutput, ProcessedDocument
+from ..domain.experiment_models import ExtractionOutput, ProcessedDocument
 
 
 class BasePipeline(ABC):
@@ -15,4 +15,3 @@ class BasePipeline(ABC):
     @abstractmethod
     def run(self, document: ProcessedDocument) -> ExtractionOutput:
         """Extract fields from a processed document."""
-

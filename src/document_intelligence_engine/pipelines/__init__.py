@@ -1,8 +1,23 @@
 """Experiment pipeline abstractions and implementations."""
 
-from document_intelligence_engine.pipelines.base import BasePipeline
-from document_intelligence_engine.pipelines.drise import DRISEPipeline
-from document_intelligence_engine.pipelines.llm_only import LLMOnlyPipeline
-from document_intelligence_engine.pipelines.rag_llm import RAGLLMPipeline
-
 __all__ = ["BasePipeline", "DRISEPipeline", "LLMOnlyPipeline", "RAGLLMPipeline"]
+
+
+def __getattr__(name: str):
+    if name == "BasePipeline":
+        from .base import BasePipeline
+
+        return BasePipeline
+    if name == "DRISEPipeline":
+        from .drise import DRISEPipeline
+
+        return DRISEPipeline
+    if name == "LLMOnlyPipeline":
+        from .llm_only import LLMOnlyPipeline
+
+        return LLMOnlyPipeline
+    if name == "RAGLLMPipeline":
+        from .rag_llm import RAGLLMPipeline
+
+        return RAGLLMPipeline
+    raise AttributeError(name)

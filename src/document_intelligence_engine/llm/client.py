@@ -9,6 +9,11 @@ import re
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
 
 class LLMClient:
     """Small experiment-oriented LLM client with persistent on-disk caching."""
@@ -29,6 +34,16 @@ class LLMClient:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.pricing = pricing or {"input_per_1k": 0.0015, "output_per_1k": 0.0020}
         self.total_cost = 0.0
+        self.last_call_cost = 0.0
+        self.last_prompt_tokens = 0
+        self.last_completion_tokens = 0
+        self.last_cache_hit = False
+
+    def reset_call_tracking(self) -> None:
+        self.last_call_cost = 0.0
+        self.last_prompt_tokens = 0
+        self.last_completion_tokens = 0
+        self.last_cache_hit = False
 
     def generate(
         self,
@@ -55,6 +70,7 @@ class LLMClient:
 
         if cache_path.exists():
             payload = json.loads(cache_path.read_text(encoding="utf-8"))
+            self._record_last_call(payload, cache_hit=True)
             payload["cache_hit"] = True
             return payload
 
@@ -67,6 +83,7 @@ class LLMClient:
 
         cache_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         self.total_cost += float(payload["cost_usd"])
+        self._record_last_call(payload, cache_hit=False)
         payload["cache_hit"] = False
         return payload
 
@@ -158,6 +175,12 @@ class LLMClient:
         input_cost = (prompt_tokens / 1000.0) * float(self.pricing["input_per_1k"])
         output_cost = (completion_tokens / 1000.0) * float(self.pricing["output_per_1k"])
         return round(input_cost + output_cost, 6)
+
+    def _record_last_call(self, payload: dict[str, Any], *, cache_hit: bool) -> None:
+        self.last_call_cost = float(payload.get("cost_usd", 0.0) or 0.0)
+        self.last_prompt_tokens = int(payload.get("prompt_tokens", 0) or 0)
+        self.last_completion_tokens = int(payload.get("completion_tokens", 0) or 0)
+        self.last_cache_hit = cache_hit
 
 
 def _extract_json_candidate(raw_text: str) -> str | None:

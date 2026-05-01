@@ -10,8 +10,8 @@ experiment:
     - rag_llm
     - drise
   llm:
-    backend: mock
-    model: mock-llm
+    backend: openai
+    model: gpt-3.5-turbo
     temperature: 0.0
     max_tokens: 512
     cache_dir: experiments/cache/llm

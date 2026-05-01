@@ -7,13 +7,13 @@ import json
 import time
 from typing import Any
 
-from document_intelligence_engine.domain.experiment_models import ExtractionOutput, ProcessedDocument
-from document_intelligence_engine.llm.client import LLMClient
-from document_intelligence_engine.llm.client import _extract_json_candidate
-from document_intelligence_engine.llm.prompts import EXTRACTION_SYSTEM_PROMPT, FIELD_EXTRACTION_TEMPLATE
-from document_intelligence_engine.pipelines.base import BasePipeline
-from document_intelligence_engine.retrieval.embedder import Embedder
-from document_intelligence_engine.retrieval.retriever import DocumentRetriever
+from ..domain.experiment_models import ExtractionOutput, ProcessedDocument
+from ..llm.client import LLMClient
+from ..llm.client import _extract_json_candidate
+from ..llm.prompts import EXTRACTION_SYSTEM_PROMPT, FIELD_EXTRACTION_TEMPLATE
+from .base import BasePipeline
+from ..retrieval.embedder import Embedder
+from ..retrieval.retriever import DocumentRetriever
 
 
 FIELD_QUERIES = {
@@ -40,8 +40,8 @@ class RAGLLMPipeline(BasePipeline):
         self.config = config or {}
         self.target_fields = tuple(self.config.get("target_fields", FIELD_QUERIES.keys()))
         self.client = client or LLMClient(
-            backend=str(self.config.get("backend", "mock")),
-            model=str(self.config.get("model", "mock-llm")),
+            backend=str(self.config.get("backend", "openai")),
+            model=str(self.config.get("model", "gpt-3.5-turbo")),
             cache_dir=str(self.config.get("cache_dir", "experiments/cache/llm")),
             base_url=self.config.get("base_url"),
         )
@@ -63,6 +63,7 @@ class RAGLLMPipeline(BasePipeline):
         total_cost = 0.0
         raw_payloads: dict[str, str] = {}
         retrieved_contexts: dict[str, list[str]] = {}
+        self.client.reset_call_tracking()
 
         for field_name in self.target_fields:
             query = FIELD_QUERIES.get(field_name, field_name.replace("_", " "))
@@ -79,7 +80,7 @@ class RAGLLMPipeline(BasePipeline):
                     max_tokens=int(self.config.get("field_max_tokens", 256)),
                     temperature=float(self.config.get("temperature", 0.0)),
                 )
-                total_cost += float(payload["cost_usd"])
+                total_cost += float(self.client.last_call_cost)
                 raw_payloads[field_name] = str(payload["text"])
                 extracted_fields[field_name] = _parse_field_response(field_name, payload["text"])
             except Exception as exc:

@@ -8,7 +8,7 @@ import pickle
 from pathlib import Path
 from typing import Any
 
-from document_intelligence_engine.retrieval.embedder import Embedder
+from .embedder import Embedder
 
 
 class DocumentRetriever:
