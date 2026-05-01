@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from document_intelligence_engine.domain.experiment_models import ProcessedDocument
+from ..domain.experiment_models import ProcessedDocument
 
 
 def load_annotations(dataset_path: str | Path) -> list[ProcessedDocument]:

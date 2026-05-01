@@ -1,40 +1,140 @@
+# ============================================================
+# Python
+# ============================================================
 __pycache__/
 *.py[cod]
+*$py.class
 *.so
 .Python
-.coverage
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+pip-wheel-metadata/
+*.whl
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.conda/
+
+# ============================================================
+# Testing & Quality
+# ============================================================
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
 .nox/
 .tox/
-.venv/
-venv/
-ENV/
-env/
-build/
-dist/
-*.egg-info/
-.DS_Store
-.idea/
-.vscode/
+.coverage
+.coverage.*
 htmlcov/
 coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ============================================================
+# IDE & Editors
+# ============================================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+*.sublime-project
+*.sublime-workspace
+
+# ============================================================
+# OS
+# ============================================================
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+._*
+
+# ============================================================
+# Environment & Secrets
+# ============================================================
 .env
+.env.*
+!.env.example
+
+# ============================================================
+# Logs
+# ============================================================
 *.log
+
+# ============================================================
+# Data directories (keep structure, ignore contents)
+# ============================================================
 data/raw/*
 data/processed/*
 data/annotations/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/annotations/.gitkeep
+
+# ============================================================
+# Experiment artifacts (keep structure, ignore contents)
+# ============================================================
 experiments/runs/*
 experiments/artifacts/*
 !experiments/runs/.gitkeep
 !experiments/artifacts/.gitkeep
+
+# Experiment caches (LLM response caches, retrieval caches)
+experiments/cache/
+
+# MLflow / W&B
+mlruns/
+wandb/
+
+# ============================================================
+# ML Model weights & checkpoints
+# ============================================================
 *.pt
 *.pth
 *.bin
 *.onnx
 *.safetensors
-mlruns/
+*.h5
+*.hdf5
+*.ckpt
+checkpoints/
+
+# ============================================================
+# Serialized data / large files
+# ============================================================
+*.pkl
+*.pickle
+*.parquet
+*.feather
+*.npy
+*.npz
+
+# ============================================================
+# Docker
+# ============================================================
+docker/volumes/
+
+# ============================================================
+# Jupyter Notebooks (checkpoints)
+# ============================================================
+.ipynb_checkpoints/
+
+# ============================================================
+# Misc
+# ============================================================
+*.bak
+*.tmp
+*.temp
