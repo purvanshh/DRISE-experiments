@@ -1,0 +1,59 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "summary": {
+    "cases": 6,
+    "passed": 6,
+    "failed": 0,
+    "vulnerabilities_found": 0
+  },
+  "findings": [
+    {
+      "name": "disguised_executable_pdf",
+      "status": "passed",
+      "http_status": 400,
+      "details": [
+        "Rejected invalid PDF payload."
+      ]
+    },
+    {
+      "name": "corrupted_pdf",
+      "status": "passed",
+      "http_status": 400,
+      "details": [
+        "Rejected malformed PDF safely."
+      ]
+    },
+    {
+      "name": "oversized_payload",
+      "status": "passed",
+      "http_status": 413,
+      "details": [
+        "Rejected payload over configured size limit."
+      ]
+    },
+    {
+      "name": "path_traversal_filename",
+      "status": "passed",
+      "http_status": 200,
+      "details": [
+        "Filename sanitized before processing."
+      ]
+    },
+    {
+      "name": "metadata_injection_filename",
+      "status": "passed",
+      "http_status": 200,
+      "details": [
+        "Control characters and markup stripped from metadata."
+      ]
+    },
+    {
+      "name": "rate_limit_exceeded",
+      "status": "passed",
+      "http_status": 429,
+      "details": [
+        "Throttle activated for excessive request volume."
+      ]
+    }
+  ]
+}

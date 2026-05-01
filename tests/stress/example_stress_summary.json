@@ -1,0 +1,42 @@
+{
+  "profile": "stress_repeated_rapid_requests",
+  "total_requests": 75,
+  "concurrency": 25,
+  "successes": 75,
+  "failures": 0,
+  "timeouts": 0,
+  "success_rate": 1.0,
+  "error_rate": 0.0,
+  "duration_seconds": 3.204,
+  "throughput_rps": 23.40824,
+  "response_time_ms": {
+    "min": 21.314,
+    "average": 37.521,
+    "p50": 34.902,
+    "p95": 63.884,
+    "p99": 71.145,
+    "max": 74.019
+  },
+  "status_codes": {
+    "200": 75
+  },
+  "errors": {},
+  "resources": {
+    "enabled": true,
+    "pid": 12345,
+    "sample_count": 41,
+    "cpu": {
+      "average_percent": 42.73,
+      "peak_percent": 88.11
+    },
+    "memory": {
+      "initial_rss_bytes": 118489088,
+      "final_rss_bytes": 124780544,
+      "delta_rss_bytes": 6291456,
+      "peak_rss_bytes": 127926272
+    }
+  },
+  "metadata": {
+    "scenario": "rapid_requests"
+  }
+}

@@ -1,0 +1,174 @@
+project_name: layout-aware-document-intelligence-engine
+environment: local
+debug: false
+
+paths:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  annotations_dir: data/annotations
+  experiment_dir: experiments/runs
+  artifact_dir: experiments/artifacts
+  upload_dir: data/processed/uploads
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  reload: false
+  workers: 1
+  cors_origins:
+    - http://localhost:3000
+    - http://localhost:8000
+  max_upload_size_mb: 25
+  request_id_header: X-Request-ID
+  rate_limit_per_minute: 120
+  max_batch_files: 10
+  batch_concurrency: 4
+
+ingestion:
+  max_file_size_mb: 25
+  pdf_dpi: 200
+  supported_extensions:
+    - .pdf
+    - .png
+    - .jpg
+    - .jpeg
+
+ocr:
+  backend: paddleocr
+  language: en
+  min_confidence: 0.50
+  use_angle_cls: true
+  use_gpu: false
+  det_limit_side_len: 960
+  singleton_enabled: true
+  batch_size: 4
+  paddleocr_model_dir: null
+  tesseract_cmd: null
+
+model:
+  layoutlmv3_model_name: jinhybr/OCR-LayoutLMv3-Invoice
+  version: 0.1.0
+  revision: main
+  device: cpu
+  max_sequence_length: 512
+  batch_size: 4
+  checkpoint_path: experiments/artifacts/cord_finetuned
+  startup_validate_checkpoint: false
+  cpu_fallback: true
+  use_heuristic_fallback: true
+
+training:
+  num_epochs: 10
+  learning_rate: 5.0e-5
+  weight_decay: 0.01
+  warmup_ratio: 0.1
+  gradient_accumulation_steps: 2
+  max_train_samples: null
+  save_dir: experiments/artifacts/cord_finetuned
+  eval_every_n_epochs: 1
+
+preprocessing:
+  target_dpi: 200
+  max_image_side: 2048
+  grayscale: false
+  resize_max_width: 1600
+  resize_max_height: 1600
+  normalize_pixels: true
+  noise_reduction: true
+  deskew: false
+  median_blur_kernel_size: 3
+
+postprocessing:
+  field_aliases:
+    "invoice number": invoice_number
+    "invoice no": invoice_number
+    "invoice #": invoice_number
+    date: date
+    "invoice date": date
+    "total amount": total_amount
+    total: total_amount
+    "amount due": total_amount
+    subtotal: subtotal
+    tax: tax_amount
+    "tax amount": tax_amount
+  normalization:
+    date_fields:
+      - date
+      - invoice_date
+      - due_date
+    currency_fields:
+      - total_amount
+      - subtotal
+      - tax_amount
+    artifact_map:
+      O: "0"
+      o: "0"
+      l: "1"
+      I: "1"
+      S: "5"
+  validation:
+    regex_rules:
+      invoice_number: "^[A-Za-z0-9][A-Za-z0-9_/-]{1,63}$"
+      date: "^\\d{4}-\\d{2}-\\d{2}$"
+      invoice_date: "^\\d{4}-\\d{2}-\\d{2}$"
+      due_date: "^\\d{4}-\\d{2}-\\d{2}$"
+      total_amount: "^-?\\d+(\\.\\d+)?$"
+      subtotal: "^-?\\d+(\\.\\d+)?$"
+      tax_amount: "^-?\\d+(\\.\\d+)?$"
+    required_fields:
+      - invoice_number
+      - date
+      - total_amount
+  constraints:
+    amount_tolerance: 0.01
+    allow_future_dates: false
+    required_fields:
+      - invoice_number
+      - date
+      - total_amount
+  confidence:
+    min_field_confidence: 0.60
+    drop_below_threshold: true
+
+evaluation:
+  dataset_path: data/annotations/benchmark_samples.json
+  output_dir: experiments/runs/reports
+  partial_match_threshold: 0.80
+  confidence_thresholds:
+    - 0.50
+    - 0.60
+    - 0.75
+    - 0.90
+  error_example_limit: 5
+  tracking:
+    enabled: false
+    uri: null
+    experiment_name: document-intelligence-benchmarks
+
+performance:
+  enable_profiling: true
+  page_batch_size: 4
+  max_debug_tokens: 200
+  memory_cleanup_enabled: true
+
+logging:
+  level: INFO
+  json: true
+  service_name: layout-aware-document-intelligence-engine
+
+security:
+  allowed_extensions:
+    - .pdf
+    - .png
+    - .jpg
+    - .jpeg
+    - .tif
+    - .tiff
+  allowed_content_types:
+    - application/pdf
+    - image/png
+    - image/jpeg
+    - image/tiff
+  max_pdf_pages: 100
+  max_image_pixels: 40000000
+  filename_pattern: "[^A-Za-z0-9._-]"

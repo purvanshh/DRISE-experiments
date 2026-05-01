@@ -1,0 +1,131 @@
+{
+  "summary": {
+    "dataset_path": "data/annotations/benchmark_samples.json",
+    "sample_count": 12,
+    "primary_metrics": {
+      "token_level": {
+        "precision": 0.9471,
+        "recall": 0.9384,
+        "f1": 0.9427
+      },
+      "entity_level": {
+        "precision": 0.9125,
+        "recall": 0.9042,
+        "f1": 0.9083
+      },
+      "structured_output": {
+        "exact_match_accuracy": 0.8333,
+        "precision": 0.9012,
+        "recall": 0.8944,
+        "f1": 0.8978,
+        "partial_match": 0.9582,
+        "field_level_accuracy": {
+          "invoice_number": {
+            "accuracy": 0.9167,
+            "precision": 0.9167,
+            "recall": 0.9167,
+            "f1": 0.9167,
+            "partial_match": 0.9722
+          },
+          "date": {
+            "accuracy": 0.8333,
+            "precision": 0.9091,
+            "recall": 0.8333,
+            "f1": 0.8696,
+            "partial_match": 0.9444
+          },
+          "total_amount": {
+            "accuracy": 0.75,
+            "precision": 0.8182,
+            "recall": 0.75,
+            "f1": 0.7826,
+            "partial_match": 0.958
+          }
+        }
+      }
+    }
+  },
+  "baselines": {
+    "ocr_only": {
+      "structured_output": {
+        "exact_match_accuracy": 0.4167,
+        "f1": 0.5032,
+        "partial_match": 0.7011
+      }
+    },
+    "text_only_model": {
+      "structured_output": {
+        "exact_match_accuracy": 0.5833,
+        "f1": 0.6948,
+        "partial_match": 0.8462
+      }
+    },
+    "layoutlmv3_no_postprocessing": {
+      "structured_output": {
+        "exact_match_accuracy": 0.75,
+        "f1": 0.8423,
+        "partial_match": 0.9314
+      }
+    },
+    "full_system": {
+      "structured_output": {
+        "exact_match_accuracy": 0.8333,
+        "f1": 0.8978,
+        "partial_match": 0.9582
+      }
+    }
+  },
+  "ablations": {
+    "comparison_table": [
+      {
+        "experiment": "remove_layout_embeddings",
+        "exact_match_accuracy": 0.5833,
+        "precision": 0.7121,
+        "recall": 0.7015,
+        "f1": 0.7068,
+        "partial_match": 0.8544
+      },
+      {
+        "experiment": "remove_postprocessing_layer",
+        "exact_match_accuracy": 0.75,
+        "precision": 0.8518,
+        "recall": 0.8344,
+        "f1": 0.843
+      },
+      {
+        "experiment": "reduce_ocr_quality",
+        "exact_match_accuracy": 0.6667,
+        "precision": 0.7841,
+        "recall": 0.7612,
+        "f1": 0.7725
+      },
+      {
+        "experiment": "confidence_threshold_0.90",
+        "exact_match_accuracy": 0.5833,
+        "precision": 0.8125,
+        "recall": 0.6111,
+        "f1": 0.6976
+      }
+    ]
+  },
+  "errors": {
+    "ocr_errors": {
+      "count": 2
+    },
+    "layout_errors": {
+      "count": 1
+    },
+    "model_misclassification": {
+      "count": 3
+    },
+    "postprocessing_failures": {
+      "count": 1
+    }
+  },
+  "tracking": {
+    "logged": false
+  },
+  "artifacts": {
+    "baseline_comparison_plot": "experiments/runs/reports/baseline_comparison.png"
+  }
+}

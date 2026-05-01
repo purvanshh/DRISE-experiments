@@ -1,0 +1,42 @@
+{
+  "profile": "load_50_concurrent_users",
+  "total_requests": 100,
+  "concurrency": 50,
+  "successes": 100,
+  "failures": 0,
+  "timeouts": 0,
+  "success_rate": 1.0,
+  "error_rate": 0.0,
+  "duration_seconds": 2.145,
+  "throughput_rps": 46.620047,
+  "response_time_ms": {
+    "min": 18.442,
+    "average": 44.103,
+    "p50": 41.882,
+    "p95": 71.551,
+    "p99": 79.212,
+    "max": 83.017
+  },
+  "status_codes": {
+    "200": 100
+  },
+  "errors": {},
+  "resources": {
+    "enabled": true,
+    "pid": 12345,
+    "sample_count": 32,
+    "cpu": {
+      "average_percent": 38.42,
+      "peak_percent": 81.77
+    },
+    "memory": {
+      "initial_rss_bytes": 104857600,
+      "final_rss_bytes": 111149056,
+      "delta_rss_bytes": 6291456,
+      "peak_rss_bytes": 114294784
+    }
+  },
+  "metadata": {
+    "endpoint": "/parse-document"
+  }
+}
