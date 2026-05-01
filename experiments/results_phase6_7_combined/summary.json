@@ -115,12 +115,12 @@
       "std": 0.149515
     },
     "latency_ms": {
-      "mean": 356.048193,
-      "std": 49.004166
+      "mean": 559.686492,
+      "std": 166.338643
     },
     "cost_usd": {
-      "mean": 4.9e-05,
-      "std": 7e-06
+      "mean": 7.8e-05,
+      "std": 2.3e-05
     },
     "field_f1_breakdown": {
       "date": {
@@ -164,8 +164,8 @@
       "std": 0.121328
     },
     "latency_ms": {
-      "mean": 4.205641,
-      "std": 0.954087
+      "mean": 5.181906,
+      "std": 1.092754
     },
     "cost_usd": {
       "mean": 1e-06,
@@ -213,12 +213,12 @@
       "std": 0.149515
     },
     "latency_ms": {
-      "mean": 615.246862,
-      "std": 170.530504
+      "mean": 505.158514,
+      "std": 54.515765
     },
     "cost_usd": {
-      "mean": 8.5e-05,
-      "std": 2.4e-05
+      "mean": 7e-05,
+      "std": 8e-06
     },
     "field_f1_breakdown": {
       "date": {

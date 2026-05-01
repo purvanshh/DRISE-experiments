@@ -116,12 +116,12 @@
         "std": 0.149515
       },
       "latency_ms": {
-        "mean": 356.048193,
-        "std": 49.004166
+        "mean": 559.686492,
+        "std": 166.338643
       },
       "cost_usd": {
-        "mean": 4.9e-05,
-        "std": 7e-06
+        "mean": 7.8e-05,
+        "std": 2.3e-05
       },
       "field_f1_breakdown": {
         "date": {
@@ -165,8 +165,8 @@
         "std": 0.121328
       },
       "latency_ms": {
-        "mean": 4.205641,
-        "std": 0.954087
+        "mean": 5.181906,
+        "std": 1.092754
       },
       "cost_usd": {
         "mean": 1e-06,
@@ -214,12 +214,12 @@
         "std": 0.149515
       },
       "latency_ms": {
-        "mean": 615.246862,
-        "std": 170.530504
+        "mean": 505.158514,
+        "std": 54.515765
       },
       "cost_usd": {
-        "mean": 8.5e-05,
-        "std": 2.4e-05
+        "mean": 7e-05,
+        "std": 8e-06
       },
       "field_f1_breakdown": {
         "date": {
@@ -333,13 +333,13 @@
     }
   ],
   "artifacts": {
-    "summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.csv",
-    "summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.json",
-    "summary_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.md",
-    "readme_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/README_EXPERIMENTS.md",
-    "pairwise_stats_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json",
-    "ablation_summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/ablation_summary.csv",
-    "ablation_summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/ablation_summary.json",
-    "per_field_f1_chart": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/per_field_f1.png"
+    "summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/summary.csv",
+    "summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/summary.json",
+    "summary_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/summary.md",
+    "readme_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/README_EXPERIMENTS.md",
+    "pairwise_stats_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/pairwise_stats.json",
+    "ablation_summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/ablation_summary.csv",
+    "ablation_summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/ablation_summary.json",
+    "per_field_f1_chart": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_phase6_7_combined/per_field_f1.png"
   }
 }

@@ -1,0 +1,205 @@
+{
+  "summary": {
+    "drise": {
+      "field_level_f1": {
+        "mean": 0.532884,
+        "std": 0.29932
+      },
+      "exact_match": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.89484,
+        "std": 0.149515
+      },
+      "latency_ms": {
+        "mean": 559.686492,
+        "std": 166.338643
+      },
+      "cost_usd": {
+        "mean": 7.8e-05,
+        "std": 2.3e-05
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 0.845304,
+          "std": 0.351282
+        },
+        "invoice_number": {
+          "mean": 0.977901,
+          "std": 0.147007
+        },
+        "line_items": {
+          "mean": 0.52994,
+          "std": 0.312629
+        },
+        "total_amount": {
+          "mean": 0.60221,
+          "std": 0.489442
+        },
+        "vendor": {
+          "mean": 0.917916,
+          "std": 0.273257
+        }
+      },
+      "sample_count": 181
+    },
+    "drise_no_layout": {
+      "field_level_f1": {
+        "mean": 0.482219,
+        "std": 0.276869
+      },
+      "exact_match": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.93243,
+        "std": 0.121328
+      },
+      "latency_ms": {
+        "mean": 5.181906,
+        "std": 1.092754
+      },
+      "cost_usd": {
+        "mean": 1e-06,
+        "std": 0.0
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 0.841621,
+          "std": 0.35659
+        },
+        "invoice_number": {
+          "mean": 0.977901,
+          "std": 0.147007
+        },
+        "line_items": {
+          "mean": 0.52994,
+          "std": 0.312629
+        },
+        "total_amount": {
+          "mean": 0.176796,
+          "std": 0.381496
+        },
+        "vendor": {
+          "mean": 0.917916,
+          "std": 0.273257
+        }
+      },
+      "sample_count": 181
+    },
+    "drise_no_constraints": {
+      "field_level_f1": {
+        "mean": 0.532884,
+        "std": 0.29932
+      },
+      "exact_match": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.89484,
+        "std": 0.149515
+      },
+      "latency_ms": {
+        "mean": 505.158514,
+        "std": 54.515765
+      },
+      "cost_usd": {
+        "mean": 7e-05,
+        "std": 8e-06
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 0.845304,
+          "std": 0.351282
+        },
+        "invoice_number": {
+          "mean": 0.977901,
+          "std": 0.147007
+        },
+        "line_items": {
+          "mean": 0.52994,
+          "std": 0.312629
+        },
+        "total_amount": {
+          "mean": 0.60221,
+          "std": 0.489442
+        },
+        "vendor": {
+          "mean": 0.917916,
+          "std": 0.273257
+        }
+      },
+      "sample_count": 181
+    }
+  },
+  "pairwise_stats": {
+    "drise_vs_drise_no_layout": {
+      "a_only": 0,
+      "b_only": 0,
+      "statistic": 0.0,
+      "p_value": 1.0
+    },
+    "drise_vs_drise_no_constraints": {
+      "a_only": 0,
+      "b_only": 0,
+      "statistic": 0.0,
+      "p_value": 1.0
+    },
+    "drise_no_layout_vs_drise_no_constraints": {
+      "a_only": 0,
+      "b_only": 0,
+      "statistic": 0.0,
+      "p_value": 1.0
+    }
+  },
+  "ablation_summary": [
+    {
+      "system": "drise_no_layout",
+      "field_level_f1_mean": 0.482219,
+      "exact_match_mean": 0.0,
+      "schema_valid_mean": 0.0,
+      "hallucination_rate_mean": 0.93243,
+      "delta_field_level_f1": -0.050665,
+      "delta_exact_match": 0.0,
+      "delta_schema_valid": 0.0,
+      "delta_hallucination_rate": 0.03759
+    },
+    {
+      "system": "drise_no_constraints",
+      "field_level_f1_mean": 0.532884,
+      "exact_match_mean": 0.0,
+      "schema_valid_mean": 0.0,
+      "hallucination_rate_mean": 0.89484,
+      "delta_field_level_f1": 0.0,
+      "delta_exact_match": 0.0,
+      "delta_schema_valid": 0.0,
+      "delta_hallucination_rate": 0.0
+    }
+  ],
+  "artifacts": {
+    "summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/summary.csv",
+    "summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/summary.json",
+    "summary_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/summary.md",
+    "readme_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/README_EXPERIMENTS.md",
+    "pairwise_stats_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/pairwise_stats.json",
+    "ablation_summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/ablation_summary.csv",
+    "ablation_summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/ablation_summary.json",
+    "per_field_f1_chart": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results_drise_only/per_field_f1.png"
+  }
+}

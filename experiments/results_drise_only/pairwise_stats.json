@@ -1,0 +1,20 @@
+{
+  "drise_vs_drise_no_layout": {
+    "a_only": 0,
+    "b_only": 0,
+    "statistic": 0.0,
+    "p_value": 1.0
+  },
+  "drise_vs_drise_no_constraints": {
+    "a_only": 0,
+    "b_only": 0,
+    "statistic": 0.0,
+    "p_value": 1.0
+  },
+  "drise_no_layout_vs_drise_no_constraints": {
+    "a_only": 0,
+    "b_only": 0,
+    "statistic": 0.0,
+    "p_value": 1.0
+  }
+}
