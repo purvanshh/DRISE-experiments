@@ -1,0 +1,345 @@
+{
+  "summary": {
+    "llm_only": {
+      "field_level_f1": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "exact_match": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.1,
+        "std": 0.1
+      },
+      "latency_ms": {
+        "mean": 0.268,
+        "std": 0.035
+      },
+      "cost_usd": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "invoice_number": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "line_items": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "total_amount": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "vendor": {
+          "mean": 1.0,
+          "std": 0.0
+        }
+      },
+      "sample_count": 2
+    },
+    "rag_llm": {
+      "field_level_f1": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "exact_match": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.1,
+        "std": 0.1
+      },
+      "latency_ms": {
+        "mean": 1.319,
+        "std": 0.058
+      },
+      "cost_usd": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "invoice_number": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "line_items": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "total_amount": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "vendor": {
+          "mean": 1.0,
+          "std": 0.0
+        }
+      },
+      "sample_count": 2
+    },
+    "drise": {
+      "field_level_f1": {
+        "mean": 0.311111,
+        "std": 0.088889
+      },
+      "exact_match": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "latency_ms": {
+        "mean": 1.3015,
+        "std": 0.6345
+      },
+      "cost_usd": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "invoice_number": {
+          "mean": 0.5,
+          "std": 0.5
+        },
+        "line_items": {
+          "mean": 0.5,
+          "std": 0.5
+        },
+        "total_amount": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "vendor": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "sample_count": 2
+    },
+    "drise_no_layout": {
+      "field_level_f1": {
+        "mean": 0.311111,
+        "std": 0.088889
+      },
+      "exact_match": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "latency_ms": {
+        "mean": 0.5965,
+        "std": 0.0585
+      },
+      "cost_usd": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "invoice_number": {
+          "mean": 0.5,
+          "std": 0.5
+        },
+        "line_items": {
+          "mean": 0.5,
+          "std": 0.5
+        },
+        "total_amount": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "vendor": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "sample_count": 2
+    },
+    "drise_no_constraints": {
+      "field_level_f1": {
+        "mean": 0.311111,
+        "std": 0.088889
+      },
+      "exact_match": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "schema_valid": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "hallucination_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "latency_ms": {
+        "mean": 0.48,
+        "std": 0.03
+      },
+      "cost_usd": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "field_f1_breakdown": {
+        "date": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "invoice_number": {
+          "mean": 0.5,
+          "std": 0.5
+        },
+        "line_items": {
+          "mean": 0.5,
+          "std": 0.5
+        },
+        "total_amount": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "vendor": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "sample_count": 2
+    }
+  },
+  "pairwise_stats": {
+    "llm_only_vs_rag_llm": {
+      "a_only": 0,
+      "b_only": 0,
+      "statistic": 0.0,
+      "p_value": 1.0
+    },
+    "llm_only_vs_drise": {
+      "a_only": 2,
+      "b_only": 0,
+      "statistic": 0.5,
+      "p_value": 0.4795
+    },
+    "llm_only_vs_drise_no_layout": {
+      "a_only": 2,
+      "b_only": 0,
+      "statistic": 0.5,
+      "p_value": 0.4795
+    },
+    "llm_only_vs_drise_no_constraints": {
+      "a_only": 2,
+      "b_only": 0,
+      "statistic": 0.5,
+      "p_value": 0.4795
+    },
+    "rag_llm_vs_drise": {
+      "a_only": 2,
+      "b_only": 0,
+      "statistic": 0.5,
+      "p_value": 0.4795
+    },
+    "rag_llm_vs_drise_no_layout": {
+      "a_only": 2,
+      "b_only": 0,
+      "statistic": 0.5,
+      "p_value": 0.4795
+    },
+    "rag_llm_vs_drise_no_constraints": {
+      "a_only": 2,
+      "b_only": 0,
+      "statistic": 0.5,
+      "p_value": 0.4795
+    },
+    "drise_vs_drise_no_layout": {
+      "a_only": 0,
+      "b_only": 0,
+      "statistic": 0.0,
+      "p_value": 1.0
+    },
+    "drise_vs_drise_no_constraints": {
+      "a_only": 0,
+      "b_only": 0,
+      "statistic": 0.0,
+      "p_value": 1.0
+    },
+    "drise_no_layout_vs_drise_no_constraints": {
+      "a_only": 0,
+      "b_only": 0,
+      "statistic": 0.0,
+      "p_value": 1.0
+    }
+  },
+  "ablation_summary": [
+    {
+      "system": "drise_no_layout",
+      "field_level_f1_mean": 0.311111,
+      "exact_match_mean": 0.0,
+      "schema_valid_mean": 0.0,
+      "hallucination_rate_mean": 0.0,
+      "delta_field_level_f1": 0.0,
+      "delta_exact_match": 0.0,
+      "delta_schema_valid": 0.0,
+      "delta_hallucination_rate": 0.0
+    },
+    {
+      "system": "drise_no_constraints",
+      "field_level_f1_mean": 0.311111,
+      "exact_match_mean": 0.0,
+      "schema_valid_mean": 0.0,
+      "hallucination_rate_mean": 0.0,
+      "delta_field_level_f1": 0.0,
+      "delta_exact_match": 0.0,
+      "delta_schema_valid": 0.0,
+      "delta_hallucination_rate": 0.0
+    }
+  ],
+  "artifacts": {
+    "summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.csv",
+    "summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.json",
+    "summary_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.md",
+    "readme_markdown": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/README_EXPERIMENTS.md",
+    "pairwise_stats_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json",
+    "ablation_summary_csv": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/ablation_summary.csv",
+    "ablation_summary_json": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/ablation_summary.json",
+    "per_field_f1_chart": "/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/per_field_f1.png"
+  }
+}

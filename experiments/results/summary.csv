@@ -1,0 +1,6 @@
+system,field_level_f1_mean,field_level_f1_std,exact_match_mean,schema_valid_mean,hallucination_rate_mean,latency_ms_mean,cost_usd_mean,sample_count
+llm_only,1.0,0.0,1.0,1.0,0.1,0.268,0.0,2
+rag_llm,1.0,0.0,1.0,1.0,0.1,1.319,0.0,2
+drise,0.311111,0.088889,0.0,0.0,0.0,1.3015,0.0,2
+drise_no_layout,0.311111,0.088889,0.0,0.0,0.0,0.5965,0.0,2
+drise_no_constraints,0.311111,0.088889,0.0,0.0,0.0,0.48,0.0,2

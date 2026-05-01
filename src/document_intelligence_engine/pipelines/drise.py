@@ -8,8 +8,10 @@ from typing import Any
 from document_intelligence_engine.core.config import get_settings
 from document_intelligence_engine.domain.experiment_models import ExtractionOutput, ProcessedDocument
 from document_intelligence_engine.pipelines.base import BasePipeline
+from document_intelligence_engine.services.document_parser import build_confidence_summary, derive_warnings
 from document_intelligence_engine.services.document_parser import DocumentParserService
 from document_intelligence_engine.services.model_runtime import LayoutAwareModelService
+from postprocessing.pipeline import postprocess_predictions
 
 
 class DRISEPipeline(BasePipeline):
@@ -29,9 +31,18 @@ class DRISEPipeline(BasePipeline):
         self._local_cost_per_hour = float(self.config.get("local_cost_per_hour", 0.0))
 
     def run(self, document: ProcessedDocument) -> ExtractionOutput:
+        ocr_tokens = list(document.get("ocr_tokens", []))
+        if ocr_tokens:
+            return self._run_from_ocr_tokens(document, ocr_tokens)
+
+        ocr_text = str(document.get("ocr_text", "")).strip()
+        if ocr_text:
+            synthetic_tokens = _tokens_from_ocr_text(ocr_text)
+            return self._run_from_ocr_tokens(document, synthetic_tokens)
+
         image_path = document.get("image_path")
         if not image_path:
-            raise ValueError("DRISEPipeline requires document['image_path'].")
+            raise ValueError("DRISEPipeline requires document['image_path'], 'ocr_tokens', or 'ocr_text'.")
 
         started_at = time.perf_counter()
         result = self._parser_service.parse_file(
@@ -54,6 +65,69 @@ class DRISEPipeline(BasePipeline):
             "metadata": result["metadata"],
         }
 
+    def _run_from_ocr_tokens(
+        self,
+        document: ProcessedDocument,
+        ocr_tokens: list[dict[str, Any]],
+    ) -> ExtractionOutput:
+        started_at = time.perf_counter()
+        use_layout = bool(self.config.get("use_layout", True))
+        apply_constraints = bool(self.config.get("use_constraints", True))
+        model_service = self._parser_service.model_service
+
+        model_started_at = time.perf_counter()
+        prediction_method = model_service.predict if use_layout else model_service.predict_text_only
+        raw_predictions = prediction_method(ocr_tokens)
+        model_duration_ms = round((time.perf_counter() - model_started_at) * 1000, 3)
+
+        postprocessing_started_at = time.perf_counter()
+        structured_document = postprocess_predictions(
+            raw_predictions,
+            apply_constraints=apply_constraints,
+        )
+        postprocessing_duration_ms = round((time.perf_counter() - postprocessing_started_at) * 1000, 3)
+        latency_ms = round((time.perf_counter() - started_at) * 1000, 3)
+
+        extracted_fields, confidences = _flatten_document(structured_document)
+        cost_usd = (float(latency_ms) / 1000.0 / 3600.0) * self._local_cost_per_hour
+        metadata = {
+            "filename": document.get("image_path") or document.get("doc_id", "document"),
+            "page_count": 1,
+            "ocr_token_count": len(ocr_tokens),
+            "confidence_summary": build_confidence_summary(structured_document),
+            "timing": {
+                "validation": 0.0,
+                "load": 0.0,
+                "preprocessing": 0.0,
+                "ocr": 0.0,
+                "bbox_alignment": 0.0,
+                "model": model_duration_ms,
+                "postprocessing": postprocessing_duration_ms,
+                "total": latency_ms,
+            },
+            "warnings": derive_warnings(
+                ocr_tokens=ocr_tokens,
+                document=structured_document,
+                page_count=1,
+            ),
+            "model": {
+                "name": model_service.name,
+                "version": model_service.version,
+                "device": model_service.device,
+            },
+            "source": "experiment_ocr_tokens",
+        }
+
+        return {
+            "extracted_fields": extracted_fields,
+            "confidences": confidences,
+            "_constraint_flags": list(structured_document.get("_constraint_flags", [])),
+            "_errors": [str(error) for error in structured_document.get("_errors", [])],
+            "latency_ms": float(latency_ms),
+            "cost_usd": round(cost_usd, 6),
+            "metadata": metadata,
+        }
+
     def _build_parser_service(self) -> DocumentParserService:
         settings = self._settings
         model_service = LayoutAwareModelService(settings)
@@ -74,3 +148,23 @@ def _flatten_document(document: dict[str, Any]) -> tuple[dict[str, Any], dict[st
             extracted_fields[field_name] = payload
             confidences[field_name] = 0.0
     return extracted_fields, confidences
+
+
+def _tokens_from_ocr_text(ocr_text: str) -> list[dict[str, Any]]:
+    tokens: list[dict[str, Any]] = []
+    y_offset = 0
+    for line in ocr_text.splitlines():
+        x_offset = 0
+        for raw_token in line.split():
+            width = max(12, len(raw_token) * 8)
+            tokens.append(
+                {
+                    "text": raw_token,
+                    "bbox": [x_offset, y_offset, x_offset + width, y_offset + 16],
+                    "confidence": 0.99,
+                    "page_number": 1,
+                }
+            )
+            x_offset += width + 6
+        y_offset += 24
+    return tokens

@@ -218,28 +218,49 @@ This is the component that makes the system suitable for production rather than 
 ## Evaluation & Ablation Studies
 
 ```bash
-# Run full test suite with coverage
-pytest tests/ -v --cov=src --cov-report=term-missing
+# Run the experiment harness
+./.venv/bin/python run_experiments.py --config configs/experiments.yaml
 ```
 
-### Target Metrics
+### Latest Experiment Results
 
-| Metric | Target |
-|---|---|
-| Key-value extraction F1 | ≥ 0.80 |
-| Exact match accuracy | ≥ 0.70 |
-| OCR error recovery vs raw OCR | +15–25% |
-| p99 API latency | < 2 s |
+The table below is generated from the latest real harness run on **May 1, 2026** against the current sample test split in [data/annotations/test.jsonl](/Users/purvansh/Desktop/Projects/DRISE-experiments/data/annotations/test.jsonl:1) with **N=2** documents. These are not target values or placeholders.
 
-### Ablation Experiments (implemented in `src/evaluation/ablation.py`)
+| System | Field-level F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) |
+|---|---:|---:|---:|---:|---:|---:|
+| `llm_only` | 1.000 | 1.000 | 1.000 | 0.100 | 0.268 | 0.0000 |
+| `rag_llm` | 1.000 | 1.000 | 1.000 | 0.100 | 1.319 | 0.0000 |
+| `drise` | 0.311 | 0.000 | 0.000 | 0.000 | 1.302 | 0.0000 |
+| `drise_no_layout` | 0.311 | 0.000 | 0.000 | 0.000 | 0.597 | 0.0000 |
+| `drise_no_constraints` | 0.311 | 0.000 | 0.000 | 0.000 | 0.480 | 0.0000 |
+
+### What These Scores Mean
+
+- This run does **not** validate the PRD hypothesis yet. On the current two-document sample split, the mock-backed `llm_only` and `rag_llm` baselines outperform the current offline DRISE experiment wrapper.
+- The DRISE numbers here were produced with the experiment harness using dataset OCR text/tokens and a **heuristic fallback** because the LayoutLMv3 checkpoint was not available offline in this environment.
+- `drise_no_layout` matches `drise` in this run because both resolve to the same heuristic fallback path under the current offline model state.
+- McNemar comparisons are not statistically meaningful yet on `N=2`; for example, `llm_only` vs `drise` produced `p = 0.4795`.
+
+### Exported Artifacts
+
+- Summary table: [summary.csv](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.csv)
+- Ablation deltas: [ablation_summary.csv](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/ablation_summary.csv)
+- Pairwise stats: [pairwise_stats.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json)
+- Markdown snapshot: [README_EXPERIMENTS.md](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/README_EXPERIMENTS.md)
+
+### Ablation Experiments
 
 | Experiment | What is removed | What it measures |
 |---|---|---|
-| Remove layout embeddings | Bounding box features (text-only model) | Value of spatial encoding |
-| Remove post-processing | Normalization + validation + constraints | Deterministic layer impact on accuracy |
-| Reduce OCR quality | Confidence degraded by 0.25; 1-in-4 tokens truncated | Pipeline robustness to OCR noise |
+| `drise_no_layout` | Layout-aware inference path | Value of spatial encoding when a real model checkpoint is available |
+| `drise_no_constraints` | Deterministic constraint application | Impact of cross-field validation and guardrails |
 
-A confidence threshold sweep is included alongside the three core experiments to evaluate the precision vs. recall trade-off.
+Current ablation deltas from the latest run:
+
+| Variant | Delta F1 vs `drise` | Delta Exact Match vs `drise` | Delta Schema Valid vs `drise` |
+|---|---:|---:|---:|
+| `drise_no_layout` | 0.000 | 0.000 | 0.000 |
+| `drise_no_constraints` | 0.000 | 0.000 | 0.000 |
 
 ---
 

@@ -119,3 +119,32 @@ def test_drise_pipeline_flattens_existing_parser_output():
     assert output["confidences"]["invoice_number"] == 0.97
     assert output["_constraint_flags"] == ["ok"]
     assert output["latency_ms"] == 8.5
+
+
+def test_drise_pipeline_can_run_from_ocr_text_without_image_path():
+    class StubModelService:
+        name = "heuristic"
+        version = "0.1.0"
+        device = "cpu"
+
+        def predict(self, ocr_tokens):
+            return [
+                {"text": "Invoice", "label": "B-KEY", "confidence": 0.99},
+                {"text": "Number:", "label": "I-KEY", "confidence": 0.99},
+                {"text": "INV-1023", "label": "B-VALUE", "confidence": 0.99},
+            ]
+
+        def predict_text_only(self, ocr_tokens):
+            return self.predict(ocr_tokens)
+
+    class StubParserService:
+        model_service = StubModelService()
+
+        def parse_file(self, *args, **kwargs):
+            raise AssertionError("parse_file should not be called when ocr_text is available")
+
+    pipeline = DRISEPipeline({"use_layout": True, "use_constraints": True}, parser_service=StubParserService())
+    output = pipeline.run({"doc_id": "doc-4", "ocr_text": "Invoice Number: INV-1023"})
+
+    assert output["extracted_fields"]["invoice_number"] == "INV-1023"
+    assert output["metadata"]["source"] == "experiment_ocr_tokens"

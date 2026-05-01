@@ -1,0 +1,142 @@
+[
+  {
+    "doc_id": "test_invoice_1",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 1.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.4,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.51,
+      "cost_usd": 0.0,
+      "errors": [
+        "{'field': 'date', 'code': 'normalization_failed', 'message': \"Unable to normalize value '2025-03-15 Vendor: Test Bazaar Item: Widget A, Qty: 2, Price: $500.00'.\"}",
+        "{'field': 'date', 'code': 'missing_value', 'message': 'Field value is missing.'}"
+      ],
+      "constraint_flags": []
+    },
+    "output": {
+      "extracted_fields": {
+        "invoice_number": "INV-3001",
+        "date": null,
+        "total_amount": 1000.0
+      },
+      "confidences": {
+        "invoice_number": 0.99,
+        "date": 0.99,
+        "total_amount": 0.99
+      },
+      "_constraint_flags": [],
+      "_errors": [
+        "{'field': 'date', 'code': 'normalization_failed', 'message': \"Unable to normalize value '2025-03-15 Vendor: Test Bazaar Item: Widget A, Qty: 2, Price: $500.00'.\"}",
+        "{'field': 'date', 'code': 'missing_value', 'message': 'Field value is missing.'}"
+      ],
+      "latency_ms": 0.51,
+      "cost_usd": 0.0,
+      "metadata": {
+        "filename": "/Users/purvansh/Desktop/Projects/DRISE-experiments/tests/data/sample.png",
+        "page_count": 1,
+        "ocr_token_count": 18,
+        "confidence_summary": {
+          "average": 0.99,
+          "minimum": 0.99,
+          "maximum": 0.99,
+          "kept_fields": 3,
+          "dropped_fields": 0
+        },
+        "timing": {
+          "validation": 0.0,
+          "load": 0.0,
+          "preprocessing": 0.0,
+          "ocr": 0.0,
+          "bbox_alignment": 0.0,
+          "model": 0.047,
+          "postprocessing": 0.462,
+          "total": 0.51
+        },
+        "warnings": [],
+        "model": {
+          "name": "jinhybr/OCR-LayoutLMv3-Invoice",
+          "version": "0.1.0",
+          "device": "cpu"
+        },
+        "source": "experiment_ocr_tokens"
+      }
+    }
+  },
+  {
+    "doc_id": "test_receipt_1",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 0.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 1.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.2222222222222222,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.45,
+      "cost_usd": 0.0,
+      "errors": [
+        "{'field': 'date', 'code': 'normalization_failed', 'message': \"Unable to normalize value '2025-06-15 Vendor: Local Shop'.\"}",
+        "{'field': 'date', 'code': 'missing_value', 'message': 'Field value is missing.'}"
+      ],
+      "constraint_flags": []
+    },
+    "output": {
+      "extracted_fields": {
+        "date": null,
+        "total_amount": 55.0
+      },
+      "confidences": {
+        "date": 0.99,
+        "total_amount": 0.99
+      },
+      "_constraint_flags": [],
+      "_errors": [
+        "{'field': 'date', 'code': 'normalization_failed', 'message': \"Unable to normalize value '2025-06-15 Vendor: Local Shop'.\"}",
+        "{'field': 'date', 'code': 'missing_value', 'message': 'Field value is missing.'}"
+      ],
+      "latency_ms": 0.45,
+      "cost_usd": 0.0,
+      "metadata": {
+        "filename": "/Users/purvansh/Desktop/Projects/DRISE-experiments/tests/data/sample.png",
+        "page_count": 1,
+        "ocr_token_count": 10,
+        "confidence_summary": {
+          "average": 0.99,
+          "minimum": 0.99,
+          "maximum": 0.99,
+          "kept_fields": 2,
+          "dropped_fields": 0
+        },
+        "timing": {
+          "validation": 0.0,
+          "load": 0.0,
+          "preprocessing": 0.0,
+          "ocr": 0.0,
+          "bbox_alignment": 0.0,
+          "model": 0.03,
+          "postprocessing": 0.419,
+          "total": 0.45
+        },
+        "warnings": [],
+        "model": {
+          "name": "jinhybr/OCR-LayoutLMv3-Invoice",
+          "version": "0.1.0",
+          "device": "cpu"
+        },
+        "source": "experiment_ocr_tokens"
+      }
+    }
+  }
+]

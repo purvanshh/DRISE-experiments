@@ -123,6 +123,7 @@ def test_experiment_runner_and_report_generation(tmp_path):
     assert (tmp_path / "results" / "system_a.json").exists()
     assert (tmp_path / "results" / "summary.csv").exists()
     assert (tmp_path / "results" / "ablation_summary.csv").exists()
+    assert (tmp_path / "results" / "README_EXPERIMENTS.md").exists()
     assert report["summary"]["system_a"]["exact_match"]["mean"] == 1.0
     assert report["summary"]["system_b"]["exact_match"]["mean"] == 0.0
 

@@ -34,6 +34,7 @@ def generate_experiment_report(
     summary_csv = target_dir / "summary.csv"
     summary_json = target_dir / "summary.json"
     summary_md = target_dir / "summary.md"
+    readme_md = target_dir / "README_EXPERIMENTS.md"
     stats_json = target_dir / "pairwise_stats.json"
     ablation_csv = target_dir / "ablation_summary.csv"
     ablation_json = target_dir / "ablation_summary.json"
@@ -42,6 +43,7 @@ def generate_experiment_report(
     _write_ablation_csv(ablation_csv, ablation_summary)
     summary_json.write_text(json.dumps(summary, indent=2), encoding="utf-8")
     summary_md.write_text(_render_markdown(summary, pairwise_stats), encoding="utf-8")
+    readme_md.write_text(_render_markdown(summary, pairwise_stats), encoding="utf-8")
     stats_json.write_text(json.dumps(pairwise_stats, indent=2), encoding="utf-8")
     ablation_json.write_text(json.dumps(ablation_summary, indent=2), encoding="utf-8")
 
@@ -49,6 +51,7 @@ def generate_experiment_report(
         "summary_csv": str(summary_csv),
         "summary_json": str(summary_json),
         "summary_markdown": str(summary_md),
+        "readme_markdown": str(readme_md),
         "pairwise_stats_json": str(stats_json),
         "ablation_summary_csv": str(ablation_csv),
         "ablation_summary_json": str(ablation_json),

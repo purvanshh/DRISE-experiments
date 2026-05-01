@@ -1,5 +1,6 @@
 experiment:
   name: drise_vs_baselines
+  resume: false
   dataset:
     train_annotations: data/annotations/train.jsonl
     val_annotations: data/annotations/val.jsonl

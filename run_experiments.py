@@ -28,7 +28,11 @@ def run_experiments(config_path: str = "configs/experiments.yaml") -> dict[str, 
     experiment = config["experiment"]
     dataset = load_annotations(experiment["dataset"]["test_annotations"])
     systems = _build_systems(experiment)
-    runner = ExperimentRunner(systems, results_dir=experiment.get("output_dir", "experiments/results"))
+    runner = ExperimentRunner(
+        systems,
+        results_dir=experiment.get("output_dir", "experiments/results"),
+        resume=bool(experiment.get("resume", True)),
+    )
     results = runner.run(dataset)
     report = generate_experiment_report(results, output_dir=experiment.get("output_dir", "experiments/results"))
 
