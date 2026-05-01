@@ -1,0 +1,106 @@
+[
+  {
+    "doc_id": "synthetic_invoice_1",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 1.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 1.0,
+      "exact_match": 1.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.2,
+      "latency_ms": 0.897,
+      "cost_usd": 0.0,
+      "errors": [],
+      "constraint_flags": []
+    },
+    "output": {
+      "extracted_fields": {
+        "invoice_number": "INV-1023",
+        "date": "2025-01-12",
+        "vendor": "ABC Corp",
+        "total_amount": 1000.0,
+        "line_items": [
+          {
+            "description": "Widget A",
+            "quantity": 2.0,
+            "unit_price": 500.0
+          }
+        ]
+      },
+      "confidences": {
+        "invoice_number": 0.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "_constraint_flags": [],
+      "_errors": [],
+      "latency_ms": 0.897,
+      "cost_usd": 0.0,
+      "metadata": {
+        "raw_field_responses": {
+          "invoice_number": "\"INV-1023\"",
+          "date": "\"2025-01-12\"",
+          "vendor": "\"ABC Corp\"",
+          "total_amount": "1000.0",
+          "line_items": "[{\"description\": \"Widget A\", \"quantity\": 2.0, \"unit_price\": 500.0}]"
+        }
+      }
+    }
+  },
+  {
+    "doc_id": "synthetic_receipt_1",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 1.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 1.0,
+      "exact_match": 1.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.735,
+      "cost_usd": 0.0,
+      "errors": [],
+      "constraint_flags": []
+    },
+    "output": {
+      "extracted_fields": {
+        "invoice_number": "R-2025",
+        "date": "2025-06-15",
+        "vendor": "Local Shop",
+        "total_amount": 55.0,
+        "line_items": []
+      },
+      "confidences": {
+        "invoice_number": 0.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "_constraint_flags": [],
+      "_errors": [],
+      "latency_ms": 0.735,
+      "cost_usd": 0.0,
+      "metadata": {
+        "raw_field_responses": {
+          "invoice_number": "\"R-2025\"",
+          "date": "\"2025-06-15\"",
+          "vendor": "\"Local Shop\"",
+          "total_amount": "55.0",
+          "line_items": "[]"
+        }
+      }
+    }
+  }
+]

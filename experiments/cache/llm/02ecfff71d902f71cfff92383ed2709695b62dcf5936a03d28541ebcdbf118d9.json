@@ -1,0 +1,6 @@
+{
+  "text": "{\"invoice_number\": \"INV-1023\", \"date\": \"2025-01-12\", \"vendor\": \"ABC Corp\", \"total_amount\": 1000.0, \"line_items\": [{\"description\": \"Widget A\", \"quantity\": 2.0, \"unit_price\": 500.0}]}",
+  "prompt_tokens": 58,
+  "completion_tokens": 17,
+  "cost_usd": 0.0
+}

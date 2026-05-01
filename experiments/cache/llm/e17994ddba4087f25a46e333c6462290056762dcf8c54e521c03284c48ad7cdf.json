@@ -1,0 +1,6 @@
+{
+  "text": "{\"invoice_number\": \"R-2025\", \"date\": \"2025-06-15\", \"vendor\": \"Local Shop\", \"total_amount\": 55.0, \"line_items\": []}",
+  "prompt_tokens": 50,
+  "completion_tokens": 11,
+  "cost_usd": 0.0
+}

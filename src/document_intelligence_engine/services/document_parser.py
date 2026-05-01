@@ -27,15 +27,25 @@ class DocumentParserService:
     def model_service(self) -> LayoutAwareModelService:
         return self._model_service
 
-    def parse_file(self, file_path: str | Path, debug: bool = False) -> dict[str, Any]:
+    def parse_file(
+        self,
+        file_path: str | Path,
+        debug: bool = False,
+        use_layout: bool = True,
+        apply_constraints: bool = True,
+    ) -> dict[str, Any]:
         started_at = time.perf_counter()
         ocr_result = process_document_with_metadata(str(file_path), debug=debug)
         model_started_at = time.perf_counter()
-        raw_predictions = self._model_service.predict(ocr_result["ocr_tokens"])
+        prediction_method = self._model_service.predict if use_layout else self._model_service.predict_text_only
+        raw_predictions = prediction_method(ocr_result["ocr_tokens"])
         model_duration_ms = _elapsed_ms(model_started_at)
 
         postprocessing_started_at = time.perf_counter()
-        structured_document = postprocess_predictions(raw_predictions)
+        structured_document = postprocess_predictions(
+            raw_predictions,
+            apply_constraints=apply_constraints,
+        )
         postprocessing_duration_ms = _elapsed_ms(postprocessing_started_at)
 
         timing = dict(ocr_result["timing"])

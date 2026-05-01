@@ -29,6 +29,12 @@ PyYAML==6.0.2
 ruff==0.11.2
 seqeval==1.2.2
 asgi-lifespan==2.1.0
+json-repair==0.39.1
+openai==1.76.0
+scikit-learn==1.6.1
+sentence-transformers==4.1.0
+statsmodels==0.14.4
+tiktoken==0.9.0
 torch==2.6.0
 transformers==4.49.0
 uvicorn[standard]==0.34.0
