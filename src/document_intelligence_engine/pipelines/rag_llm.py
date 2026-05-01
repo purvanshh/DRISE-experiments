@@ -40,8 +40,8 @@ class RAGLLMPipeline(BasePipeline):
         self.config = config or {}
         self.target_fields = tuple(self.config.get("target_fields", FIELD_QUERIES.keys()))
         self.client = client or LLMClient(
-            backend=str(self.config.get("backend", "openai")),
-            model=str(self.config.get("model", "gpt-3.5-turbo")),
+            backend=str(self.config.get("backend", "nvidia")),
+            model=str(self.config.get("model", "nv-mistralai/mistral-nemo-12b-instruct")),
             cache_dir=str(self.config.get("cache_dir", "experiments/cache/llm")),
             base_url=self.config.get("base_url"),
         )

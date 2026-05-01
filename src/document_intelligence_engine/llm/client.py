@@ -1,4 +1,4 @@
-"""LLM client with prompt caching, JSON parsing, and safe mock fallback."""
+"""LLM client with prompt caching, JSON parsing, and provider-backed inference."""
 
 from __future__ import annotations
 
@@ -21,23 +21,26 @@ class LLMClient:
     def __init__(
         self,
         *,
-        backend: str = "mock",
-        model: str = "mock-llm",
+        backend: str = "openai",
+        model: str = "gpt-3.5-turbo",
         cache_dir: str | Path = "experiments/cache/llm",
         base_url: str | None = None,
         pricing: dict[str, float] | None = None,
+        api_key: str | None = None,
     ) -> None:
         self.backend = backend
         self.model = model
         self.base_url = base_url
         self.cache_dir = Path(cache_dir).expanduser().resolve()
         self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self.pricing = pricing or {"input_per_1k": 0.0015, "output_per_1k": 0.0020}
+        self.pricing = pricing or self._default_pricing(backend)
         self.total_cost = 0.0
         self.last_call_cost = 0.0
         self.last_prompt_tokens = 0
         self.last_completion_tokens = 0
         self.last_cache_hit = False
+        self._api_key = api_key
+        self._client = self._build_client()
 
     def reset_call_tracking(self) -> None:
         self.last_call_cost = 0.0
@@ -76,8 +79,8 @@ class LLMClient:
 
         if self.backend == "mock":
             payload = self._call_mock(prompt)
-        elif self.backend in {"openai", "openai_compatible"}:
-            payload = self._call_openai(prompt, system_prompt, max_tokens, temperature)
+        elif self.backend in {"openai", "openai_compatible", "nvidia"}:
+            payload = self._call_api(prompt, system_prompt, max_tokens, temperature)
         else:
             raise ValueError(f"Unsupported LLM backend: {self.backend}")
 
@@ -109,27 +112,48 @@ class LLMClient:
             parsed = json.loads(repaired)
         return {**payload, "parsed": parsed}
 
-    def _call_openai(
+    def _build_client(self):
+        if self.backend == "mock":
+            return None
+        try:
+            from openai import OpenAI
+        except ImportError as exc:  # pragma: no cover - depends on optional dependency
+            raise RuntimeError("The 'openai' package is required for provider-backed LLM execution.") from exc
+
+        if self.backend == "nvidia":
+            api_key = self._api_key or os.getenv("NVIDIA_API_KEY")
+            if not api_key:
+                raise RuntimeError("NVIDIA_API_KEY is not set.")
+            return OpenAI(
+                base_url=self.base_url or "https://integrate.api.nvidia.com/v1",
+                api_key=api_key,
+            )
+
+        if self.backend in {"openai", "openai_compatible"}:
+            api_key = self._api_key or os.getenv("OPENAI_API_KEY")
+            if not api_key:
+                raise RuntimeError("OPENAI_API_KEY is not set.")
+            return OpenAI(
+                api_key=api_key,
+                base_url=self.base_url,
+            )
+
+        raise ValueError(f"Unsupported LLM backend: {self.backend}")
+
+    def _call_api(
         self,
         prompt: str,
         system_prompt: str,
         max_tokens: int,
         temperature: float,
     ) -> dict[str, Any]:
-        try:
-            from openai import OpenAI
-        except ImportError as exc:  # pragma: no cover - depends on optional dependency
-            raise RuntimeError("The 'openai' package is required for backend='openai'.") from exc
-
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise RuntimeError("OPENAI_API_KEY is not set.")
-
-        client = OpenAI(api_key=api_key, base_url=self.base_url)
-        response = client.chat.completions.create(
+        if self._client is None:
+            raise RuntimeError("LLM client is not initialized.")
+        response = self._client.chat.completions.create(
             model=self.model,
             temperature=temperature,
             max_tokens=max_tokens,
+            stream=False,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt},
@@ -181,6 +205,12 @@ class LLMClient:
         self.last_prompt_tokens = int(payload.get("prompt_tokens", 0) or 0)
         self.last_completion_tokens = int(payload.get("completion_tokens", 0) or 0)
         self.last_cache_hit = cache_hit
+
+    @staticmethod
+    def _default_pricing(backend: str) -> dict[str, float]:
+        if backend == "nvidia":
+            return {"input_per_1k": 0.001, "output_per_1k": 0.001}
+        return {"input_per_1k": 0.0015, "output_per_1k": 0.0020}
 
 
 def _extract_json_candidate(raw_text: str) -> str | None:

@@ -55,7 +55,7 @@ model:
   checkpoint_path: experiments/artifacts/cord_finetuned
   startup_validate_checkpoint: false
   cpu_fallback: true
-  use_heuristic_fallback: true
+  use_heuristic_fallback: false
 
 training:
   num_epochs: 10

@@ -1,15 +1,12 @@
-"""Model runtime and artifact management.
-
-Loads LayoutLMv3InferenceService at startup. Falls back to heuristic
-prediction when no fine-tuned checkpoint exists and the fallback flag
-is enabled.
-"""
+"""Model runtime and artifact management."""
 
 from __future__ import annotations
 
 import re
 from pathlib import Path
 from typing import Any
+
+from PIL import Image
 
 from document_intelligence_engine.core.config import AppSettings
 from document_intelligence_engine.core.logging import get_logger
@@ -23,7 +20,7 @@ class ModelRuntimeError(Exception):
 
 
 class LayoutAwareModelService:
-    """Startup-loaded model service with real LayoutLMv3 inference & heuristic fallback."""
+    """Startup-loaded model service with real LayoutLMv3 inference."""
 
     def __init__(self, settings: AppSettings) -> None:
         self._settings = settings
@@ -57,30 +54,22 @@ class LayoutAwareModelService:
     def load(self) -> None:
         """Load the model.
 
-        Tries to load a real LayoutLMv3 from a fine-tuned checkpoint.
-        If the checkpoint doesn't exist and ``use_heuristic_fallback`` is
-        True, falls back to the alias-matching heuristic.  Otherwise,
-        loads the base model (un-fine-tuned) for inference.
+        Tries a local fine-tuned checkpoint first. If it is incomplete or
+        absent, loads the configured published LayoutLMv3 checkpoint/model.
         """
         checkpoint_path = self._settings.model.checkpoint_path
         use_fallback = getattr(self._settings.model, "use_heuristic_fallback", True)
 
-        # Check for fine-tuned checkpoint
-        resolved_checkpoint: Path | None = None
-        if checkpoint_path:
-            best_path = Path(checkpoint_path).expanduser().resolve() / "best"
-            final_path = Path(checkpoint_path).expanduser().resolve() / "final"
-            base_path = Path(checkpoint_path).expanduser().resolve()
-
-            if best_path.exists() and (best_path / "config.json").exists():
-                resolved_checkpoint = best_path
-            elif final_path.exists() and (final_path / "config.json").exists():
-                resolved_checkpoint = final_path
-            elif base_path.exists() and (base_path / "config.json").exists():
-                resolved_checkpoint = base_path
+        resolved_checkpoint = self._resolve_checkpoint_path(checkpoint_path)
 
         if resolved_checkpoint is not None:
             self._load_real_model(str(resolved_checkpoint))
+        elif checkpoint_path:
+            logger.warning(
+                "model_checkpoint_incomplete_using_published_model",
+                extra={"checkpoint_path": str(checkpoint_path), "model_name": self._name},
+            )
+            self._load_real_model(None)
         elif use_fallback:
             self._using_heuristic = True
             self._loaded = True
@@ -89,7 +78,6 @@ class LayoutAwareModelService:
                 extra={"reason": "no_checkpoint", "model_name": self._name},
             )
         else:
-            # Load base model without fine-tuned weights
             self._load_real_model(None)
 
         logger.info(
@@ -101,6 +89,32 @@ class LayoutAwareModelService:
                 "mode": "heuristic" if self._using_heuristic else "layoutlmv3",
             },
         )
+
+    def _resolve_checkpoint_path(self, checkpoint_path: str | None) -> Path | None:
+        if not checkpoint_path:
+            return None
+
+        base_path = Path(checkpoint_path).expanduser().resolve()
+        candidates = [
+            base_path / "best",
+            base_path / "final",
+            base_path,
+        ]
+        for candidate in candidates:
+            if self._is_complete_checkpoint(candidate):
+                return candidate
+        return None
+
+    @staticmethod
+    def _is_complete_checkpoint(path: Path) -> bool:
+        if not path.exists() or not (path / "config.json").exists():
+            return False
+        weight_files = (
+            path / "model.safetensors",
+            path / "pytorch_model.bin",
+            path / "tf_model.h5",
+        )
+        return any(weight_file.exists() for weight_file in weight_files)
 
     def _load_real_model(self, checkpoint: str | None) -> None:
         """Initialize LayoutLMv3InferenceService."""
@@ -127,7 +141,11 @@ class LayoutAwareModelService:
             else:
                 raise ModelRuntimeError(f"Failed to load model: {exc}") from exc
 
-    def predict(self, ocr_tokens: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def predict(
+        self,
+        ocr_tokens: list[dict[str, Any]],
+        page_image: Image.Image | bytes | None = None,
+    ) -> list[dict[str, Any]]:
         if not self._loaded:
             raise ModelRuntimeError("Model runtime is not loaded.")
 
@@ -135,9 +153,13 @@ class LayoutAwareModelService:
             return heuristic_predict(ocr_tokens, self._settings.postprocessing.field_aliases)
 
         # Real model inference
-        return self._predict_with_model(ocr_tokens)
+        return self._predict_with_model(ocr_tokens, page_image=page_image)
 
-    def _predict_with_model(self, ocr_tokens: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def _predict_with_model(
+        self,
+        ocr_tokens: list[dict[str, Any]],
+        page_image: Image.Image | bytes | None = None,
+    ) -> list[dict[str, Any]]:
         """Run real LayoutLMv3 inference on OCR tokens."""
         from document_intelligence_engine.domain.contracts import (
             BoundingBox,
@@ -169,7 +191,7 @@ class LayoutAwareModelService:
             )
 
         ocr_result = OCRResult(tokens=tokens, engine="pipeline", language="en")
-        prediction = self._inference_service.predict(ocr_result)
+        prediction = self._inference_service.predict(ocr_result, page_image=page_image)
 
         # Convert ModelPrediction to list of dicts for the postprocessing pipeline
         results = []

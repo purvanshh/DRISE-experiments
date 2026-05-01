@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import time
+from pathlib import Path
 from typing import Any
+
+from PIL import Image
 
 from document_intelligence_engine.core.config import get_settings
 from document_intelligence_engine.domain.experiment_models import ExtractionOutput, ProcessedDocument
@@ -74,10 +77,11 @@ class DRISEPipeline(BasePipeline):
         use_layout = bool(self.config.get("use_layout", True))
         apply_constraints = bool(self.config.get("use_constraints", True))
         model_service = self._parser_service.model_service
+        page_image = _load_page_image(document.get("image_path"))
 
         model_started_at = time.perf_counter()
         prediction_method = model_service.predict if use_layout else model_service.predict_text_only
-        raw_predictions = prediction_method(ocr_tokens)
+        raw_predictions = prediction_method(ocr_tokens, page_image=page_image) if use_layout else prediction_method(ocr_tokens)
         model_duration_ms = round((time.perf_counter() - model_started_at) * 1000, 3)
 
         postprocessing_started_at = time.perf_counter()
@@ -168,3 +172,13 @@ def _tokens_from_ocr_text(ocr_text: str) -> list[dict[str, Any]]:
             x_offset += width + 6
         y_offset += 24
     return tokens
+
+
+def _load_page_image(image_path: Any) -> Image.Image | None:
+    if not image_path:
+        return None
+    path = Path(str(image_path)).expanduser()
+    if not path.exists():
+        return None
+    with Image.open(path) as image:
+        return image.convert("RGB")

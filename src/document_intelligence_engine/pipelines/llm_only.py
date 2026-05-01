@@ -27,8 +27,8 @@ class LLMOnlyPipeline(BasePipeline):
     def __init__(self, config: dict[str, Any] | None = None, client: LLMClient | None = None) -> None:
         self.config = config or {}
         self.client = client or LLMClient(
-            backend=str(self.config.get("backend", "openai")),
-            model=str(self.config.get("model", "gpt-3.5-turbo")),
+            backend=str(self.config.get("backend", "nvidia")),
+            model=str(self.config.get("model", "nv-mistralai/mistral-nemo-12b-instruct")),
             cache_dir=str(self.config.get("cache_dir", "experiments/cache/llm")),
             base_url=self.config.get("base_url"),
         )

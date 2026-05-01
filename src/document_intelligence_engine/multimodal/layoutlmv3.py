@@ -1,8 +1,4 @@
-"""LayoutLMv3 inference wrapper.
-
-Loads a fine-tuned (or base) LayoutLMv3ForTokenClassification model and runs
-real forward-pass inference, producing BIO labels + softmax confidences.
-"""
+"""LayoutLMv3 inference wrapper."""
 
 from __future__ import annotations
 
@@ -45,12 +41,14 @@ class LayoutLMv3InferenceService:
         return self._loaded
 
     def load(self) -> None:
-        """Load the published invoice checkpoint and processor."""
+        """Load a local checkpoint or the published invoice checkpoint."""
+        model_source = str(self._checkpoint_path or self._settings.model.layoutlmv3_model_name or INVOICE_MODEL_NAME)
         try:
-            logger.info("loading_layoutlmv3", extra={"source": INVOICE_MODEL_NAME})
+            logger.info("loading_layoutlmv3", extra={"source": model_source})
 
             self._model = LayoutLMv3ForTokenClassification.from_pretrained(
-                INVOICE_MODEL_NAME,
+                model_source,
+                local_files_only=False,
             )
             self._model.to(self._device)
             self._model.eval()
@@ -59,14 +57,15 @@ class LayoutLMv3InferenceService:
             }
 
             self._processor = LayoutLMv3Processor.from_pretrained(
-                INVOICE_MODEL_NAME,
+                model_source,
                 apply_ocr=False,
+                local_files_only=False,
             )
 
             self._loaded = True
             logger.info(
                 "layoutlmv3_loaded",
-                extra={"source": INVOICE_MODEL_NAME, "device": str(self._device)},
+                extra={"source": model_source, "device": str(self._device)},
             )
         except Exception as exc:
             raise ModelInferenceError(f"Failed to load LayoutLMv3: {exc}") from exc
