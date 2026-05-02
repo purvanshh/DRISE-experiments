@@ -8,11 +8,13 @@ from __future__ import annotations
 
 from difflib import SequenceMatcher
 from datetime import datetime
+from decimal import Decimal
 import json
 import re
 from collections import Counter
 from typing import Any
 
+from dateutil import parser as date_parser
 from jsonschema import Draft202012Validator, FormatChecker
 from seqeval.metrics import (
     classification_report,
@@ -23,7 +25,11 @@ from seqeval.metrics import (
 
 
 def compute_exact_match(prediction: dict[str, object], ground_truth: dict[str, object]) -> float:
-    return 1.0 if prediction == ground_truth else 0.0
+    return compute_document_exact_match(
+        dict(prediction),
+        dict(ground_truth),
+        tuple(sorted({*prediction.keys(), *ground_truth.keys()})),
+    )
 
 
 def compute_field_level_accuracy(
@@ -156,19 +162,20 @@ def compute_schema_validity(
 def compute_hallucination_rate(prediction: dict[str, Any], source_text: str) -> float:
     """Measure the fraction of extracted text-bearing values missing from the source text."""
 
-    normalized_source = _normalize_string(source_text)
-    normalized_lines = [line for line in (_normalize_string(line) for line in source_text.splitlines()) if line]
+    normalized_source = _normalize_hallucination_source(source_text)
+    normalized_lines = [line for line in (_normalize_hallucination_source(line) for line in source_text.splitlines()) if line]
     checked = 0
     hallucinated = 0
 
     for field_name, value in prediction.items():
         if str(field_name).startswith("_") or value is None:
             continue
-        for candidate in _text_hallucination_candidates(value):
-            if not candidate:
+        for candidate_group in _text_hallucination_candidate_groups(str(field_name), value):
+            candidate_group = [candidate for candidate in candidate_group if candidate]
+            if not candidate_group:
                 continue
             checked += 1
-            if not _text_appears_in_source(candidate, normalized_source, normalized_lines):
+            if not any(_text_appears_in_source(candidate, normalized_source, normalized_lines) for candidate in candidate_group):
                 hallucinated += 1
 
     if checked == 0:
@@ -176,23 +183,24 @@ def compute_hallucination_rate(prediction: dict[str, Any], source_text: str) -> 
     return hallucinated / checked
 
 
-def _text_hallucination_candidates(value: Any) -> list[str]:
+def _text_hallucination_candidate_groups(field_name: str, value: Any) -> list[list[str]]:
     if value is None:
         return []
     if isinstance(value, str):
-        normalized = _normalize_string(value)
-        return [normalized] if normalized else []
+        candidates = _hallucination_candidates_for_scalar(value, field_name)
+        return [candidates] if candidates else []
     if isinstance(value, list):
-        candidates: list[str] = []
+        candidates: list[list[str]] = []
         for item in value:
-            candidates.extend(_text_hallucination_candidates(item))
+            candidates.extend(_text_hallucination_candidate_groups(field_name, item))
         return candidates
     if isinstance(value, dict):
-        candidates: list[str] = []
-        for nested_value in value.values():
-            candidates.extend(_text_hallucination_candidates(nested_value))
+        candidates: list[list[str]] = []
+        for nested_key, nested_value in value.items():
+            candidates.extend(_text_hallucination_candidate_groups(str(nested_key or field_name), nested_value))
         return candidates
-    return []
+    candidates = _hallucination_candidates_for_scalar(value, field_name)
+    return [candidates] if candidates else []
 
 
 def _text_appears_in_source(candidate: str, normalized_source: str, normalized_lines: list[str]) -> bool:
@@ -262,36 +270,31 @@ def _normalize_value(value: Any) -> str:
 def _normalized_field_payload(payload: dict[str, Any], fields: list[str] | tuple[str, ...]) -> dict[str, Any]:
     normalized: dict[str, Any] = {}
     for field in fields:
-        value = payload.get(field)
-        if field == "line_items":
-            normalized[field] = sorted(
-                (_normalize_line_item(item) for item in value or []),
-                key=lambda item: json.dumps(item, sort_keys=True, default=str),
-            )
-        elif field == "total_amount":
-            normalized[field] = _normalize_amount(value)
-        elif field == "date":
-            normalized[field] = _normalize_date(value)
-        elif value is None:
-            normalized[field] = None
-        else:
-            normalized[field] = str(value).strip()
+        normalized[field] = normalize_field(payload.get(field), field)
     return normalized
+
+
+def normalize_field(value: Any, field_name: str) -> Any:
+    if field_name == "line_items":
+        return sorted(
+            (_normalize_line_item(item) for item in value or []),
+            key=lambda item: json.dumps(item, sort_keys=True, default=str),
+        )
+    if field_name in {"total_amount", "tax_amount", "subtotal", "unit_price", "price", "quantity"}:
+        return _normalize_amount_string(value)
+    if field_name == "date":
+        return _normalize_date(value)
+    if value is None:
+        return None
+    return _normalize_text_value(value)
 
 
 def _normalize_line_item(item: Any) -> dict[str, Any] | Any:
     if not isinstance(item, dict):
-        return item
+        return _normalize_text_value(item) if item is not None else None
     normalized: dict[str, Any] = {}
     for key, value in sorted(item.items()):
-        if key in {"quantity", "unit_price", "price"}:
-            normalized[key] = _normalize_amount(value)
-        elif key == "date":
-            normalized[key] = _normalize_date(value)
-        elif value is None:
-            normalized[key] = None
-        else:
-            normalized[key] = str(value).strip()
+        normalized[key] = normalize_field(value, key)
     return normalized
 
 
@@ -323,6 +326,10 @@ def _normalize_date(value: Any) -> str | None:
     if value is None or value == "":
         return None
     raw = str(value).strip()
+    try:
+        return date_parser.parse(raw, fuzzy=True).date().isoformat()
+    except (ValueError, OverflowError, TypeError):
+        pass
     for date_format in ("%Y-%m-%d", "%Y/%m/%d", "%m/%d/%Y", "%m-%d-%Y", "%d-%m-%Y", "%d/%m/%Y"):
         try:
             return datetime.strptime(raw, date_format).strftime("%Y-%m-%d")
@@ -331,4 +338,71 @@ def _normalize_date(value: Any) -> str | None:
     iso_match = re.search(r"\b(\d{4}-\d{2}-\d{2})\b", raw)
     if iso_match:
         return iso_match.group(1)
-    return raw
+    return None
+
+
+def _normalize_text_value(value: Any) -> str | None:
+    if value is None:
+        return None
+    text = _normalize_string(str(value))
+    text = re.sub(r"[^\w\s/-]+$", "", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text or None
+
+
+def _normalize_amount_string(value: Any) -> str | None:
+    amount = _normalize_amount(value)
+    if amount is None:
+        return None
+    return f"{Decimal(str(amount)).quantize(Decimal('0.01')):.2f}"
+
+
+def _normalize_hallucination_source(value: str) -> str:
+    normalized = _normalize_string(value)
+    normalized = normalized.replace(",", "")
+    normalized = re.sub(r"[$€£¥]", "", normalized)
+    normalized = re.sub(r"\s+", " ", normalized)
+    return normalized
+
+
+def _normalize_for_hallucination(value: Any, field_name: str) -> str:
+    if value is None or value == "":
+        return ""
+    if field_name in {"total_amount", "tax_amount", "subtotal", "unit_price", "price", "quantity"}:
+        amount = _normalize_amount(value)
+        if amount is None:
+            return ""
+        text = f"{Decimal(str(amount)).quantize(Decimal('0.01')):.2f}"
+        return text.rstrip("0").rstrip(".") if "." in text else text
+    if field_name == "date":
+        normalized_date = _normalize_date(value)
+        if not normalized_date:
+            return ""
+        return normalized_date
+    normalized_text = _normalize_text_value(value)
+    return _normalize_hallucination_source(normalized_text or "")
+
+
+def _hallucination_candidates_for_scalar(value: Any, field_name: str) -> list[str]:
+    if field_name == "date":
+        normalized_date = _normalize_date(value)
+        if not normalized_date:
+            return []
+        year, month, day = normalized_date.split("-")
+        return [
+            _normalize_hallucination_source(normalized_date),
+            _normalize_hallucination_source(f"{month}/{day}/{year}"),
+            _normalize_hallucination_source(f"{day}/{month}/{year}"),
+            _normalize_hallucination_source(f"{month}-{day}-{year}"),
+            _normalize_hallucination_source(f"{day}-{month}-{year}"),
+        ]
+    if field_name in {"total_amount", "tax_amount", "subtotal", "unit_price", "price", "quantity"}:
+        amount = _normalize_amount(value)
+        if amount is None:
+            return []
+        canonical = f"{Decimal(str(amount)).quantize(Decimal('0.01')):.2f}"
+        trimmed = canonical.rstrip("0").rstrip(".") if "." in canonical else canonical
+        return list(dict.fromkeys([canonical, trimmed]))
+
+    normalized = _normalize_for_hallucination(value, field_name)
+    return [normalized] if normalized else []

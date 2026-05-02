@@ -52,6 +52,25 @@ def test_experiment_metrics_normalize_dates_amounts_and_line_item_order():
     assert compute_document_exact_match(prediction, ground_truth) == 1.0
 
 
+def test_experiment_metrics_normalize_text_case_whitespace_and_trailing_punctuation():
+    prediction = {
+        "invoice_number": " inv-1023 ",
+        "date": "January 12, 2025",
+        "vendor": "ABC Corp. ",
+        "total_amount": "1,000.5",
+        "line_items": [{"description": " Widget A ", "quantity": "2.0", "unit_price": "$500.00"}],
+    }
+    ground_truth = {
+        "invoice_number": "INV-1023",
+        "date": "2025-01-12",
+        "vendor": "abc corp",
+        "total_amount": "1000.50",
+        "line_items": [{"description": "widget a", "quantity": 2, "unit_price": 500}],
+    }
+
+    assert compute_document_exact_match(prediction, ground_truth) == 1.0
+
+
 def test_experiment_metrics_schema_and_hallucination():
     prediction = {
         "invoice_number": "INV-404",
@@ -62,6 +81,19 @@ def test_experiment_metrics_schema_and_hallucination():
     }
     assert compute_schema_validity(prediction, EXTRACTION_SCHEMA) == 1.0
     assert compute_hallucination_rate(prediction, "Invoice Number: INV-404\nDate: 2025-01-12\nTotal: 1000.00") > 0.0
+
+
+def test_hallucination_normalizes_currency_and_dates_against_source_text():
+    prediction = {
+        "invoice_number": "INV-404",
+        "date": "2025-01-12",
+        "vendor": "ABC Corp.",
+        "total_amount": "1,000.50",
+        "line_items": [{"description": "Widget A", "quantity": 2, "unit_price": "$500.25"}],
+    }
+    source_text = "Invoice Number: INV-404\nDate: 01/12/2025\nVendor: ABC Corp\nTotal: $1,000.50\nWidget A 2 500.25"
+
+    assert compute_hallucination_rate(prediction, source_text) == 0.0
 
 
 def test_experiment_metrics_schema_rejects_non_dict_line_items():

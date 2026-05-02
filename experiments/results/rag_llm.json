@@ -13765,7 +13765,7 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 0.0,
-      "hallucination_rate": 0.0,
+      "hallucination_rate": 0.125,
       "latency_ms": 3778.382,
       "cost_usd": 0.003032,
       "errors": [
