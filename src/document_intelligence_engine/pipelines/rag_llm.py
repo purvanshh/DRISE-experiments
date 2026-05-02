@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import time
 from typing import Any
 
-from ..domain.experiment_models import ExtractionOutput, ProcessedDocument
 from ..llm.client import LLMClient
 from ..llm.client import _extract_json_candidate
 from ..llm.prompts import (
@@ -16,9 +16,10 @@ from ..llm.prompts import (
     STRICT_EXTRACTION_SYSTEM_PROMPT,
     STRICT_FIELD_EXTRACTION_TEMPLATE,
 )
-from .base import BasePipeline
+from ..domain.experiment_models import ExtractionOutput, ProcessedDocument
 from ..retrieval.embedder import Embedder
 from ..retrieval.retriever import DocumentRetriever
+from .base import BasePipeline
 
 
 FIELD_QUERIES = {
@@ -59,13 +60,17 @@ class RAGLLMPipeline(BasePipeline):
         self.system_prompt = str(
             self.config.get(
                 "system_prompt",
-                STRICT_EXTRACTION_SYSTEM_PROMPT if self.config.get("prompt_variant", "strict_v1") == "strict_v1" else EXTRACTION_SYSTEM_PROMPT,
+                STRICT_EXTRACTION_SYSTEM_PROMPT
+                if self.config.get("prompt_variant", "strict_v1") == "strict_v1"
+                else EXTRACTION_SYSTEM_PROMPT,
             )
         )
         self.field_prompt_template = str(
             self.config.get(
                 "field_prompt_template",
-                STRICT_FIELD_EXTRACTION_TEMPLATE if self.config.get("prompt_variant", "strict_v1") == "strict_v1" else FIELD_EXTRACTION_TEMPLATE,
+                STRICT_FIELD_EXTRACTION_TEMPLATE
+                if self.config.get("prompt_variant", "strict_v1") == "strict_v1"
+                else FIELD_EXTRACTION_TEMPLATE,
             )
         )
 
@@ -99,7 +104,11 @@ class RAGLLMPipeline(BasePipeline):
                 )
                 total_cost += _resolve_payload_cost(self.client, payload)
                 raw_payloads[field_name] = str(payload["text"])
-                extracted_fields[field_name] = _parse_field_response(field_name, payload["text"])
+                extracted_fields[field_name] = _parse_field_response(
+                    field_name,
+                    payload["text"],
+                    context="\n".join(retrieved_chunks),
+                )
             except Exception as exc:
                 errors.append(f"{field_name}: {exc}")
                 extracted_fields[field_name] = [] if field_name == "line_items" else None
@@ -139,24 +148,244 @@ def _resolve_payload_cost(client: Any, payload: dict[str, Any]) -> float:
     return float(payload.get("cost_usd", 0.0) or 0.0)
 
 
-def _parse_field_response(field_name: str, raw_text: str) -> Any:
-    parsed = _loads_with_repair(raw_text)
-    if isinstance(parsed, dict) and field_name in parsed:
-        parsed = parsed[field_name]
-    if field_name == "line_items":
-        return parsed if isinstance(parsed, list) else []
-    return parsed
+def _parse_field_response(field_name: str, raw_text: str, *, context: str = "") -> Any:
+    return _parse_field_response_with_context(field_name, raw_text, context=context)
 
 
 def _loads_with_repair(raw_text: str) -> Any:
+    parsed = _try_load_json(raw_text)
+    if parsed is not _UNPARSEABLE:
+        return parsed
+
+    candidate = _extract_json_candidate(raw_text)
+    if candidate is not None:
+        parsed = _try_load_json(candidate)
+        if parsed is not _UNPARSEABLE:
+            return parsed
+
+    stripped = raw_text.strip()
+    if ":" in stripped:
+        parsed = _try_load_json(stripped.split(":", maxsplit=1)[1].strip())
+        if parsed is not _UNPARSEABLE:
+            return parsed
+
+    for line in reversed([line.strip() for line in raw_text.splitlines() if line.strip()]):
+        parsed = _try_load_json(line)
+        if parsed is not _UNPARSEABLE:
+            return parsed
+        if ":" in line:
+            parsed = _try_load_json(line.split(":", maxsplit=1)[1].strip())
+            if parsed is not _UNPARSEABLE:
+                return parsed
+
+    raise json.JSONDecodeError("Could not parse field response as JSON.", raw_text, 0)
+
+
+_UNPARSEABLE = object()
+
+
+def _parse_field_response_with_context(field_name: str, raw_text: str, *, context: str) -> Any:
+    try:
+        parsed = _loads_with_repair(raw_text)
+    except json.JSONDecodeError:
+        parsed = _UNPARSEABLE
+
+    if parsed is not _UNPARSEABLE:
+        if isinstance(parsed, dict) and field_name in parsed:
+            parsed = parsed[field_name]
+        parsed = _coerce_field_value(field_name, parsed)
+        if _has_meaningful_value(field_name, parsed):
+            return parsed
+
+    fallback = _regex_fallback(field_name, raw_text, context)
+    if _has_meaningful_value(field_name, fallback):
+        return fallback
+    return [] if field_name == "line_items" else None
+
+
+def _coerce_field_value(field_name: str, value: Any) -> Any:
+    if field_name == "line_items":
+        if isinstance(value, list):
+            normalized_items = [_normalize_line_item(item) for item in value]
+            return [item for item in normalized_items if item]
+        return []
+    if field_name == "total_amount":
+        amount = _parse_amount(value)
+        return amount if amount is not None else None
+    if field_name == "date" and value is not None:
+        text = _clean_scalar_text(value)
+        return text or None
+    if value is None:
+        return None
+    text = _clean_scalar_text(value)
+    return text if text is not None else None
+
+
+def _has_meaningful_value(field_name: str, value: Any) -> bool:
+    if field_name == "line_items":
+        return isinstance(value, list) and len(value) > 0
+    return value is not None
+
+
+def _try_load_json(raw_text: str) -> Any:
     try:
         return json.loads(raw_text)
     except json.JSONDecodeError:
-        candidate = _extract_json_candidate(raw_text)
-        if candidate is not None:
-            return json.loads(candidate)
+        return _UNPARSEABLE
 
-        stripped = raw_text.strip()
-        if ":" in stripped:
-            stripped = stripped.split(":", maxsplit=1)[1].strip()
-        return json.loads(stripped)
+
+def _regex_fallback(field_name: str, raw_text: str, context: str) -> Any:
+    combined = "\n".join(part for part in (raw_text, context) if part).strip()
+    if not combined:
+        return [] if field_name == "line_items" else None
+
+    if field_name == "total_amount":
+        total_match = re.search(
+            r"\bTOTAL\b[^0-9-]*(-?\d[\d,]*(?:\.\d+)?)",
+            combined,
+            flags=re.IGNORECASE,
+        )
+        if total_match:
+            return _parse_amount(total_match.group(1))
+        amounts = re.findall(r"-?\d[\d,]*(?:\.\d+)?", combined)
+        return _parse_amount(amounts[-1]) if amounts else None
+
+    if field_name == "date":
+        match = re.search(
+            r"\b\d{4}[-/]\d{1,2}[-/]\d{1,2}\b|\b\d{1,2}[-/]\d{1,2}[-/]\d{2,4}\b",
+            combined,
+        )
+        return match.group(0) if match else None
+
+    if field_name == "invoice_number":
+        match = re.search(
+            r"(?:invoice(?:\s+(?:number|no))?|receipt)\s*#?\s*[:\-]?\s*([A-Za-z0-9/_-]+)",
+            combined,
+            flags=re.IGNORECASE,
+        )
+        return match.group(1) if match else _fallback_scalar_text(raw_text)
+
+    if field_name == "vendor":
+        match = re.search(r"\bvendor\b\s*[:\-]?\s*(.+)", combined, flags=re.IGNORECASE)
+        if match:
+            return _clean_scalar_text(match.group(1))
+        return _fallback_scalar_text(raw_text)
+
+    if field_name == "line_items":
+        return _extract_line_items_from_context(context or combined)
+
+    return _fallback_scalar_text(raw_text)
+
+
+def _fallback_scalar_text(raw_text: str) -> str | None:
+    for line in reversed([line.strip() for line in raw_text.splitlines() if line.strip()]):
+        if line.lower() == "null":
+            continue
+        candidate = line.split(":", maxsplit=1)[1].strip() if ":" in line else line
+        cleaned = _clean_scalar_text(candidate)
+        if cleaned:
+            return cleaned
+    return None
+
+
+def _clean_scalar_text(value: Any) -> str | None:
+    if value is None:
+        return None
+    text = str(value).strip().strip('"').strip("'").strip()
+    return text or None
+
+
+def _parse_amount(value: Any) -> float | None:
+    if value is None:
+        return None
+    cleaned = re.sub(r"[^0-9.\-]+", "", str(value))
+    if cleaned in {"", "-", ".", "-."}:
+        return None
+    try:
+        return float(cleaned)
+    except ValueError:
+        return None
+
+
+def _normalize_line_item(item: Any) -> dict[str, Any] | None:
+    if not isinstance(item, dict):
+        return None
+    description = _clean_scalar_text(item.get("description"))
+    quantity = _parse_amount(item.get("quantity"))
+    unit_price = _parse_amount(item.get("unit_price"))
+    if description is None and quantity is None and unit_price is None:
+        return None
+    return {
+        "description": description,
+        "quantity": quantity,
+        "unit_price": unit_price,
+    }
+
+
+def _extract_line_items_from_context(context: str) -> list[dict[str, Any]]:
+    tokens = [token for token in re.split(r"\s+", context.strip()) if token]
+    if not tokens:
+        return []
+
+    segment_tokens = _slice_line_item_segment(tokens)
+    if not segment_tokens:
+        return []
+
+    items: list[dict[str, Any]] = []
+    cursor = 0
+    while cursor < len(segment_tokens):
+        quantity = None
+        if _is_number_token(segment_tokens[cursor]) and cursor + 2 < len(segment_tokens):
+            quantity = _parse_amount(segment_tokens[cursor])
+            cursor += 1
+
+        description_tokens: list[str] = []
+        while cursor < len(segment_tokens) and not _is_number_token(segment_tokens[cursor]):
+            description_tokens.append(segment_tokens[cursor])
+            cursor += 1
+
+        if not description_tokens or cursor >= len(segment_tokens):
+            break
+
+        description = _clean_scalar_text(" ".join(description_tokens))
+        unit_price = _parse_amount(segment_tokens[cursor])
+        cursor += 1
+
+        if description and description.upper() not in _LINE_ITEM_STOPWORDS:
+            items.append(
+                {
+                    "description": description,
+                    "quantity": quantity,
+                    "unit_price": unit_price,
+                }
+            )
+
+    return [item for item in (_normalize_line_item(item) for item in items) if item]
+
+
+_LINE_ITEM_STOPWORDS = {"TOTAL", "CASH", "CHANGE", "CHANGED"}
+
+
+def _slice_line_item_segment(tokens: list[str]) -> list[str]:
+    if _looks_like_ledger_prefix(tokens):
+        cursor = 0
+        while cursor + 1 < len(tokens) and tokens[cursor].upper() in _LINE_ITEM_STOPWORDS and _is_number_token(tokens[cursor + 1]):
+            cursor += 2
+        return tokens[cursor:]
+
+    for index, token in enumerate(tokens):
+        if token.upper() in _LINE_ITEM_STOPWORDS:
+            return tokens[:index]
+    return tokens
+
+
+def _looks_like_ledger_prefix(tokens: list[str]) -> bool:
+    return (
+        len(tokens) >= 2
+        and tokens[0].upper() in _LINE_ITEM_STOPWORDS
+        and _is_number_token(tokens[1])
+    )
+
+
+def _is_number_token(token: str) -> bool:
+    return _parse_amount(token) is not None

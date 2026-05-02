@@ -38,10 +38,13 @@ OCR Text:
 
 
 FIELD_EXTRACTION_TEMPLATE = """Extract the field "{field_name}" from the context below.
-Return only a valid JSON primitive for scalar values or a JSON array for line_items.
+Return ONLY the field value, no explanation.
+- For scalar values, return only a valid JSON primitive.
+- For line_items, return only a valid JSON array.
 If the field is missing, return null.
 Do not return an object wrapper unless the field itself is an object.
-Do not include explanations, markdown, or surrounding text.
+Do not include explanations, markdown, labels, repeated alternatives, or surrounding text.
+If the field is missing, return null exactly once.
 
 Context:
 {context}

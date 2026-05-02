@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from document_intelligence_engine.pipelines.drise import DRISEPipeline, _should_suppress_line_items
 from document_intelligence_engine.pipelines.llm_only import LLMOnlyPipeline
-from document_intelligence_engine.pipelines.rag_llm import RAGLLMPipeline
+from document_intelligence_engine.pipelines.rag_llm import (
+    RAGLLMPipeline,
+    _extract_line_items_from_context,
+    _parse_field_response_with_context,
+)
 
 
 def test_llm_only_pipeline_uses_mock_backend(tmp_path):
@@ -96,6 +100,25 @@ def test_rag_pipeline_repairs_embedded_json_field_output(tmp_path):
     assert output["extracted_fields"]["invoice_number"] == "INV-1023"
     assert output["extracted_fields"]["total_amount"] == 1000.0
     assert output["extracted_fields"]["line_items"] == [{"description": "Widget A", "quantity": 2.0, "unit_price": 500.0}]
+
+
+def test_parse_field_response_recovers_repeated_scalar_and_context_line_items():
+    assert _parse_field_response_with_context("total_amount", "null\nnull\n230000", context="") == 230000.0
+    assert _parse_field_response_with_context(
+        "line_items",
+        "null\nnull\nnull",
+        context="TOTAL 230,000 CASH 230,000 CHANGE 0 1 BANABERRY FRESH CREAM CAK 230,000",
+    ) == [{"description": "BANABERRY FRESH CREAM CAK", "quantity": 1.0, "unit_price": 230000.0}]
+
+
+def test_extract_line_items_from_context_handles_receipt_patterns_without_json():
+    assert _extract_line_items_from_context(
+        "J.STB PROMO 17500 Y.B.BAT 46000 Y.BASO PROM 27500 TOTAL 91000 CASH 91000"
+    ) == [
+        {"description": "J.STB PROMO", "quantity": None, "unit_price": 17500.0},
+        {"description": "Y.B.BAT", "quantity": None, "unit_price": 46000.0},
+        {"description": "Y.BASO PROM", "quantity": None, "unit_price": 27500.0},
+    ]
 
 
 def test_drise_pipeline_flattens_existing_parser_output():
