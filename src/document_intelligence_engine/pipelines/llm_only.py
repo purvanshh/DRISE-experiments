@@ -12,6 +12,8 @@ from ..llm.prompts import (
     DEFAULT_EXTRACTION_SCHEMA,
     EXTRACTION_SYSTEM_PROMPT,
     EXTRACTION_USER_TEMPLATE,
+    STRICT_EXTRACTION_SYSTEM_PROMPT,
+    STRICT_EXTRACTION_USER_TEMPLATE,
 )
 from .base import BasePipeline
 
@@ -34,11 +36,23 @@ class LLMOnlyPipeline(BasePipeline):
         )
         self.max_input_tokens = int(self.config.get("max_input_tokens", 4000))
         self.max_retries = int(self.config.get("max_retries", 2))
+        self.system_prompt = str(
+            self.config.get(
+                "system_prompt",
+                STRICT_EXTRACTION_SYSTEM_PROMPT if self.config.get("prompt_variant", "strict_v1") == "strict_v1" else EXTRACTION_SYSTEM_PROMPT,
+            )
+        )
+        self.prompt_template = str(
+            self.config.get(
+                "prompt_template",
+                STRICT_EXTRACTION_USER_TEMPLATE if self.config.get("prompt_variant", "strict_v1") == "strict_v1" else EXTRACTION_USER_TEMPLATE,
+            )
+        )
 
     def run(self, document: ProcessedDocument) -> ExtractionOutput:
         started_at = time.perf_counter()
         ocr_text = _truncate_text(str(document.get("ocr_text", "")), self.max_input_tokens)
-        prompt = EXTRACTION_USER_TEMPLATE.format(
+        prompt = self.prompt_template.format(
             schema=self.config.get("schema", DEFAULT_EXTRACTION_SCHEMA),
             ocr_text=ocr_text,
         )
@@ -53,7 +67,7 @@ class LLMOnlyPipeline(BasePipeline):
             try:
                 payload = self.client.extract_json(
                     prompt,
-                    system_prompt=EXTRACTION_SYSTEM_PROMPT,
+                    system_prompt=self.system_prompt,
                     max_tokens=int(self.config.get("max_tokens", 512)),
                     temperature=float(self.config.get("temperature", 0.0)),
                 )

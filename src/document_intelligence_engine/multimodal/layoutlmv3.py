@@ -75,6 +75,7 @@ class LayoutLMv3InferenceService:
         self,
         ocr_result: OCRResult,
         page_image: Image.Image | bytes | None = None,
+        use_layout: bool = True,
     ) -> ModelPrediction:
         """Run inference on OCR tokens + optional page image.
 
@@ -102,6 +103,8 @@ class LayoutLMv3InferenceService:
             # Normalize bboxes to 0-1000 range
             img_width, img_height = image.size
             normalized_boxes = [self._normalize_bbox(b, img_width, img_height) for b in boxes]
+            if not use_layout:
+                normalized_boxes = [[0, 0, 0, 0] for _ in normalized_boxes]
 
             encoding = self._processor(
                 image,

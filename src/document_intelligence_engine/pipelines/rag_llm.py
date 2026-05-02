@@ -10,7 +10,12 @@ from typing import Any
 from ..domain.experiment_models import ExtractionOutput, ProcessedDocument
 from ..llm.client import LLMClient
 from ..llm.client import _extract_json_candidate
-from ..llm.prompts import EXTRACTION_SYSTEM_PROMPT, FIELD_EXTRACTION_TEMPLATE
+from ..llm.prompts import (
+    EXTRACTION_SYSTEM_PROMPT,
+    FIELD_EXTRACTION_TEMPLATE,
+    STRICT_EXTRACTION_SYSTEM_PROMPT,
+    STRICT_FIELD_EXTRACTION_TEMPLATE,
+)
 from .base import BasePipeline
 from ..retrieval.embedder import Embedder
 from ..retrieval.retriever import DocumentRetriever
@@ -51,6 +56,18 @@ class RAGLLMPipeline(BasePipeline):
             chunk_size=int(self.config.get("chunk_size", 500)),
             cache_dir=str(self.config.get("retrieval_cache_dir", "experiments/cache/retrieval")),
         )
+        self.system_prompt = str(
+            self.config.get(
+                "system_prompt",
+                STRICT_EXTRACTION_SYSTEM_PROMPT if self.config.get("prompt_variant", "strict_v1") == "strict_v1" else EXTRACTION_SYSTEM_PROMPT,
+            )
+        )
+        self.field_prompt_template = str(
+            self.config.get(
+                "field_prompt_template",
+                STRICT_FIELD_EXTRACTION_TEMPLATE if self.config.get("prompt_variant", "strict_v1") == "strict_v1" else FIELD_EXTRACTION_TEMPLATE,
+            )
+        )
 
     def run(self, document: ProcessedDocument) -> ExtractionOutput:
         started_at = time.perf_counter()
@@ -70,13 +87,13 @@ class RAGLLMPipeline(BasePipeline):
             try:
                 retrieved_chunks = self.retriever.retrieve(query, doc_id, ocr_text=ocr_text)
                 retrieved_contexts[field_name] = retrieved_chunks
-                prompt = FIELD_EXTRACTION_TEMPLATE.format(
+                prompt = self.field_prompt_template.format(
                     field_name=field_name,
                     context="\n\n".join(retrieved_chunks),
                 )
                 payload = self.client.generate(
                     prompt,
-                    system_prompt=EXTRACTION_SYSTEM_PROMPT,
+                    system_prompt=self.system_prompt,
                     max_tokens=int(self.config.get("field_max_tokens", 256)),
                     temperature=float(self.config.get("temperature", 0.0)),
                 )

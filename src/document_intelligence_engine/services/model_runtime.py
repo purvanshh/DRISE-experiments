@@ -153,12 +153,14 @@ class LayoutAwareModelService:
             return heuristic_predict(ocr_tokens, self._settings.postprocessing.field_aliases)
 
         # Real model inference
-        return self._predict_with_model(ocr_tokens, page_image=page_image)
+        return self._predict_with_model(ocr_tokens, page_image=page_image, use_layout=True)
 
     def _predict_with_model(
         self,
         ocr_tokens: list[dict[str, Any]],
         page_image: Image.Image | bytes | None = None,
+        *,
+        use_layout: bool = True,
     ) -> list[dict[str, Any]]:
         """Run real LayoutLMv3 inference on OCR tokens."""
         from document_intelligence_engine.domain.contracts import (
@@ -191,7 +193,7 @@ class LayoutAwareModelService:
             )
 
         ocr_result = OCRResult(tokens=tokens, engine="pipeline", language="en")
-        prediction = self._inference_service.predict(ocr_result, page_image=page_image)
+        prediction = self._inference_service.predict(ocr_result, page_image=page_image, use_layout=use_layout)
 
         # Convert ModelPrediction to list of dicts for the postprocessing pipeline
         results = []
@@ -207,7 +209,9 @@ class LayoutAwareModelService:
 
     def predict_text_only(self, ocr_tokens: list[dict[str, Any]]) -> list[dict[str, Any]]:
         """Predict without layout features (for ablation)."""
-        return heuristic_predict(ocr_tokens, self._settings.postprocessing.field_aliases)
+        if self._using_heuristic:
+            return heuristic_predict(ocr_tokens, self._settings.postprocessing.field_aliases)
+        return self._predict_with_model(ocr_tokens, use_layout=False)
 
     def predict_without_postprocessing(self, ocr_tokens: list[dict[str, Any]]) -> list[dict[str, Any]]:
         return self.predict(ocr_tokens)

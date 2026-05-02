@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
+
 from document_intelligence_engine.domain.contracts import BoundingBox, OCRResult, OCRToken
 from document_intelligence_engine.services.model_runtime import LayoutAwareModelService, heuristic_predict
 
@@ -69,3 +71,28 @@ def test_model_service_using_heuristic_property(settings):
     # Without a real checkpoint the service should fall back to heuristic
     assert model_service.loaded
     assert model_service.using_heuristic
+
+
+def test_predict_text_only_uses_real_model_without_layout(settings):
+    calls: list[bool] = []
+
+    class StubInferenceService:
+        def predict(self, ocr_result, page_image=None, use_layout=True):
+            _ = ocr_result, page_image
+            calls.append(use_layout)
+            return SimpleNamespace(labels=["B-VALUE"], confidences=[0.91])
+
+    model_service = LayoutAwareModelService(settings)
+    model_service._loaded = True
+    model_service._using_heuristic = False
+    model_service._inference_service = StubInferenceService()
+    model_service._model_id2label = {0: "O"}
+
+    predictions = model_service.predict_text_only(
+        [
+            {"text": "INV-1023", "bbox": [0, 0, 10, 10], "confidence": 0.9},
+        ]
+    )
+
+    assert calls == [False]
+    assert predictions == [{"text": "INV-1023", "label": "B-VALUE", "confidence": 0.91}]

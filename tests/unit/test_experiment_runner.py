@@ -173,6 +173,61 @@ def test_experiment_runner_resumes_from_existing_records(tmp_path):
     assert results["system_a"][0]["output"] == {"cached": True}
 
 
+def test_experiment_runner_enforces_cost_cap(tmp_path):
+    dataset = [
+        {
+            "doc_id": "doc-1",
+            "ocr_text": "Invoice Number: INV-1023",
+            "ground_truth": {
+                "invoice_number": "INV-1023",
+                "date": None,
+                "vendor": None,
+                "total_amount": None,
+                "line_items": [],
+            },
+        },
+        {
+            "doc_id": "doc-2",
+            "ocr_text": "Invoice Number: INV-1024",
+            "ground_truth": {
+                "invoice_number": "INV-1024",
+                "date": None,
+                "vendor": None,
+                "total_amount": None,
+                "line_items": [],
+            },
+        },
+    ]
+
+    class CostlyPipeline(BasePipeline):
+        name = "costly"
+
+        def run(self, document):
+            return {
+                "extracted_fields": {
+                    "invoice_number": document["ground_truth"]["invoice_number"],
+                    "date": None,
+                    "vendor": None,
+                    "total_amount": None,
+                    "line_items": [],
+                },
+                "confidences": {},
+                "_constraint_flags": [],
+                "_errors": [],
+                "latency_ms": 1.0,
+                "cost_usd": 20.0,
+            }
+
+    runner = ExperimentRunner([CostlyPipeline()], results_dir=tmp_path / "results", max_total_cost_usd=30.0)
+
+    try:
+        runner.run(dataset)
+    except RuntimeError as exc:
+        assert "cost cap exceeded" in str(exc).lower()
+    else:
+        raise AssertionError("Expected the experiment runner to stop once the cost cap was exceeded.")
+
+
 def test_build_systems_includes_drise_ablations(monkeypatch):
     class StubPipeline:
         default_name = "stub"

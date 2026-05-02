@@ -62,6 +62,8 @@ itsdangerous==2.2.0
 Jinja2==3.1.6
 jiter==0.14.0
 joblib==1.5.3
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
 kiwisolver==1.5.0
 lazy-loader==0.5
 lmdb==2.2.0
@@ -122,8 +124,10 @@ python-multipart==0.0.20
 pytz==2026.1.post1
 PyYAML==6.0.2
 RapidFuzz==3.14.5
+referencing==0.37.0
 regex==2026.4.4
 requests==2.33.1
+rpds-py==0.30.0
 ruff==0.11.2
 safetensors==0.7.0
 scikit-image==0.26.0

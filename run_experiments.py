@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import sys
 from pathlib import Path
 from typing import Any
@@ -26,12 +27,14 @@ from document_intelligence_engine.pipelines.rag_llm import RAGLLMPipeline
 def run_experiments(config_path: str = "configs/experiments.yaml") -> dict[str, Any]:
     config = _load_config(config_path)
     experiment = config["experiment"]
+    _set_random_seeds(int(experiment.get("seed", 42)))
     dataset = load_annotations(experiment["dataset"]["test_annotations"])
     systems = _build_systems(experiment)
     runner = ExperimentRunner(
         systems,
         results_dir=experiment.get("output_dir", "experiments/results"),
         resume=bool(experiment.get("resume", True)),
+        max_total_cost_usd=float(experiment.get("cost_cap_usd", 30.0)),
     )
     results = runner.run(dataset)
     report = generate_experiment_report(results, output_dir=experiment.get("output_dir", "experiments/results"))
@@ -62,6 +65,24 @@ def _build_systems(experiment: dict[str, Any]) -> list[Any]:
         systems.append(DRISEPipeline(drise_config))
         systems.extend(_build_drise_ablations(experiment, output_dir))
     return systems
+
+
+def _set_random_seeds(seed: int) -> None:
+    random.seed(seed)
+    try:
+        import numpy as np
+    except ImportError:
+        pass
+    else:
+        np.random.seed(seed)
+
+    try:
+        import torch
+    except ImportError:
+        return
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
 
 
 def _build_drise_ablations(experiment: dict[str, Any], output_dir: str) -> list[Any]:
