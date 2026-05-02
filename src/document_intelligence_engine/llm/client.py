@@ -27,8 +27,9 @@ class LLMClient:
         base_url: str | None = None,
         pricing: dict[str, float] | None = None,
         api_key: str | None = None,
+        use_mock: bool = False,
     ) -> None:
-        self.backend = backend
+        self.backend = "mock" if use_mock else backend
         self.model = model
         self.base_url = base_url
         self.cache_dir = Path(cache_dir).expanduser().resolve()

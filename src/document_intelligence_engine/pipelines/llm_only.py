@@ -47,7 +47,7 @@ class LLMOnlyPipeline(BasePipeline):
         total_cost = 0.0
         raw_response = ""
         extracted_fields: dict[str, Any] = {}
-        self.client.reset_call_tracking()
+        _reset_client_tracking(self.client)
 
         for attempt in range(self.max_retries + 1):
             try:
@@ -58,7 +58,7 @@ class LLMOnlyPipeline(BasePipeline):
                     temperature=float(self.config.get("temperature", 0.0)),
                 )
                 raw_response = str(payload["text"])
-                total_cost += float(self.client.last_call_cost)
+                total_cost += _resolve_payload_cost(self.client, payload)
                 extracted_fields = _coerce_output(payload["parsed"])
                 break
             except Exception as exc:
@@ -99,6 +99,18 @@ def _truncate_text(text: str, token_limit: int) -> str:
     if len(token_ids) <= token_limit:
         return text
     return encoding.decode(token_ids[:token_limit])
+
+
+def _reset_client_tracking(client: Any) -> None:
+    reset = getattr(client, "reset_call_tracking", None)
+    if callable(reset):
+        reset()
+
+
+def _resolve_payload_cost(client: Any, payload: dict[str, Any]) -> float:
+    if hasattr(client, "last_call_cost"):
+        return float(getattr(client, "last_call_cost", 0.0) or 0.0)
+    return float(payload.get("cost_usd", 0.0) or 0.0)
 
 
 def _coerce_output(parsed: Any) -> dict[str, Any]:

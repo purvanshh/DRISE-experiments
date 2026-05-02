@@ -63,7 +63,7 @@ class RAGLLMPipeline(BasePipeline):
         total_cost = 0.0
         raw_payloads: dict[str, str] = {}
         retrieved_contexts: dict[str, list[str]] = {}
-        self.client.reset_call_tracking()
+        _reset_client_tracking(self.client)
 
         for field_name in self.target_fields:
             query = FIELD_QUERIES.get(field_name, field_name.replace("_", " "))
@@ -80,7 +80,7 @@ class RAGLLMPipeline(BasePipeline):
                     max_tokens=int(self.config.get("field_max_tokens", 256)),
                     temperature=float(self.config.get("temperature", 0.0)),
                 )
-                total_cost += float(self.client.last_call_cost)
+                total_cost += _resolve_payload_cost(self.client, payload)
                 raw_payloads[field_name] = str(payload["text"])
                 extracted_fields[field_name] = _parse_field_response(field_name, payload["text"])
             except Exception as exc:
@@ -108,6 +108,18 @@ class RAGLLMPipeline(BasePipeline):
 
 def _derive_doc_id(ocr_text: str) -> str:
     return hashlib.sha256(ocr_text.encode("utf-8")).hexdigest()[:16]
+
+
+def _reset_client_tracking(client: Any) -> None:
+    reset = getattr(client, "reset_call_tracking", None)
+    if callable(reset):
+        reset()
+
+
+def _resolve_payload_cost(client: Any, payload: dict[str, Any]) -> float:
+    if hasattr(client, "last_call_cost"):
+        return float(getattr(client, "last_call_cost", 0.0) or 0.0)
+    return float(payload.get("cost_usd", 0.0) or 0.0)
 
 
 def _parse_field_response(field_name: str, raw_text: str) -> Any:

@@ -82,7 +82,12 @@ class DRISEPipeline(BasePipeline):
 
         model_started_at = time.perf_counter()
         prediction_method = model_service.predict if use_layout else model_service.predict_text_only
-        raw_predictions = prediction_method(ocr_tokens, page_image=page_image) if use_layout else prediction_method(ocr_tokens)
+        raw_predictions = _invoke_prediction_method(
+            prediction_method,
+            ocr_tokens=ocr_tokens,
+            page_image=page_image,
+            use_layout=use_layout,
+        )
         model_duration_ms = round((time.perf_counter() - model_started_at) * 1000, 3)
 
         postprocessing_started_at = time.perf_counter()
@@ -175,6 +180,23 @@ def _tokens_from_ocr_text(ocr_text: str) -> list[dict[str, Any]]:
             x_offset += width + 6
         y_offset += 24
     return tokens
+
+
+def _invoke_prediction_method(
+    prediction_method: Any,
+    *,
+    ocr_tokens: list[dict[str, Any]],
+    page_image: Image.Image | None,
+    use_layout: bool,
+) -> Any:
+    if not use_layout:
+        return prediction_method(ocr_tokens)
+    try:
+        return prediction_method(ocr_tokens, page_image=page_image)
+    except TypeError as exc:
+        if "page_image" not in str(exc):
+            raise
+        return prediction_method(ocr_tokens)
 
 
 def _load_page_image(image_path: Any) -> Image.Image | None:
