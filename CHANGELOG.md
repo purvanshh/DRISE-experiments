@@ -14,6 +14,7 @@
 - Tightened RAG field prompts so per-field generations return only the value instead of explanations.
 - Improved provider retry handling for rate-limited LLM calls during large benchmark runs.
 - Updated reproducibility guidance to point to the benchmark lockfile, benchmark container image, and fixed seed handling.
+- Documented the clean-container smoke-test caveat for benchmark verification versus full live provider-backed reruns.
 
 ### Fixed
 

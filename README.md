@@ -421,6 +421,8 @@ docker run \
 ```
 
 > **Note:** The container mounts the full `data/` directory (not just `data/annotations/`) because annotation files reference source images under `data/raw/`. The `load_annotations()` function automatically rebases absolute host paths for the container's `/app` root.
+>
+> **Smoke-test caveat:** the clean-container verification used `data/annotations/experiment_sample.jsonl` with the mock LLM backend to validate the benchmark harness end to end without burning live provider quota. A full live rerun still requires `NVIDIA_API_KEY`, network access to the configured provider endpoint, and enough provider quota for the chosen baseline models.
 
 ### Exported Artifacts
 
