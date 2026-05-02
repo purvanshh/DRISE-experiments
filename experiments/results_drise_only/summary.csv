@@ -1,4 +1,4 @@
-system,field_level_f1_mean,field_level_f1_std,exact_match_mean,schema_valid_mean,hallucination_rate_mean,latency_ms_mean,cost_usd_mean,cost_usd_total,latency_ms_total,sample_count
-drise,0.54609,0.29085,0.0,1.0,0.40458,297.180453,4.1e-05,0.008302,59733.271,201
-drise_no_layout,0.53074,0.285002,0.0,1.0,0.417449,293.959876,4.1e-05,0.008203,59085.935,201
-drise_no_constraints,0.54609,0.29085,0.0,1.0,0.40458,312.814522,4.3e-05,0.008733,62875.719,201
+system,field_level_f1_mean,field_level_f1_std,exact_match_mean,schema_valid_mean,hallucination_rate_mean,constraint_flag_rate_mean,constraint_repair_rate_mean,latency_ms_mean,cost_usd_mean,cost_usd_total,latency_ms_total,sample_count
+drise,0.54609,0.29085,0.014925,1.0,0.111681,0.99005,0.0,287.034085,4e-05,0.008015,57693.851,201
+drise_no_layout,0.53074,0.285002,0.014925,1.0,0.116404,0.99005,0.0,295.919821,4.1e-05,0.008259,59479.884,201
+drise_no_constraints,0.54609,0.29085,0.014925,1.0,0.111681,0.0,0.0,361.951,5e-05,0.010108,72752.151,201

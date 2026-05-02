@@ -37,6 +37,10 @@ class Evaluator:
             "exact_match": metrics.compute_document_exact_match(prediction, reference, self.fields),
             "schema_valid": metrics.compute_schema_validity(prediction, self.schema),
             "hallucination_rate": metrics.compute_hallucination_rate(prediction, source_text),
+            "constraint_flag_rate": 1.0 if output.get("_constraint_flags") else 0.0,
+            "constraint_repair_rate": 1.0 if any(
+                "corrected_" in str(flag) or "repaired" in str(flag) for flag in output.get("_constraint_flags", [])
+            ) else 0.0,
             "latency_ms": float(output.get("latency_ms", 0.0)),
             "cost_usd": float(output.get("cost_usd", 0.0)),
             "errors": list(output.get("_errors", [])),

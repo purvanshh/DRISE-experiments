@@ -2,9 +2,9 @@
 
 | System | Field F1 | Exact Match | Schema Valid | Hallucination | Cost/doc |
 | --- | --- | --- | --- | --- | --- |
-| drise | 0.546 | 0.000 | 1.000 | 0.405 | $0.0000 |
-| drise_no_layout | 0.531 | 0.000 | 1.000 | 0.417 | $0.0000 |
-| drise_no_constraints | 0.546 | 0.000 | 1.000 | 0.405 | $0.0000 |
+| drise | 0.546 | 0.015 | 1.000 | 0.112 | $0.0000 |
+| drise_no_layout | 0.531 | 0.015 | 1.000 | 0.116 | $0.0000 |
+| drise_no_constraints | 0.546 | 0.015 | 1.000 | 0.112 | $0.0001 |
 
 ### Significance
 

@@ -16,6 +16,8 @@ logger = get_logger(__name__)
 def apply_constraints(
     document: dict[str, dict[str, Any]],
     settings: Any,
+    *,
+    repair: bool = True,
 ) -> tuple[dict[str, dict[str, Any]], list[dict[str, str]], list[str]]:
     constrained = {field: dict(payload) for field, payload in document.items()}
     errors: list[dict[str, str]] = []
@@ -57,6 +59,7 @@ def apply_constraints(
         constrained, amount_errors, amount_flags = _enforce_amount_consistency(
             constrained,
             settings.postprocessing.constraints.amount_tolerance,
+            repair=repair,
         )
         errors.extend(amount_errors)
         flags.extend(amount_flags)
@@ -67,6 +70,8 @@ def apply_constraints(
 def _enforce_amount_consistency(
     document: dict[str, dict[str, Any]],
     tolerance: float,
+    *,
+    repair: bool,
 ) -> tuple[dict[str, dict[str, Any]], list[dict[str, str]], list[str]]:
     errors: list[dict[str, str]] = []
     flags: list[str] = []
@@ -79,6 +84,7 @@ def _enforce_amount_consistency(
         return document, errors, flags
 
     computed_total = 0.0
+    contributing_items = 0
     line_item_confidences: list[float] = []
     for item in line_items:
         if not isinstance(item, dict):
@@ -87,9 +93,13 @@ def _enforce_amount_consistency(
         quantity = item.get("quantity", 1)
         if isinstance(price, (int, float)) and isinstance(quantity, (int, float)):
             computed_total += float(price) * float(quantity)
+            contributing_items += 1
         confidence = item.get("confidence")
         if isinstance(confidence, (int, float)):
             line_item_confidences.append(float(confidence))
+
+    if contributing_items == 0 or isclose(computed_total, 0.0, rel_tol=0.0, abs_tol=tolerance):
+        return document, errors, flags
 
     if "total_amount" not in document or document["total_amount"].get("value") in (None, ""):
         document["total_amount"] = {

@@ -43,7 +43,24 @@ def test_constraint_logic(settings):
     assert "missing_required_field:invoice_number" in flags
     assert "future_date:date" in flags
     assert "line_items_total_mismatch" in flags
-    assert {"missing_required_field", "future_date", "line_items_total_mismatch"} <= error_codes
+    assert "line_items_total_mismatch" in error_codes
+
+
+def test_constraint_logic_repairs_missing_total_from_line_items(settings):
+    document, errors, flags = apply_constraints(
+        {
+            "date": {"value": date.today().isoformat(), "confidence": 0.9, "valid": True},
+            "invoice_number": {"value": "INV-100", "confidence": 0.95, "valid": True},
+            "line_items": {"value": [{"price": 3.0, "quantity": 2}], "confidence": 0.9, "valid": True},
+        },
+        settings,
+        repair=True,
+    )
+
+    assert document["total_amount"]["value"] == 6.0
+    assert document["total_amount"]["corrected"] is True
+    assert "corrected_total_amount_from_line_items" in flags
+    assert any(error["code"] == "missing_required_field" and error["field"] == "total_amount" for error in errors)
 
 
 def test_confidence_threshold_policy(settings):

@@ -80,6 +80,7 @@ class DRISEPipeline(BasePipeline):
         started_at = time.perf_counter()
         use_layout = bool(self.config.get("use_layout", True))
         apply_constraints = bool(self.config.get("use_constraints", True))
+        repair_constraints = bool(self.config.get("repair_constraints", apply_constraints))
         model_service = self._parser_service.model_service
         page_image = _load_page_image(document.get("image_path"))
         ocr_metadata = dict(document.get("ocr_metadata", {}))
@@ -98,6 +99,7 @@ class DRISEPipeline(BasePipeline):
         structured_document = postprocess_predictions(
             raw_predictions,
             apply_constraints=apply_constraints,
+            repair_constraints=repair_constraints,
             ocr_tokens=ocr_tokens,
         )
         postprocessing_duration_ms = round((time.perf_counter() - postprocessing_started_at) * 1000, 3)

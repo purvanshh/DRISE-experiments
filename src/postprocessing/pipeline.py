@@ -18,6 +18,7 @@ def postprocess_predictions(
     predictions: list[dict[str, Any]],
     *,
     apply_constraints: bool = True,
+    repair_constraints: bool = True,
     ocr_tokens: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     settings = get_settings()
@@ -40,6 +41,7 @@ def postprocess_predictions(
         constrained_document, constraint_errors, constraint_flags = apply_constraint_rules(
             validated_document,
             settings,
+            repair=repair_constraints,
         )
     final_document, confidence_errors = apply_confidence_policy(constrained_document, settings)
 
