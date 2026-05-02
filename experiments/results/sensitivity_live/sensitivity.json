@@ -1,0 +1,113 @@
+{
+  "backend": "nvidia",
+  "sample_count": 20,
+  "temperature_sweep": [
+    {
+      "system": "llm_only",
+      "temperature": 0.0,
+      "field_level_f1": 0.190828,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "rag_llm",
+      "temperature": 0.0,
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "llm_only",
+      "temperature": 0.3,
+      "field_level_f1": 0.301463,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "rag_llm",
+      "temperature": 0.3,
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "llm_only",
+      "temperature": 0.7,
+      "field_level_f1": 0.341602,
+      "exact_match": 0.0,
+      "schema_valid": 0.8
+    },
+    {
+      "system": "rag_llm",
+      "temperature": 0.7,
+      "field_level_f1": 0.040097,
+      "exact_match": 0.0,
+      "schema_valid": 0.15
+    }
+  ],
+  "noise_sweep": [
+    {
+      "system": "llm_only",
+      "noise_factor": 0.0,
+      "field_level_f1": 0.190828,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "rag_llm",
+      "noise_factor": 0.0,
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "drise",
+      "noise_factor": 0.0,
+      "field_level_f1": 0.390069,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "llm_only",
+      "noise_factor": 0.1,
+      "field_level_f1": 0.135477,
+      "exact_match": 0.0,
+      "schema_valid": 0.95
+    },
+    {
+      "system": "rag_llm",
+      "noise_factor": 0.1,
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "drise",
+      "noise_factor": 0.1,
+      "field_level_f1": 0.336231,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "llm_only",
+      "noise_factor": 0.2,
+      "field_level_f1": 0.073344,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "rag_llm",
+      "noise_factor": 0.2,
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    },
+    {
+      "system": "drise",
+      "noise_factor": 0.2,
+      "field_level_f1": 0.298448,
+      "exact_match": 0.0,
+      "schema_valid": 1.0
+    }
+  ]
+}

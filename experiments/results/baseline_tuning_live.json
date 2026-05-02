@@ -1,0 +1,184 @@
+{
+  "backend": "nvidia",
+  "sample_count": 25,
+  "results": [
+    {
+      "name": "llm_only_strict_1500",
+      "system": "llm_only",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "strict_v1",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 1500
+      },
+      "field_level_f1": 0.196108,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.0,
+      "cost_usd": 0.00041
+    },
+    {
+      "name": "llm_only_strict_2200",
+      "system": "llm_only",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "strict_v1",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 2200
+      },
+      "field_level_f1": 0.196108,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.0,
+      "cost_usd": 0.00041
+    },
+    {
+      "name": "llm_only_baseline_1500",
+      "system": "llm_only",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "baseline",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 1500
+      },
+      "field_level_f1": 0.196108,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.0,
+      "cost_usd": 0.00041
+    },
+    {
+      "name": "rag_strict_k3_c500",
+      "system": "rag_llm",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "strict_v1",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 1500,
+        "embedder": "all-MiniLM-L6-v2",
+        "top_k": 3,
+        "chunk_size": 500,
+        "retrieval_cache_dir": "experiments/cache/retrieval"
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.02,
+      "cost_usd": 0.001698
+    },
+    {
+      "name": "rag_strict_k5_c300",
+      "system": "rag_llm",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "strict_v1",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 1500,
+        "embedder": "all-MiniLM-L6-v2",
+        "top_k": 5,
+        "chunk_size": 300,
+        "retrieval_cache_dir": "experiments/cache/retrieval"
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.02,
+      "cost_usd": 0.001698
+    },
+    {
+      "name": "rag_baseline_k3_c500",
+      "system": "rag_llm",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "baseline",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 1500,
+        "embedder": "all-MiniLM-L6-v2",
+        "top_k": 3,
+        "chunk_size": 500,
+        "retrieval_cache_dir": "experiments/cache/retrieval"
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.02,
+      "cost_usd": 0.001698
+    }
+  ],
+  "best_by_system": {
+    "llm_only": {
+      "name": "llm_only_strict_1500",
+      "system": "llm_only",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "strict_v1",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 1500
+      },
+      "field_level_f1": 0.196108,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.0,
+      "cost_usd": 0.00041
+    },
+    "rag_llm": {
+      "name": "rag_strict_k3_c500",
+      "system": "rag_llm",
+      "config": {
+        "backend": "nvidia",
+        "model": "meta/llama-3.2-1b-instruct",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "prompt_variant": "strict_v1",
+        "temperature": 0.0,
+        "max_tokens": 256,
+        "field_max_tokens": 128,
+        "cache_dir": "experiments/cache/llm",
+        "max_input_tokens": 1500,
+        "embedder": "all-MiniLM-L6-v2",
+        "top_k": 3,
+        "chunk_size": 500,
+        "retrieval_cache_dir": "experiments/cache/retrieval"
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 1.0,
+      "hallucination_rate": 0.02,
+      "cost_usd": 0.001698
+    }
+  }
+}

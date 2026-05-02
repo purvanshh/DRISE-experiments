@@ -79,6 +79,10 @@ class ExperimentRunner:
                 records_by_doc_id[doc_id] = record
                 cumulative_cost += float(record["metrics"].get("cost_usd", 0.0) or 0.0)
                 self._write_records(output_path, records_by_doc_id)
+                if self.max_total_cost_usd is not None and cumulative_cost >= self.max_total_cost_usd:
+                    raise RuntimeError(
+                        f"Experiment cost cap exceeded: ${cumulative_cost:.6f} >= ${self.max_total_cost_usd:.6f}"
+                    )
 
             ordered_records = [records_by_doc_id[str(document["doc_id"])] for document in dataset if str(document["doc_id"]) in records_by_doc_id]
             all_results[system.name] = ordered_records

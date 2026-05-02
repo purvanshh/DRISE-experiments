@@ -1,21 +1,21 @@
 [
   {
     "system": "drise_no_layout",
-    "field_level_f1_mean": 0.482219,
+    "field_level_f1_mean": 0.53074,
     "exact_match_mean": 0.0,
-    "schema_valid_mean": 0.0,
-    "hallucination_rate_mean": 0.430179,
-    "delta_field_level_f1": -0.050665,
+    "schema_valid_mean": 1.0,
+    "hallucination_rate_mean": 0.417449,
+    "delta_field_level_f1": -0.01535,
     "delta_exact_match": 0.0,
     "delta_schema_valid": 0.0,
-    "delta_hallucination_rate": 0.018145
+    "delta_hallucination_rate": 0.012869
   },
   {
     "system": "drise_no_constraints",
-    "field_level_f1_mean": 0.532884,
+    "field_level_f1_mean": 0.54609,
     "exact_match_mean": 0.0,
-    "schema_valid_mean": 0.0,
-    "hallucination_rate_mean": 0.412034,
+    "schema_valid_mean": 1.0,
+    "hallucination_rate_mean": 0.40458,
     "delta_field_level_f1": 0.0,
     "delta_exact_match": 0.0,
     "delta_schema_valid": 0.0,

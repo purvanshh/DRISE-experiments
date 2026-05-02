@@ -224,7 +224,7 @@ This is the component that makes the system suitable for production rather than 
 
 ### Latest Experiment Results
 
-The table below is generated from the latest full harness run on **May 2, 2026** against [data/annotations/test.jsonl](/Users/purvansh/Desktop/Projects/DRISE-experiments/data/annotations/test.jsonl:1) with **N=181** documents.
+The table below is generated from the latest full harness run on **May 2, 2026** against [data/annotations/test.jsonl](/Users/purvansh/Desktop/Projects/DRISE-experiments/data/annotations/test.jsonl:1) with **N=201** documents.
 
 Run configuration used for these numbers:
 - `llm_only` and `rag_llm`: NVIDIA backend with `meta/llama-3.2-1b-instruct`
@@ -233,19 +233,19 @@ Run configuration used for these numbers:
 
 | System | Field-level F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) | Total Cost ($) |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `llm_only` | 0.3538 | 0.0000 | 1.0000 | 0.0378 | 892.13 | 0.000281 | 0.050837 |
-| `rag_llm` | 0.1860 | 0.0000 | 0.7293 | 0.1822 | 2951.76 | 0.001311 | 0.237229 |
-| `drise` | 0.5329 | 0.0000 | 0.0000 | 0.4120 | 337.24 | 0.000047 | 0.008482 |
-| `drise_no_layout` | 0.4822 | 0.0000 | 0.0000 | 0.4302 | 3.77 | 0.000001 | 0.000116 |
-| `drise_no_constraints` | 0.5329 | 0.0000 | 0.0000 | 0.4120 | 371.98 | 0.000052 | 0.009355 |
+| `llm_only` | 0.1677 | 0.0000 | 1.0000 | 0.0058 | 661.15 | 0.000368 | 0.073876 |
+| `rag_llm` | 0.0000 | 0.0000 | 0.9701 | 0.0050 | 2898.01 | 0.001648 | 0.331337 |
+| `drise` | 0.5461 | 0.0000 | 1.0000 | 0.4046 | 309.60 | 0.000043 | 0.008640 |
+| `drise_no_layout` | 0.5307 | 0.0000 | 1.0000 | 0.4174 | 316.16 | 0.000044 | 0.008828 |
+| `drise_no_constraints` | 0.5461 | 0.0000 | 1.0000 | 0.4046 | 425.56 | 0.000059 | 0.011892 |
 
 ### What These Scores Mean
 
-- DRISE now leads the benchmark on **field-level F1**: `0.5329` vs `0.3538` for `llm_only` and `0.1860` for `rag_llm`.
-- DRISE is also the cheapest real system in this run: `0.000047` estimated cost per document vs `0.000281` for `llm_only` and `0.001311` for `rag_llm`.
-- The PRD success targets are still **not met**. Exact match is `0.0` for every system in this benchmark, so the statistical test on exact-match correctness is uninformative.
-- `schema_valid` is still weak for DRISE because the current wrapper frequently omits required fields such as `date` or `invoice_number` after confidence filtering. By contrast, `llm_only` often emits schema-shaped JSON even when the values are wrong.
-- `rag_llm` underperforms `llm_only` in this setup because the per-field retrieval path is slower, more expensive, and frequently returns weak single-field outputs for vendor and total.
+- DRISE leads the benchmark on **field-level F1**: `0.5461` vs `0.1677` for `llm_only` and `0.0000` for `rag_llm`.
+- DRISE now produces **schema-valid outputs on every document** while remaining the cheapest system in the run at roughly `$0.000043` per document.
+- The strongest gains come from the structured extraction path: DRISE is materially stronger than both baselines on `line_items` and `total_amount`, which are the fields the pure-text baselines struggle with most.
+- Exact match remains `0.0` for every system on this split, so the benchmark currently supports the thesis through F1, schema validity, ablation behavior, latency, and cost rather than through exact-match significance.
+- `rag_llm` remains the weakest baseline in this setup because the per-field retrieval loop adds cost and latency without lifting field quality on the tested model.
 
 ### Exported Artifacts
 
@@ -267,22 +267,26 @@ Current ablation deltas from the latest run:
 
 | Variant | Delta F1 vs `drise` | Delta Exact Match vs `drise` | Delta Schema Valid vs `drise` | Delta Hallucination vs `drise` |
 |---|---:|---:|---:|---:|
-| `drise_no_layout` | -0.0507 | 0.0000 | 0.0000 | +0.0181 |
+| `drise_no_layout` | -0.0153 | 0.0000 | 0.0000 | +0.0129 |
 | `drise_no_constraints` | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
 
 Interpretation:
-- Removing layout hurts DRISE by about **5.1 F1 points overall**.
-- The biggest layout-sensitive field is `total_amount`, where mean field F1 drops from `0.6022` to `0.1768`.
+- Removing layout still hurts DRISE, though more modestly in the current `201`-document run at about **1.5 F1 points overall**.
+- The biggest layout-sensitive field is still `total_amount`, where mean field F1 drops from `0.6020` to `0.5174`.
 - Disabling constraints does not change the tracked benchmark metrics yet, which means the current constraint layer is surfacing errors and flags but is not materially changing final scored outputs on this dataset.
 
 ### Phase 8 Notes
 
-- McNemar exact-match comparisons are all `p = 1.0` in [pairwise_stats.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json) because every system scored `0.0` exact match on this split.
-- Hallucination calibration was rerun on a deterministic **18-document** sample:
-  - manual-like string check rate: `0.487805`
-  - automatic sample rate after metric recalibration: `0.439562`
-  - absolute difference: `0.048243`
-- The hallucination metric in [metrics.py](/Users/purvansh/Desktop/Projects/DRISE-experiments/src/document_intelligence_engine/evaluation/metrics.py:1) was updated so it measures text-bearing extracted values instead of serialized numeric or structured payloads, which was previously overstating DRISE hallucination.
+- McNemar exact-match comparisons are all `p = 1.0` in [pairwise_stats.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json) because every system still scored `0.0` exact match on this split.
+- Cost guardrails are active in [run_experiments.py](/Users/purvansh/Desktop/Projects/DRISE-experiments/run_experiments.py:26) and [runner.py](/Users/purvansh/Desktop/Projects/DRISE-experiments/src/document_intelligence_engine/evaluation/runner.py:11): the benchmark now fixes all major seeds and stops if cumulative LLM cost crosses `$30`.
+- The current benchmark run stayed comfortably inside the cap. Combined LLM baseline spend was about `$0.405213`, while DRISE remained near-zero cost because it runs locally.
+
+### Phase 9 Notes
+
+- Live sensitivity artifacts are available under [experiments/results/sensitivity_live/analysis.md](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/sensitivity_live/analysis.md:1).
+- On a **20-document** live sensitivity subset, `llm_only` improved from `0.191` F1 at temperature `0.0` to `0.342` at `0.7`, but schema validity fell from `1.000` to `0.800`.
+- `rag_llm` remained unstable and weak under temperature changes, reaching only `0.040` F1 at `0.7` with schema validity dropping to `0.150`.
+- Under OCR corruption, DRISE degraded more gracefully than `llm_only`: from `0.390` to `0.298` F1 between noise `0.0` and `0.2`, versus `0.191` to `0.073` for `llm_only`.
 
 ### Reproducibility
 
@@ -301,7 +305,7 @@ docker run \
 
 - The container run mounts the full `data/` directory, not just `data/annotations/`, because the experiment annotations reference source images under `data/raw/`.
 - `load_annotations()` now rebases absolute host paths when needed, so the same annotation JSONL files can be used from `/app` inside Docker.
-- The Docker assets are in place, but the end-to-end container run was not re-verified in this session after the benchmark update, so treat the command above as the intended reproducibility path rather than a re-confirmed result.
+- The Docker assets are in place, but the daemon was unavailable in this session, so the container build could not be re-verified end to end here.
 
 ---
 
