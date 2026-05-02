@@ -1,6 +1,18 @@
 {
   "llm_only_vs_rag_llm": {
     "a_only": 0,
+    "b_only": 1,
+    "statistic": 0.0,
+    "p_value": 1.0
+  },
+  "llm_only_vs_llm_only_strong": {
+    "a_only": 0,
+    "b_only": 0,
+    "statistic": 0.0,
+    "p_value": 1.0
+  },
+  "llm_only_vs_rag_llm_strong": {
+    "a_only": 0,
     "b_only": 0,
     "statistic": 0.0,
     "p_value": 1.0
@@ -23,19 +35,73 @@
     "statistic": 8.1,
     "p_value": 0.004427
   },
+  "rag_llm_vs_llm_only_strong": {
+    "a_only": 1,
+    "b_only": 0,
+    "statistic": 0.0,
+    "p_value": 1.0
+  },
+  "rag_llm_vs_rag_llm_strong": {
+    "a_only": 1,
+    "b_only": 0,
+    "statistic": 0.0,
+    "p_value": 1.0
+  },
   "rag_llm_vs_drise": {
-    "a_only": 0,
+    "a_only": 1,
     "b_only": 10,
-    "statistic": 8.1,
-    "p_value": 0.004427
+    "statistic": 5.818182,
+    "p_value": 0.015861
   },
   "rag_llm_vs_drise_no_layout": {
+    "a_only": 1,
+    "b_only": 10,
+    "statistic": 5.818182,
+    "p_value": 0.015861
+  },
+  "rag_llm_vs_drise_no_constraints": {
+    "a_only": 1,
+    "b_only": 10,
+    "statistic": 5.818182,
+    "p_value": 0.015861
+  },
+  "llm_only_strong_vs_rag_llm_strong": {
+    "a_only": 0,
+    "b_only": 0,
+    "statistic": 0.0,
+    "p_value": 1.0
+  },
+  "llm_only_strong_vs_drise": {
     "a_only": 0,
     "b_only": 10,
     "statistic": 8.1,
     "p_value": 0.004427
   },
-  "rag_llm_vs_drise_no_constraints": {
+  "llm_only_strong_vs_drise_no_layout": {
+    "a_only": 0,
+    "b_only": 10,
+    "statistic": 8.1,
+    "p_value": 0.004427
+  },
+  "llm_only_strong_vs_drise_no_constraints": {
+    "a_only": 0,
+    "b_only": 10,
+    "statistic": 8.1,
+    "p_value": 0.004427
+  },
+  "rag_llm_strong_vs_drise": {
+    "a_only": 0,
+    "b_only": 10,
+    "statistic": 8.1,
+    "p_value": 0.004427
+  },
+  "rag_llm_strong_vs_drise_no_layout": {
+    "a_only": 0,
+    "b_only": 10,
+    "statistic": 8.1,
+    "p_value": 0.004427
+  },
+  "rag_llm_strong_vs_drise_no_constraints": {
     "a_only": 0,
     "b_only": 10,
     "statistic": 8.1,

@@ -10,6 +10,12 @@ experiment:
   systems:
     - llm_only
     - rag_llm
+    - name: llm_only_strong
+      pipeline: llm_only
+      config: llm_strong
+    - name: rag_llm_strong
+      pipeline: rag_llm
+      config: llm_strong
     - drise
   llm:
     backend: nvidia
@@ -21,6 +27,11 @@ experiment:
     field_max_tokens: 128
     cache_dir: experiments/cache/llm
     max_input_tokens: 1500
+  llm_strong:
+    backend: nvidia
+    model: meta/llama-3.1-8b-instruct
+    base_url: https://integrate.api.nvidia.com/v1
+    temperature: 0.0
   retrieval:
     embedder: all-MiniLM-L6-v2
     top_k: 3

@@ -269,6 +269,44 @@ def test_build_systems_includes_drise_ablations(monkeypatch):
     assert names == ["llm_only", "rag_llm", "drise", "drise_no_layout", "drise_no_constraints"]
 
 
+def test_build_systems_supports_named_llm_config_overrides(monkeypatch):
+    class StubPipeline:
+        default_name = "stub"
+
+        def __init__(self, config):
+            self.name = config.get("name", self.default_name)
+            self.config = config
+
+    class StubLLMOnlyPipeline(StubPipeline):
+        default_name = "llm_only"
+
+    class StubRAGPipeline(StubPipeline):
+        default_name = "rag_llm"
+
+    monkeypatch.setattr("run_experiments.LLMOnlyPipeline", StubLLMOnlyPipeline)
+    monkeypatch.setattr("run_experiments.RAGLLMPipeline", StubRAGPipeline)
+
+    systems = _build_systems(
+        {
+            "systems": [
+                "llm_only",
+                {"name": "llm_only_strong", "pipeline": "llm_only", "config": "llm_strong"},
+                {"name": "rag_llm_strong", "pipeline": "rag_llm", "config": "llm_strong"},
+            ],
+            "llm": {"backend": "nvidia", "model": "meta/llama-3.2-1b-instruct"},
+            "llm_strong": {"backend": "nvidia", "model": "meta/llama-3.1-8b-instruct", "temperature": 0.0},
+            "retrieval": {"top_k": 3},
+            "output_dir": str(Path("experiments/results")),
+        }
+    )
+
+    assert [system.name for system in systems] == ["llm_only", "llm_only_strong", "rag_llm_strong"]
+    assert systems[0].config["model"] == "meta/llama-3.2-1b-instruct"
+    assert systems[1].config["model"] == "meta/llama-3.1-8b-instruct"
+    assert systems[2].config["model"] == "meta/llama-3.1-8b-instruct"
+    assert systems[2].config["top_k"] == 3
+
+
 def test_report_generates_ablation_summary_for_drise_variants(tmp_path):
     report = generate_experiment_report(
         {

@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+from unittest.mock import patch
+
 from document_intelligence_engine.llm.client import LLMClient
+from document_intelligence_engine.llm.client import _extract_json_candidate
 from document_intelligence_engine.pipelines.llm_only import LLMOnlyPipeline
 
 
@@ -69,3 +72,49 @@ def test_llm_only_pipeline_retries_after_failure(tmp_path):
     assert client.calls == 2
     assert output["extracted_fields"]["invoice_number"] == "INV-1023"
     assert output["_errors"] == ["attempt_1: temporary parse error"]
+
+
+def test_llm_client_retries_rate_limits(tmp_path):
+    class RateLimitedCompletions:
+        def __init__(self) -> None:
+            self.calls = 0
+
+        def create(self, **kwargs):
+            self.calls += 1
+            if self.calls < 3:
+                raise RuntimeError("Error code: 429 - Too Many Requests")
+
+            class Message:
+                content = '{"invoice_number":"INV-1"}'
+
+            class Choice:
+                message = Message()
+
+            class Usage:
+                prompt_tokens = 10
+                completion_tokens = 5
+
+            class Response:
+                choices = [Choice()]
+                usage = Usage()
+
+            return Response()
+
+    class StubClient:
+        def __init__(self) -> None:
+            self.chat = type("Chat", (), {"completions": RateLimitedCompletions()})()
+
+    client = LLMClient(backend="mock", model="mock-llm", cache_dir=tmp_path / "llm-cache")
+    client.backend = "nvidia"
+    client._client = StubClient()
+
+    with patch("document_intelligence_engine.llm.client.time.sleep") as sleep_mock:
+        payload = client.generate("OCR Text:\nInvoice Number: INV-1")
+
+    assert payload["text"] == '{"invoice_number":"INV-1"}'
+    assert client._client.chat.completions.calls == 3
+    assert sleep_mock.call_count == 2
+
+
+def test_extract_json_candidate_returns_none_without_closing_delimiter():
+    assert _extract_json_candidate('{"invoice_number": "INV-1"') is None

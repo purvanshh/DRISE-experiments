@@ -44,6 +44,7 @@ class RAGLLMPipeline(BasePipeline):
         retriever: DocumentRetriever | None = None,
     ) -> None:
         self.config = config or {}
+        self.name = str(self.config.get("name", self.name))
         self.target_fields = tuple(self.config.get("target_fields", FIELD_QUERIES.keys()))
         self.client = client or LLMClient(
             backend=str(self.config.get("backend", "nvidia")),

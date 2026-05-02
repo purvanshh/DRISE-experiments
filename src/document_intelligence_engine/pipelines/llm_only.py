@@ -28,6 +28,7 @@ class LLMOnlyPipeline(BasePipeline):
 
     def __init__(self, config: dict[str, Any] | None = None, client: LLMClient | None = None) -> None:
         self.config = config or {}
+        self.name = str(self.config.get("name", self.name))
         self.client = client or LLMClient(
             backend=str(self.config.get("backend", "nvidia")),
             model=str(self.config.get("model", "meta/llama-3.2-1b-instruct")),

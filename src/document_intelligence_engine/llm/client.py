@@ -6,6 +6,7 @@ import hashlib
 import json
 import os
 import re
+import time
 from pathlib import Path
 from typing import Any
 
@@ -40,6 +41,8 @@ class LLMClient:
         self.last_prompt_tokens = 0
         self.last_completion_tokens = 0
         self.last_cache_hit = False
+        self.max_api_retries = 5
+        self.retry_backoff_seconds = 0.75
         self._api_key = api_key
         self._client = self._build_client()
 
@@ -154,18 +157,28 @@ class LLMClient:
         if self.backend == "nvidia" and effective_temperature <= 0.0:
             # Some NVIDIA-hosted models reject a literal 0.0 temperature.
             effective_temperature = 0.01
-        response = self._client.chat.completions.create(
-            model=self.model,
-            temperature=effective_temperature,
-            max_tokens=max_tokens,
-            stream=False,
-            messages=[
+        request_messages = (
+            [
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": prompt},
             ]
             if system_prompt
-            else [{"role": "user", "content": prompt}],
+            else [{"role": "user", "content": prompt}]
         )
+        for attempt in range(self.max_api_retries + 1):
+            try:
+                response = self._client.chat.completions.create(
+                    model=self.model,
+                    temperature=effective_temperature,
+                    max_tokens=max_tokens,
+                    stream=False,
+                    messages=request_messages,
+                )
+                break
+            except Exception as exc:
+                if attempt >= self.max_api_retries or not _is_retryable_provider_error(exc):
+                    raise
+                time.sleep(self.retry_backoff_seconds * (2**attempt))
 
         text = response.choices[0].message.content or ""
         usage = response.usage
@@ -223,11 +236,18 @@ def _extract_json_candidate(raw_text: str) -> str | None:
     if not starts:
         return None
     start = min(starts)
-    end_candidates = [raw_text.rfind("}"), raw_text.rfind("]")]
-    end = max(candidate for candidate in end_candidates if candidate >= 0)
+    end_candidates = [candidate for candidate in (raw_text.rfind("}"), raw_text.rfind("]")) if candidate >= 0]
+    if not end_candidates:
+        return None
+    end = max(end_candidates)
     if end < start:
         return None
     return raw_text[start : end + 1]
+
+
+def _is_retryable_provider_error(exc: Exception) -> bool:
+    message = str(exc).lower()
+    return "429" in message or "too many requests" in message or "rate limit" in message
 
 
 def _estimate_tokens(text: str) -> int:

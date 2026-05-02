@@ -50,21 +50,52 @@ def _load_config(config_path: str) -> dict[str, Any]:
 
 
 def _build_systems(experiment: dict[str, Any]) -> list[Any]:
-    system_names = list(experiment.get("systems", []))
-    llm_config = dict(experiment.get("llm", {}))
-    retrieval_config = dict(experiment.get("retrieval", {}))
+    system_specs = list(experiment.get("systems", []))
     output_dir = str(experiment.get("output_dir", "experiments/results"))
 
     systems: list[Any] = []
-    if "llm_only" in system_names:
-        systems.append(LLMOnlyPipeline(llm_config))
-    if "rag_llm" in system_names:
-        systems.append(RAGLLMPipeline({**llm_config, **retrieval_config}))
-    if "drise" in system_names:
-        drise_config = {**experiment.get("drise", {}), "results_dir": output_dir, "name": "drise"}
-        systems.append(DRISEPipeline(drise_config))
-        systems.extend(_build_drise_ablations(experiment, output_dir))
+    for system_spec in system_specs:
+        pipeline_name, config = _resolve_system_config(system_spec, experiment, output_dir)
+        if pipeline_name == "llm_only":
+            systems.append(LLMOnlyPipeline(config))
+        elif pipeline_name == "rag_llm":
+            systems.append(RAGLLMPipeline(config))
+        elif pipeline_name == "drise":
+            systems.append(DRISEPipeline(config))
+            systems.extend(_build_drise_ablations(experiment, output_dir))
     return systems
+
+
+def _resolve_system_config(system_spec: Any, experiment: dict[str, Any], output_dir: str) -> tuple[str, dict[str, Any]]:
+    default_llm_config = dict(experiment.get("llm", {}))
+    default_retrieval_config = dict(experiment.get("retrieval", {}))
+
+    if isinstance(system_spec, str):
+        pipeline_name = system_spec
+        system_name = system_spec
+        config_ref = None
+        overrides: dict[str, Any] = {}
+    elif isinstance(system_spec, dict):
+        pipeline_name = str(system_spec.get("pipeline") or system_spec.get("system") or "")
+        if not pipeline_name:
+            raise ValueError("System config entries must define 'pipeline' or 'system'.")
+        system_name = str(system_spec.get("name", pipeline_name))
+        config_ref = system_spec.get("config")
+        overrides = dict(system_spec.get("overrides", {}))
+    else:
+        raise ValueError(f"Unsupported system specification: {system_spec!r}")
+
+    llm_config = dict(default_llm_config)
+    if config_ref:
+        llm_config.update(dict(experiment.get(str(config_ref), {})))
+
+    if pipeline_name == "llm_only":
+        return pipeline_name, {**llm_config, **overrides, "name": system_name}
+    if pipeline_name == "rag_llm":
+        return pipeline_name, {**llm_config, **default_retrieval_config, **overrides, "name": system_name}
+    if pipeline_name == "drise":
+        return pipeline_name, {**experiment.get("drise", {}), **overrides, "results_dir": output_dir, "name": system_name}
+    raise ValueError(f"Unsupported system name: {pipeline_name}")
 
 
 def _set_random_seeds(seed: int) -> None:
