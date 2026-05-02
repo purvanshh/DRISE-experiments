@@ -309,11 +309,13 @@ All results below are from the latest full benchmark run with the following conf
 
 | System | Field F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) | Total Cost ($) |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `llm_only` | 0.1677 | 0.0000 | 1.0000 | 0.0155 | 0.19 | 0.000368 | 0.073876 |
-| `rag_llm` | 0.0000 | 0.0000 | 0.9701 | 0.0057 | 1.27 | 0.001648 | 0.331337 |
+| `llm_only` | 0.1677 | 0.0000 | 1.0000 | 0.0155 | 0.19* | 0.000368 | 0.073876 |
+| `rag_llm` | 0.0000 | 0.0000 | 0.9701 | 0.0057 | 1.27* | 0.001648 | 0.331337 |
 | **`drise`** | **0.5812** | **0.0498** | **1.0000** | 0.0680 | 301.89 | 0.000042 | 0.008429 |
 | `drise_no_layout` | 0.5667 | 0.0498 | 1.0000 | 0.0351 | 363.07 | 0.000050 | 0.010136 |
 | `drise_no_constraints` | 0.5812 | 0.0498 | 1.0000 | 0.0680 | 396.72 | 0.000055 | 0.011087 |
+
+\* The LLM baseline latency cells are dominated by resume-mode cache hits from the benchmark harness, so they should not be interpreted as live provider round-trip latency. They are retained only as a reproducibility artifact; live LLM latency depends on provider load, network conditions, and cache state and is therefore not directly comparable to the local DRISE timings shown here.
 
 ## Results Interpretation
 
@@ -370,7 +372,8 @@ Two controlled ablations isolate the contribution of individual DRISE components
 ### Interpretation
 
 - **Layout features contribute ~1.4 F1 points** overall. The most layout-sensitive field is `total_amount`, which drops from `0.6020` to `0.5174` mean field F1 without spatial encoding.
-- **Constraints act as a diagnostic guardrail** — disabling them does not change scored extraction fields on this dataset, but collapses the `constraint_flag_rate` from `0.9900` to `0.0000`. The constraint layer is surfacing inconsistencies rather than repairing extractions.
+- **Constraints act as a diagnostic guardrail** — disabling them does not change scored extraction fields on this dataset, but collapses the `constraint_flag_rate` from `0.9900` to `0.0000`. The constraint layer is surfacing inconsistencies rather than repairing extractions. This is intentional: downstream consumers often need to decide how to handle a mismatch, so the system flags discrepancies instead of silently rewriting potentially meaningful values.
+- **The lower hallucination rate in `drise_no_layout` is not a quality win by itself** — in practice, that variant is slightly more conservative and drops or shortens more borderline extractions before scoring, which reduces the automatic grounding-flag rate even while overall field F1 declines.
 - The exact-match signal is still too sparse to distinguish DRISE from its ablations at the document level (`p = 1.0`), so the ablation analysis relies primarily on field-level metrics.
 
 ---
@@ -462,22 +465,18 @@ docker run \
 │   │   ├── core/                  # Configuration loader, structured logger, error hierarchy
 │   │   ├── domain/                # Typed Pydantic data contracts
 │   │   ├── data/                  # Annotation loading and dataset utilities
-│   │   ├── ingestion/             # File validation, PDF rasterization
-│   │   ├── preprocessing/         # Image normalization (resize, denoise, pixel norm)
-│   │   ├── ocr/                   # PaddleOCR wrapper with backend protocol
-│   │   ├── multimodal/            # LayoutLMv3 inference + CORD fine-tuning hooks
 │   │   ├── llm/                   # LLM client, prompt templates, response parsing
-│   │   ├── retrieval/             # Sentence-BERT embedder + cosine-similarity retriever
-│   │   ├── postprocessing/        # Normalization → Validation → Constraint enforcement
 │   │   ├── pipelines/             # DRISE, LLM-only, and RAG+LLM experiment pipelines
 │   │   ├── evaluation/            # Metrics, evaluator, experiment runner, report generation
+│   │   ├── multimodal/            # LayoutLMv3 inference + CORD fine-tuning hooks
+│   │   ├── retrieval/             # Sentence-BERT embedder + cosine-similarity retriever
 │   │   ├── services/              # End-to-end pipeline orchestration and model runtime
 │   │   └── testing/               # Test harness and fixtures
-│   ├── ingestion/                 # Standalone ingestion pipeline module
-│   ├── ocr/                       # Standalone OCR module
-│   ├── preprocessing/             # Standalone preprocessing module
-│   ├── postprocessing/            # Standalone post-processing module
-│   └── evaluation/                # Standalone evaluation module
+│   ├── ingestion/                 # Legacy ingestion implementation still used by API/services
+│   ├── ocr/                       # Legacy OCR implementation still used by API/services
+│   ├── preprocessing/             # Legacy image preprocessing implementation
+│   ├── postprocessing/            # Legacy normalization/validation/constraint implementation
+│   └── evaluation/                # Legacy benchmark utilities and CLI-facing analysis helpers
 ├── tests/
 │   ├── unit/                      # Unit tests
 │   ├── integration/               # Integration tests
@@ -487,8 +486,10 @@ docker run \
 ├── scripts/                       # CLI tools, benchmarking scripts, dataset converters
 ├── run_experiments.py             # Experiment harness entry point
 ├── pyproject.toml                 # Tooling configuration (ruff, black, pytest)
-└── requirements.txt               # Pinned dependencies
+└── requirements_lock.txt          # Frozen benchmark environment
 ```
+
+The split under `src/` is intentional for now: `document_intelligence_engine/` contains the newer typed orchestration and experiment framework, while the top-level `ingestion`, `ocr`, `preprocessing`, `postprocessing`, and `evaluation` packages are legacy implementation modules that are still imported by the API, scripts, and tests during the migration.
 
 ---
 
