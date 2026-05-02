@@ -17,6 +17,9 @@ from document_intelligence_engine.services.model_runtime import LayoutAwareModel
 from postprocessing.pipeline import postprocess_predictions
 
 
+REQUIRED_FIELDS = ("invoice_number", "date", "vendor", "total_amount", "line_items")
+
+
 class DRISEPipeline(BasePipeline):
     """Wrap the existing parser service behind the experiment interface."""
 
@@ -56,6 +59,7 @@ class DRISEPipeline(BasePipeline):
         )
         latency_ms = result["metadata"]["timing"].get("total") or round((time.perf_counter() - started_at) * 1000, 3)
         extracted_fields, confidences = _flatten_document(result["document"])
+        extracted_fields, confidences = _ensure_required_output_fields(extracted_fields, confidences)
         cost_usd = (float(latency_ms) / 1000.0 / 3600.0) * self._local_cost_per_hour
 
         return {
@@ -100,6 +104,7 @@ class DRISEPipeline(BasePipeline):
         latency_ms = round((time.perf_counter() - started_at) * 1000, 3)
 
         extracted_fields, confidences = _flatten_document(structured_document)
+        extracted_fields, confidences = _ensure_required_output_fields(extracted_fields, confidences)
         cost_usd = (float(latency_ms) / 1000.0 / 3600.0) * self._local_cost_per_hour
         metadata = {
             "filename": document.get("image_path") or document.get("doc_id", "document"),
@@ -180,6 +185,23 @@ def _tokens_from_ocr_text(ocr_text: str) -> list[dict[str, Any]]:
             x_offset += width + 6
         y_offset += 24
     return tokens
+
+
+def _ensure_required_output_fields(
+    extracted_fields: dict[str, Any],
+    confidences: dict[str, float],
+) -> tuple[dict[str, Any], dict[str, float]]:
+    normalized_fields = dict(extracted_fields)
+    normalized_confidences = dict(confidences)
+
+    for field_name in REQUIRED_FIELDS:
+        if field_name not in normalized_fields:
+            normalized_fields[field_name] = [] if field_name == "line_items" else None
+        if field_name == "line_items" and normalized_fields[field_name] is None:
+            normalized_fields[field_name] = []
+        normalized_confidences.setdefault(field_name, 0.0)
+
+    return normalized_fields, normalized_confidences
 
 
 def _invoke_prediction_method(

@@ -148,3 +148,34 @@ def test_drise_pipeline_can_run_from_ocr_text_without_image_path():
 
     assert output["extracted_fields"]["invoice_number"] == "INV-1023"
     assert output["metadata"]["source"] == "experiment_ocr_tokens"
+
+
+def test_drise_pipeline_backfills_required_schema_fields():
+    class StubParserService:
+        def parse_file(self, file_path, debug=False, use_layout=True, apply_constraints=True):
+            return {
+                "document": {
+                    "total_amount": {"value": 1200.5, "confidence": 0.93, "valid": True},
+                    "_errors": [],
+                    "_constraint_flags": [],
+                },
+                "metadata": {"timing": {"total": 8.5}},
+            }
+
+    pipeline = DRISEPipeline({"use_layout": False, "use_constraints": False}, parser_service=StubParserService())
+    output = pipeline.run({"doc_id": "doc-5", "image_path": "/tmp/sample.png"})
+
+    assert output["extracted_fields"] == {
+        "invoice_number": None,
+        "date": None,
+        "vendor": None,
+        "total_amount": 1200.5,
+        "line_items": [],
+    }
+    assert output["confidences"] == {
+        "invoice_number": 0.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.93,
+        "line_items": 0.0,
+    }
