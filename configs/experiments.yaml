@@ -11,12 +11,13 @@ experiment:
     - drise
   llm:
     backend: nvidia
-    model: nv-mistralai/mistral-nemo-12b-instruct
+    model: meta/llama-3.2-1b-instruct
     base_url: https://integrate.api.nvidia.com/v1
     temperature: 0.0
-    max_tokens: 512
+    max_tokens: 256
+    field_max_tokens: 128
     cache_dir: experiments/cache/llm
-    max_input_tokens: 4000
+    max_input_tokens: 1500
   retrieval:
     embedder: all-MiniLM-L6-v2
     top_k: 3

@@ -84,6 +84,8 @@ def _summarize_system(records: list[dict[str, Any]]) -> dict[str, Any]:
             field: _mean_and_std_from_values([metrics.get("field_f1", {}).get(field, 0.0) for metrics in metric_rows])
             for field in field_names
         },
+        "total_cost_usd": round(sum(float(metrics.get("cost_usd", 0.0) or 0.0) for metrics in metric_rows), 6),
+        "total_latency_ms": round(sum(float(metrics.get("latency_ms", 0.0) or 0.0) for metrics in metric_rows), 6),
         "sample_count": len(metric_rows),
     }
 
@@ -142,6 +144,8 @@ def _write_summary_csv(path: Path, summary: dict[str, Any]) -> None:
                 "hallucination_rate_mean",
                 "latency_ms_mean",
                 "cost_usd_mean",
+                "cost_usd_total",
+                "latency_ms_total",
                 "sample_count",
             ]
         )
@@ -156,6 +160,8 @@ def _write_summary_csv(path: Path, summary: dict[str, Any]) -> None:
                     metrics["hallucination_rate"]["mean"],
                     metrics["latency_ms"]["mean"],
                     metrics["cost_usd"]["mean"],
+                    metrics["total_cost_usd"],
+                    metrics["total_latency_ms"],
                     metrics["sample_count"],
                 ]
             )

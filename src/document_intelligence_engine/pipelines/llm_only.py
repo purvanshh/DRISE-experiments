@@ -28,7 +28,7 @@ class LLMOnlyPipeline(BasePipeline):
         self.config = config or {}
         self.client = client or LLMClient(
             backend=str(self.config.get("backend", "nvidia")),
-            model=str(self.config.get("model", "nv-mistralai/mistral-nemo-12b-instruct")),
+            model=str(self.config.get("model", "meta/llama-3.2-1b-instruct")),
             cache_dir=str(self.config.get("cache_dir", "experiments/cache/llm")),
             base_url=self.config.get("base_url"),
         )

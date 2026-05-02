@@ -41,7 +41,7 @@ class RAGLLMPipeline(BasePipeline):
         self.target_fields = tuple(self.config.get("target_fields", FIELD_QUERIES.keys()))
         self.client = client or LLMClient(
             backend=str(self.config.get("backend", "nvidia")),
-            model=str(self.config.get("model", "nv-mistralai/mistral-nemo-12b-instruct")),
+            model=str(self.config.get("model", "meta/llama-3.2-1b-instruct")),
             cache_dir=str(self.config.get("cache_dir", "experiments/cache/llm")),
             base_url=self.config.get("base_url"),
         )
@@ -112,6 +112,8 @@ def _derive_doc_id(ocr_text: str) -> str:
 
 def _parse_field_response(field_name: str, raw_text: str) -> Any:
     parsed = _loads_with_repair(raw_text)
+    if isinstance(parsed, dict) and field_name in parsed:
+        parsed = parsed[field_name]
     if field_name == "line_items":
         return parsed if isinstance(parsed, list) else []
     return parsed

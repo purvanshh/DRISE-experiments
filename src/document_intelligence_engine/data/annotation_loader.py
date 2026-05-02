@@ -31,13 +31,8 @@ def load_annotations(dataset_path: str | Path) -> list[ProcessedDocument]:
 
 
 def _coerce_document(record: dict[str, Any], base_dir: Path) -> ProcessedDocument:
-    image_path = str(record.get("image_path", ""))
-    if image_path and not Path(image_path).is_absolute():
-        image_path = str((base_dir / image_path).resolve())
-
-    raw_image_path = str(record.get("raw_image_path", image_path or ""))
-    if raw_image_path and not Path(raw_image_path).is_absolute():
-        raw_image_path = str((base_dir / raw_image_path).resolve())
+    image_path = _resolve_document_path(str(record.get("image_path", "")), base_dir)
+    raw_image_path = _resolve_document_path(str(record.get("raw_image_path", image_path or "")), base_dir)
 
     ocr_tokens = list(record.get("ocr_tokens", []))
     ocr_text = str(record.get("ocr_text", "")).strip()
@@ -54,6 +49,28 @@ def _coerce_document(record: dict[str, Any], base_dir: Path) -> ProcessedDocumen
         "ground_truth": _normalize_ground_truth(record.get("ground_truth")),
     }
     return document
+
+
+def _resolve_document_path(path_value: str, base_dir: Path) -> str:
+    if not path_value:
+        return ""
+
+    candidate = Path(path_value).expanduser()
+    if not candidate.is_absolute():
+        return str((base_dir / candidate).resolve())
+    if candidate.exists():
+        return str(candidate)
+
+    repo_root = base_dir.parents[1] if len(base_dir.parents) >= 2 else base_dir
+    parts = list(candidate.parts)
+    for marker in ("data", repo_root.name):
+        if marker not in parts:
+            continue
+        suffix = parts[parts.index(marker) :]
+        rebased = repo_root.joinpath(*suffix) if marker != repo_root.name else repo_root.joinpath(*suffix[1:])
+        if rebased.exists():
+            return str(rebased.resolve())
+    return str(candidate)
 
 
 def _derive_doc_id(image_path: str, ocr_text: str) -> str:

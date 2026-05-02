@@ -1,0 +1,15 @@
+.git
+.pytest_cache/
+.venv/
+__pycache__/
+*.pyc
+
+data/raw/
+experiments/cache/
+experiments/results/
+experiments/results_drise_only/
+experiments/results_phase6_7_combined/
+
+.mypy_cache/
+.ruff_cache/
+.DS_Store

@@ -4,18 +4,18 @@
     "field_level_f1_mean": 0.482219,
     "exact_match_mean": 0.0,
     "schema_valid_mean": 0.0,
-    "hallucination_rate_mean": 0.93243,
+    "hallucination_rate_mean": 0.430179,
     "delta_field_level_f1": -0.050665,
     "delta_exact_match": 0.0,
     "delta_schema_valid": 0.0,
-    "delta_hallucination_rate": 0.03759
+    "delta_hallucination_rate": 0.018145
   },
   {
     "system": "drise_no_constraints",
     "field_level_f1_mean": 0.532884,
     "exact_match_mean": 0.0,
     "schema_valid_mean": 0.0,
-    "hallucination_rate_mean": 0.89484,
+    "hallucination_rate_mean": 0.412034,
     "delta_field_level_f1": 0.0,
     "delta_exact_match": 0.0,
     "delta_schema_valid": 0.0,

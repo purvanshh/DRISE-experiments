@@ -149,9 +149,13 @@ class LLMClient:
     ) -> dict[str, Any]:
         if self._client is None:
             raise RuntimeError("LLM client is not initialized.")
+        effective_temperature = temperature
+        if self.backend == "nvidia" and effective_temperature <= 0.0:
+            # Some NVIDIA-hosted models reject a literal 0.0 temperature.
+            effective_temperature = 0.01
         response = self._client.chat.completions.create(
             model=self.model,
-            temperature=temperature,
+            temperature=effective_temperature,
             max_tokens=max_tokens,
             stream=False,
             messages=[

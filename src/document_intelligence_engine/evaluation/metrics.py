@@ -6,6 +6,7 @@ and field-level accuracy computations.
 
 from __future__ import annotations
 
+from difflib import SequenceMatcher
 from datetime import datetime
 import json
 import re
@@ -161,34 +162,56 @@ def compute_schema_validity(
 
 
 def compute_hallucination_rate(prediction: dict[str, Any], source_text: str) -> float:
-    """Measure the fraction of extracted scalar fields missing from the source text."""
+    """Measure the fraction of extracted text-bearing values missing from the source text."""
 
     normalized_source = _normalize_string(source_text)
+    normalized_lines = [line for line in (_normalize_string(line) for line in source_text.splitlines()) if line]
     checked = 0
     hallucinated = 0
 
     for field_name, value in prediction.items():
         if str(field_name).startswith("_") or value is None:
             continue
-        if isinstance(value, str) and value == "":
-            continue
-        if isinstance(value, list) and not value:
-            continue
-        if isinstance(value, list):
-            values_to_check = [_normalize_string(_serialize_line_item(item)) for item in value if item]
-        else:
-            values_to_check = [_normalize_string(_normalize_value(value))]
-
-        for candidate in values_to_check:
+        for candidate in _text_hallucination_candidates(value):
             if not candidate:
                 continue
             checked += 1
-            if candidate not in normalized_source:
+            if not _text_appears_in_source(candidate, normalized_source, normalized_lines):
                 hallucinated += 1
 
     if checked == 0:
         return 0.0
     return hallucinated / checked
+
+
+def _text_hallucination_candidates(value: Any) -> list[str]:
+    if value is None:
+        return []
+    if isinstance(value, str):
+        normalized = _normalize_string(value)
+        return [normalized] if normalized else []
+    if isinstance(value, list):
+        candidates: list[str] = []
+        for item in value:
+            candidates.extend(_text_hallucination_candidates(item))
+        return candidates
+    if isinstance(value, dict):
+        candidates: list[str] = []
+        for nested_value in value.values():
+            candidates.extend(_text_hallucination_candidates(nested_value))
+        return candidates
+    return []
+
+
+def _text_appears_in_source(candidate: str, normalized_source: str, normalized_lines: list[str]) -> bool:
+    if not candidate:
+        return True
+    if candidate in normalized_source:
+        return True
+    if len(candidate) < 5:
+        return False
+    best_ratio = max((SequenceMatcher(None, candidate, line).ratio() for line in normalized_lines), default=0.0)
+    return best_ratio >= 0.85
 
 
 def _field_f1(prediction: Any, ground_truth: Any) -> float:

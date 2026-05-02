@@ -1,8 +1,8 @@
 {
   "llm_only": {
     "field_level_f1": {
-      "mean": 0.0,
-      "std": 0.0
+      "mean": 0.353837,
+      "std": 0.307352
     },
     "exact_match": {
       "mean": 0.0,
@@ -13,29 +13,29 @@
       "std": 0.0
     },
     "hallucination_rate": {
-      "mean": 0.0,
-      "std": 0.0
+      "mean": 0.037845,
+      "std": 0.140221
     },
     "latency_ms": {
-      "mean": 157.000033,
-      "std": 47.44936
+      "mean": 892.127536,
+      "std": 305.197704
     },
     "cost_usd": {
-      "mean": 0.0,
-      "std": 0.0
+      "mean": 0.000281,
+      "std": 0.000174
     },
     "field_f1_breakdown": {
       "date": {
-        "mean": 0.828729,
-        "std": 0.376745
+        "mean": 0.826888,
+        "std": 0.373445
       },
       "invoice_number": {
         "mean": 1.0,
         "std": 0.0
       },
       "line_items": {
-        "mean": 0.19337,
-        "std": 0.394941
+        "mean": 0.404904,
+        "std": 0.34013
       },
       "total_amount": {
         "mean": 0.0,
@@ -46,55 +46,59 @@
         "std": 0.267143
       }
     },
+    "total_cost_usd": 0.050837,
+    "total_latency_ms": 161475.084,
     "sample_count": 181
   },
   "rag_llm": {
     "field_level_f1": {
-      "mean": 0.0,
-      "std": 0.0
+      "mean": 0.185976,
+      "std": 0.221441
     },
     "exact_match": {
       "mean": 0.0,
       "std": 0.0
     },
     "schema_valid": {
-      "mean": 1.0,
-      "std": 0.0
+      "mean": 0.729282,
+      "std": 0.444331
     },
     "hallucination_rate": {
-      "mean": 0.0,
-      "std": 0.0
+      "mean": 0.182201,
+      "std": 0.246725
     },
     "latency_ms": {
-      "mean": 266.896624,
-      "std": 48.153346
+      "mean": 2951.763536,
+      "std": 1102.519662
     },
     "cost_usd": {
-      "mean": 0.0,
-      "std": 0.0
+      "mean": 0.001311,
+      "std": 0.000524
     },
     "field_f1_breakdown": {
       "date": {
-        "mean": 0.828729,
-        "std": 0.376745
+        "mean": 0.472069,
+        "std": 0.492894
       },
       "invoice_number": {
-        "mean": 1.0,
-        "std": 0.0
+        "mean": 0.779006,
+        "std": 0.414917
       },
       "line_items": {
-        "mean": 0.19337,
-        "std": 0.394941
+        "mean": 0.275822,
+        "std": 0.330533
       },
       "total_amount": {
-        "mean": 0.0,
-        "std": 0.0
+        "mean": 0.141805,
+        "std": 0.347086
       },
       "vendor": {
-        "mean": 0.922652,
-        "std": 0.267143
+        "mean": 0.243094,
+        "std": 0.428951
       }
     },
+    "total_cost_usd": 0.237229,
+    "total_latency_ms": 534269.2,
     "sample_count": 181
   },
   "drise": {
@@ -111,16 +115,16 @@
       "std": 0.0
     },
     "hallucination_rate": {
-      "mean": 0.89484,
-      "std": 0.149515
+      "mean": 0.412034,
+      "std": 0.36006
     },
     "latency_ms": {
-      "mean": 356.048193,
-      "std": 49.004166
+      "mean": 337.240232,
+      "std": 43.9254
     },
     "cost_usd": {
-      "mean": 4.9e-05,
-      "std": 7e-06
+      "mean": 4.7e-05,
+      "std": 6e-06
     },
     "field_f1_breakdown": {
       "date": {
@@ -144,6 +148,8 @@
         "std": 0.273257
       }
     },
+    "total_cost_usd": 0.008482,
+    "total_latency_ms": 61040.482,
     "sample_count": 181
   },
   "drise_no_layout": {
@@ -160,12 +166,12 @@
       "std": 0.0
     },
     "hallucination_rate": {
-      "mean": 0.93243,
-      "std": 0.121328
+      "mean": 0.430179,
+      "std": 0.371078
     },
     "latency_ms": {
-      "mean": 4.205641,
-      "std": 0.954087
+      "mean": 3.768641,
+      "std": 0.598095
     },
     "cost_usd": {
       "mean": 1e-06,
@@ -193,6 +199,8 @@
         "std": 0.273257
       }
     },
+    "total_cost_usd": 0.000116,
+    "total_latency_ms": 682.124,
     "sample_count": 181
   },
   "drise_no_constraints": {
@@ -209,16 +217,16 @@
       "std": 0.0
     },
     "hallucination_rate": {
-      "mean": 0.89484,
-      "std": 0.149515
+      "mean": 0.412034,
+      "std": 0.36006
     },
     "latency_ms": {
-      "mean": 615.246862,
-      "std": 170.530504
+      "mean": 371.97937,
+      "std": 31.589262
     },
     "cost_usd": {
-      "mean": 8.5e-05,
-      "std": 2.4e-05
+      "mean": 5.2e-05,
+      "std": 4e-06
     },
     "field_f1_breakdown": {
       "date": {
@@ -242,6 +250,8 @@
         "std": 0.273257
       }
     },
+    "total_cost_usd": 0.009355,
+    "total_latency_ms": 67328.266,
     "sample_count": 181
   }
 }

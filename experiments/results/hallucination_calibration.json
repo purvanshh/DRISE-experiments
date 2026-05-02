@@ -1,0 +1,2134 @@
+[
+  {
+    "doc_id": "funsd_train_14",
+    "field": "line_items[0].description",
+    "extracted": "James R. Langevin Secretary of State Room State House",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_14",
+    "field": "line_items[1].description",
+    "extracted": "Monthly Providence, Rhode Island",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_14",
+    "field": "line_items[2].description",
+    "extracted": "Due the st Monday of the month during the legislative session to report the previous months' activity.",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_14",
+    "field": "line_items[3].description",
+    "extracted": "Note: Other (please -- explain):",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_14",
+    "field": "line_items[4].description",
+    "extracted": "During this reporting period, have you made any expenditure or incurred any obligation of $ or",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "vat",
+    "extracted": "49,170",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[0].description",
+    "extracted": "SAMGYOPSAL",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[1].description",
+    "extracted": "OGYOPSAL",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[2].description",
+    "extracted": "YUKHWE",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[3].description",
+    "extracted": "RICE",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[4].description",
+    "extracted": "JABCHAE BEEF",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[5].description",
+    "extracted": "OCHA DINGIN",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[6].description",
+    "extracted": "SUNDUBU",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[7].description",
+    "extracted": "VAT",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_230",
+    "field": "line_items[8].description",
+    "extracted": "Discount",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_44",
+    "field": "line_items[0].description",
+    "extracted": "Combo .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_44",
+    "field": "line_items[1].description",
+    "extracted": ".",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_445",
+    "field": "line_items[0].description",
+    "extracted": "ALMOND SUGAR MILK BREAD",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_445",
+    "field": "line_items[1].description",
+    "extracted": "POTATO SAUSAGE BREAD",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_445",
+    "field": "line_items[2].description",
+    "extracted": "Incl, Pb %",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_370",
+    "field": "line_items[0].description",
+    "extracted": "CKM OR",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_370",
+    "field": "line_items[1].description",
+    "extracted": "Sundae",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_370",
+    "field": "line_items[2].description",
+    "extracted": "P.Rest %",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_370",
+    "field": "line_items[3].description",
+    "extracted": "Kembali",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_370",
+    "field": "line_items[4].description",
+    "extracted": "Items,",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_347",
+    "field": "line_items[0].description",
+    "extracted": "Lumpia Klt Tahu ()",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_347",
+    "field": "line_items[1].description",
+    "extracted": "XLB SM Udang Kptg&Aym() & Aym ()",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_347",
+    "field": "line_items[2].description",
+    "extracted": "Brokoli Bwg Putih",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_347",
+    "field": "line_items[3].description",
+    "extracted": "Mie The Roselle Sup WT (U & A)",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_347",
+    "field": "line_items[4].description",
+    "extracted": "PB Service %",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_347",
+    "field": "line_items[5].description",
+    "extracted": "CIMB VISA",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_250",
+    "field": "line_items[0].description",
+    "extracted": "RTD Madu Aloevera",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_250",
+    "field": "line_items[1].description",
+    "extracted": "Tunai",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_250",
+    "field": "line_items[2].description",
+    "extracted": "Kembalian",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_208",
+    "field": "line_items[0].description",
+    "extracted": "TROPICAL PUNCH",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_208",
+    "field": "line_items[1].description",
+    "extracted": "SOUP %",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_208",
+    "field": "line_items[2].description",
+    "extracted": "SALAD BAR %",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "company",
+    "extracted": "WINSTON",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[0].description",
+    "extracted": "FIRST UNION Fax Cover Sheet",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[1].description",
+    "extracted": "BOULEVARD MAMI TRIAL SITE, MIAMI, FLORIDA FINANCIAL CENTER, SOUTH BISCAYNE",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[2].description",
+    "extracted": "FAX: ()",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[3].description",
+    "extracted": "NEWYORK PARK NY AVENUE WASHWINGTON L. STREET DC N CHICAGO. WEST IL WACKER AVENUE PARIS, VICTOR FRANCE HUGO",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[4].description",
+    "extracted": "Fax Number:",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[5].description",
+    "extracted": "/",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[6].description",
+    "extracted": "John Mulderig Philip Morris",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[7].description",
+    "extracted": "Gregory Little Philip Morris",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[8].description",
+    "extracted": "YOU.",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_train_6",
+    "field": "line_items[9].description",
+    "extracted": "use The of the information individual contained or entity named in this above. facsimile If message the reader is of attorncy this message privileged is not and the confidential intended recipient, information or the intended employee only or for agent the",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_validation_9",
+    "field": "line_items[0].description",
+    "extracted": "Tahu Ikan Oma Giok",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_151",
+    "field": "line_items[0].description",
+    "extracted": ". Rp. .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_151",
+    "field": "line_items[1].description",
+    "extracted": "ITEMS Q",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "date",
+    "extracted": "1988-04-01",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "vendor",
+    "extracted": "VENDOR STATIONARY PLEASE FOR INCLUDE PURCHASING ONLY DEPARTMENT ONE TYPE OF MATERIAL ON THIS REQUISITION 1988",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[0].description",
+    "extracted": "VENDOR STATIONARY PLEASE FOR INCLUDE PURCHASING ONLY DEPARTMENT ONE TYPE OF MATERIAL ON THIS REQUISITION",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[1].description",
+    "extracted": "Piedmont Research Laboratory Patterson USE ONLY Ave., Greensboro, NC ORDER NO",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[2].description",
+    "extracted": "TERMS NET F. O. B. N/A VIA N/A Prev. or Recommended Supplier",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[3].description",
+    "extracted": "English St., Greensboro, NC",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[4].description",
+    "extracted": "period April , through December , . Condensate will be",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[5].description",
+    "extracted": "$, /, cigarettes smoked. Piedmont will pay the cost of",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[6].description",
+    "extracted": "with the December , formal agreement between Piedmont Reseach",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "funsd_test_40",
+    "field": "line_items[7].description",
+    "extracted": "Mr. Neil Thaggard ()",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 0.0,
+        "vendor": 0.0,
+        "total_amount": 0.0,
+        "line_items": 1.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_7",
+    "field": "line_items[0].description",
+    "extracted": "PKT AYAM",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_7",
+    "field": "line_items[1].description",
+    "extracted": "ITEMS",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_84",
+    "field": "line_items[0].description",
+    "extracted": "@ . .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_84",
+    "field": "line_items[1].description",
+    "extracted": "@ . .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_84",
+    "field": "line_items[2].description",
+    "extracted": "Other Rp .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_73",
+    "field": "line_items[0].description",
+    "extracted": "Choco Bun",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_73",
+    "field": "line_items[1].description",
+    "extracted": ". x .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_73",
+    "field": "line_items[2].description",
+    "extracted": "Plastic Bag Small",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_73",
+    "field": "line_items[3].description",
+    "extracted": ".",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_test_73",
+    "field": "line_items[4].description",
+    "extracted": "Tendered: .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_166",
+    "field": "line_items[0].description",
+    "extracted": "@",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_166",
+    "field": "line_items[1].description",
+    "extracted": "TT",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_342",
+    "field": "line_items[0].description",
+    "extracted": "Choco Bun",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_342",
+    "field": "line_items[1].description",
+    "extracted": ". x .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_342",
+    "field": "line_items[2].description",
+    "extracted": "Maple glazed",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_342",
+    "field": "line_items[3].description",
+    "extracted": ". x .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_342",
+    "field": "line_items[4].description",
+    "extracted": "Plastic Bag Medium",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_342",
+    "field": "line_items[5].description",
+    "extracted": "Tendered: .",
+    "in_ocr": false,
+    "note": "not found by exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_35",
+    "field": "line_items[0].description",
+    "extracted": "Cuka Apel Moringa",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_35",
+    "field": "line_items[1].description",
+    "extracted": "Tunai",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  },
+  {
+    "doc_id": "cord_train_35",
+    "field": "line_items[2].description",
+    "extracted": "Kembalian",
+    "in_ocr": true,
+    "note": "exact substring match",
+    "metrics": {
+      "field_f1": {
+        "invoice_number": 1.0,
+        "date": 1.0,
+        "vendor": 1.0,
+        "total_amount": 0.0,
+        "line_items": 0.0
+      },
+      "field_level_f1": 0.0,
+      "exact_match": 0.0,
+      "schema_valid": 0.0,
+      "hallucination_rate": 0.0,
+      "latency_ms": 0.0,
+      "cost_usd": 0.0,
+      "errors": [
+        "unknown error"
+      ],
+      "constraint_flags": []
+    }
+  }
+]

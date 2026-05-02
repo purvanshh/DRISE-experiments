@@ -1,6 +1,6 @@
-system,field_level_f1_mean,field_level_f1_std,exact_match_mean,schema_valid_mean,hallucination_rate_mean,latency_ms_mean,cost_usd_mean,sample_count
-llm_only,0.0,0.0,0.0,1.0,0.0,157.000033,0.0,181
-rag_llm,0.0,0.0,0.0,1.0,0.0,266.896624,0.0,181
-drise,0.532884,0.29932,0.0,0.0,0.89484,356.048193,4.9e-05,181
-drise_no_layout,0.482219,0.276869,0.0,0.0,0.93243,4.205641,1e-06,181
-drise_no_constraints,0.532884,0.29932,0.0,0.0,0.89484,615.246862,8.5e-05,181
+system,field_level_f1_mean,field_level_f1_std,exact_match_mean,schema_valid_mean,hallucination_rate_mean,latency_ms_mean,cost_usd_mean,cost_usd_total,latency_ms_total,sample_count
+llm_only,0.353837,0.307352,0.0,1.0,0.037845,892.127536,0.000281,0.050837,161475.084,181
+rag_llm,0.185976,0.221441,0.0,0.729282,0.182201,2951.763536,0.001311,0.237229,534269.2,181
+drise,0.532884,0.29932,0.0,0.0,0.412034,337.240232,4.7e-05,0.008482,61040.482,181
+drise_no_layout,0.482219,0.276869,0.0,0.0,0.430179,3.768641,1e-06,0.000116,682.124,181
+drise_no_constraints,0.532884,0.29932,0.0,0.0,0.412034,371.97937,5.2e-05,0.009355,67328.266,181
