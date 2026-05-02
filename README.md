@@ -224,28 +224,36 @@ This is the component that makes the system suitable for production rather than 
 
 ### Latest Experiment Results
 
-The table below is generated from the latest real harness run on **May 1, 2026** against the current sample test split in [data/annotations/test.jsonl](/Users/purvansh/Desktop/Projects/DRISE-experiments/data/annotations/test.jsonl:1) with **N=2** documents. These are not target values or placeholders.
+The table below is generated from the latest full harness run on **May 2, 2026** against [data/annotations/test.jsonl](/Users/purvansh/Desktop/Projects/DRISE-experiments/data/annotations/test.jsonl:1) with **N=181** documents.
 
-| System | Field-level F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) |
-|---|---:|---:|---:|---:|---:|---:|
-| `llm_only` | 1.000 | 1.000 | 1.000 | 0.100 | 0.268 | 0.0000 |
-| `rag_llm` | 1.000 | 1.000 | 1.000 | 0.100 | 1.319 | 0.0000 |
-| `drise` | 0.311 | 0.000 | 0.000 | 0.000 | 1.302 | 0.0000 |
-| `drise_no_layout` | 0.311 | 0.000 | 0.000 | 0.000 | 0.597 | 0.0000 |
-| `drise_no_constraints` | 0.311 | 0.000 | 0.000 | 0.000 | 0.480 | 0.0000 |
+Run configuration used for these numbers:
+- `llm_only` and `rag_llm`: NVIDIA backend with `meta/llama-3.2-1b-instruct`
+- `drise`: real LayoutLMv3 inference via published checkpoint `jinhybr/OCR-LayoutLMv3-Invoice`
+- local fine-tuned artifact under `experiments/artifacts/cord_finetuned/` was incomplete, so the published checkpoint was used instead
+
+| System | Field-level F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) | Total Cost ($) |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `llm_only` | 0.3538 | 0.0000 | 1.0000 | 0.0378 | 892.13 | 0.000281 | 0.050837 |
+| `rag_llm` | 0.1860 | 0.0000 | 0.7293 | 0.1822 | 2951.76 | 0.001311 | 0.237229 |
+| `drise` | 0.5329 | 0.0000 | 0.0000 | 0.4120 | 337.24 | 0.000047 | 0.008482 |
+| `drise_no_layout` | 0.4822 | 0.0000 | 0.0000 | 0.4302 | 3.77 | 0.000001 | 0.000116 |
+| `drise_no_constraints` | 0.5329 | 0.0000 | 0.0000 | 0.4120 | 371.98 | 0.000052 | 0.009355 |
 
 ### What These Scores Mean
 
-- This run does **not** validate the PRD hypothesis yet. On the current two-document sample split, the mock-backed `llm_only` and `rag_llm` baselines outperform the current offline DRISE experiment wrapper.
-- The DRISE numbers here were produced with the experiment harness using dataset OCR text/tokens and a **heuristic fallback** because the LayoutLMv3 checkpoint was not available offline in this environment.
-- `drise_no_layout` matches `drise` in this run because both resolve to the same heuristic fallback path under the current offline model state.
-- McNemar comparisons are not statistically meaningful yet on `N=2`; for example, `llm_only` vs `drise` produced `p = 0.4795`.
+- DRISE now leads the benchmark on **field-level F1**: `0.5329` vs `0.3538` for `llm_only` and `0.1860` for `rag_llm`.
+- DRISE is also the cheapest real system in this run: `0.000047` estimated cost per document vs `0.000281` for `llm_only` and `0.001311` for `rag_llm`.
+- The PRD success targets are still **not met**. Exact match is `0.0` for every system in this benchmark, so the statistical test on exact-match correctness is uninformative.
+- `schema_valid` is still weak for DRISE because the current wrapper frequently omits required fields such as `date` or `invoice_number` after confidence filtering. By contrast, `llm_only` often emits schema-shaped JSON even when the values are wrong.
+- `rag_llm` underperforms `llm_only` in this setup because the per-field retrieval path is slower, more expensive, and frequently returns weak single-field outputs for vendor and total.
 
 ### Exported Artifacts
 
 - Summary table: [summary.csv](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/summary.csv)
 - Ablation deltas: [ablation_summary.csv](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/ablation_summary.csv)
 - Pairwise stats: [pairwise_stats.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json)
+- Hallucination calibration sample: [hallucination_calibration.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/hallucination_calibration.json)
+- Hallucination calibration summary: [hallucination_calibration_summary.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/hallucination_calibration_summary.json)
 - Markdown snapshot: [README_EXPERIMENTS.md](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/README_EXPERIMENTS.md)
 
 ### Ablation Experiments
@@ -257,10 +265,43 @@ The table below is generated from the latest real harness run on **May 1, 2026**
 
 Current ablation deltas from the latest run:
 
-| Variant | Delta F1 vs `drise` | Delta Exact Match vs `drise` | Delta Schema Valid vs `drise` |
-|---|---:|---:|---:|
-| `drise_no_layout` | 0.000 | 0.000 | 0.000 |
-| `drise_no_constraints` | 0.000 | 0.000 | 0.000 |
+| Variant | Delta F1 vs `drise` | Delta Exact Match vs `drise` | Delta Schema Valid vs `drise` | Delta Hallucination vs `drise` |
+|---|---:|---:|---:|---:|
+| `drise_no_layout` | -0.0507 | 0.0000 | 0.0000 | +0.0181 |
+| `drise_no_constraints` | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
+
+Interpretation:
+- Removing layout hurts DRISE by about **5.1 F1 points overall**.
+- The biggest layout-sensitive field is `total_amount`, where mean field F1 drops from `0.6022` to `0.1768`.
+- Disabling constraints does not change the tracked benchmark metrics yet, which means the current constraint layer is surfacing errors and flags but is not materially changing final scored outputs on this dataset.
+
+### Phase 8 Notes
+
+- McNemar exact-match comparisons are all `p = 1.0` in [pairwise_stats.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json) because every system scored `0.0` exact match on this split.
+- Hallucination calibration was rerun on a deterministic **18-document** sample:
+  - manual-like string check rate: `0.487805`
+  - automatic sample rate after metric recalibration: `0.439562`
+  - absolute difference: `0.048243`
+- The hallucination metric in [metrics.py](/Users/purvansh/Desktop/Projects/DRISE-experiments/src/document_intelligence_engine/evaluation/metrics.py:1) was updated so it measures text-bearing extracted values instead of serialized numeric or structured payloads, which was previously overstating DRISE hallucination.
+
+### Reproducibility
+
+- Exact environment snapshot: [requirements_lock.txt](/Users/purvansh/Desktop/Projects/DRISE-experiments/requirements_lock.txt)
+- Benchmark container files: [Dockerfile](/Users/purvansh/Desktop/Projects/DRISE-experiments/Dockerfile) and [.dockerignore](/Users/purvansh/Desktop/Projects/DRISE-experiments/.dockerignore)
+- Containerized benchmark command:
+
+```bash
+docker build -t drise-benchmark .
+docker run \
+  -e NVIDIA_API_KEY=$NVIDIA_API_KEY \
+  -v "$(pwd)/data:/app/data" \
+  -v "$(pwd)/experiments:/app/experiments" \
+  drise-benchmark
+```
+
+- The container run mounts the full `data/` directory, not just `data/annotations/`, because the experiment annotations reference source images under `data/raw/`.
+- `load_annotations()` now rebases absolute host paths when needed, so the same annotation JSONL files can be used from `/app` inside Docker.
+- The Docker assets are in place, but the end-to-end container run was not re-verified in this session after the benchmark update, so treat the command above as the intended reproducibility path rather than a re-confirmed result.
 
 ---
 
