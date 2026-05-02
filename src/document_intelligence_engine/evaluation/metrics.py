@@ -13,6 +13,7 @@ import re
 from collections import Counter
 from typing import Any
 
+from jsonschema import Draft202012Validator, FormatChecker
 from seqeval.metrics import (
     classification_report,
     f1_score,
@@ -144,21 +145,12 @@ def compute_field_level_f1(
 
 def compute_schema_validity(
     prediction: dict[str, Any],
-    schema: dict[str, type | tuple[type, ...]],
+    schema: dict[str, Any],
 ) -> float:
-    """Return 1.0 when the prediction matches required field presence and types."""
+    """Return 1.0 when the prediction passes JSON Schema validation."""
 
-    for field_name, expected_type in schema.items():
-        if field_name not in prediction:
-            return 0.0
-        value = prediction[field_name]
-        if value is None:
-            continue
-        if not isinstance(value, expected_type):
-            return 0.0
-        if field_name == "line_items" and any(not isinstance(item, dict) for item in value):
-            return 0.0
-    return 1.0
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
+    return 1.0 if validator.is_valid(prediction) else 0.0
 
 
 def compute_hallucination_rate(prediction: dict[str, Any], source_text: str) -> float:

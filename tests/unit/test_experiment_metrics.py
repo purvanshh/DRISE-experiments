@@ -8,6 +8,7 @@ from document_intelligence_engine.evaluation.metrics import (
     compute_hallucination_rate,
     compute_schema_validity,
 )
+from document_intelligence_engine.evaluation.schema import EXTRACTION_SCHEMA
 from document_intelligence_engine.evaluation.stats import mcnemar_test
 
 
@@ -59,15 +60,7 @@ def test_experiment_metrics_schema_and_hallucination():
         "total_amount": 1000.0,
         "line_items": [],
     }
-    schema = {
-        "invoice_number": str,
-        "date": str,
-        "vendor": str,
-        "total_amount": (int, float),
-        "line_items": list,
-    }
-
-    assert compute_schema_validity(prediction, schema) == 1.0
+    assert compute_schema_validity(prediction, EXTRACTION_SCHEMA) == 1.0
     assert compute_hallucination_rate(prediction, "Invoice Number: INV-404\nDate: 2025-01-12\nTotal: 1000.00") > 0.0
 
 
@@ -79,15 +72,19 @@ def test_experiment_metrics_schema_rejects_non_dict_line_items():
         "total_amount": 1000.0,
         "line_items": ["bad-item"],
     }
-    schema = {
-        "invoice_number": str,
-        "date": str,
-        "vendor": str,
-        "total_amount": (int, float),
-        "line_items": list,
+    assert compute_schema_validity(prediction, EXTRACTION_SCHEMA) == 0.0
+
+
+def test_experiment_metrics_schema_rejects_invalid_date_format():
+    prediction = {
+        "invoice_number": "INV-404",
+        "date": "01/12/2025",
+        "vendor": "Ghost Corp",
+        "total_amount": 1000.0,
+        "line_items": [],
     }
 
-    assert compute_schema_validity(prediction, schema) == 0.0
+    assert compute_schema_validity(prediction, EXTRACTION_SCHEMA) == 0.0
 
 
 def test_evaluator_returns_document_metrics():

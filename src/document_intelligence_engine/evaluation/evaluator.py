@@ -7,15 +7,7 @@ from typing import Any
 from document_intelligence_engine.domain.experiment_models import ExtractionOutput
 
 from . import metrics
-
-
-DEFAULT_SCHEMA = {
-    "invoice_number": str,
-    "date": str,
-    "vendor": str,
-    "total_amount": (int, float),
-    "line_items": list,
-}
+from .schema import EXTRACTION_SCHEMA
 
 
 class Evaluator:
@@ -25,10 +17,10 @@ class Evaluator:
         self,
         *,
         fields: list[str] | None = None,
-        schema: dict[str, type | tuple[type, ...]] | None = None,
+        schema: dict[str, Any] | None = None,
     ) -> None:
         self.fields = fields or list(metrics.DEFAULT_FIELDS)
-        self.schema = schema or DEFAULT_SCHEMA
+        self.schema = schema or EXTRACTION_SCHEMA
 
     def evaluate(
         self,
