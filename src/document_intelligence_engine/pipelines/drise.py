@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import time
 from pathlib import Path
+import re
 from typing import Any
 
 from PIL import Image
@@ -81,6 +82,8 @@ class DRISEPipeline(BasePipeline):
         use_layout = bool(self.config.get("use_layout", True))
         apply_constraints = bool(self.config.get("use_constraints", True))
         repair_constraints = bool(self.config.get("repair_constraints", apply_constraints))
+        min_field_confidence = self.config.get("min_field_confidence")
+        drop_low_confidence = bool(self.config.get("drop_low_confidence", False))
         model_service = self._parser_service.model_service
         page_image = _load_page_image(document.get("image_path"))
         ocr_metadata = dict(document.get("ocr_metadata", {}))
@@ -101,11 +104,14 @@ class DRISEPipeline(BasePipeline):
             apply_constraints=apply_constraints,
             repair_constraints=repair_constraints,
             ocr_tokens=ocr_tokens,
+            min_field_confidence_override=float(min_field_confidence) if min_field_confidence is not None else None,
+            drop_below_threshold_override=drop_low_confidence,
         )
         postprocessing_duration_ms = round((time.perf_counter() - postprocessing_started_at) * 1000, 3)
         latency_ms = round((time.perf_counter() - started_at) * 1000, 3)
 
         extracted_fields, confidences = _flatten_document(structured_document)
+        refinement_flags = _apply_experiment_refinements(extracted_fields, confidences, ocr_tokens)
         extracted_fields, confidences = _ensure_required_output_fields(extracted_fields, confidences)
         cost_usd = (float(latency_ms) / 1000.0 / 3600.0) * self._local_cost_per_hour
         metadata = {
@@ -136,11 +142,13 @@ class DRISEPipeline(BasePipeline):
             "source": str(ocr_metadata.get("source", "experiment_ocr_tokens")),
             "ocr": ocr_metadata,
         }
+        if refinement_flags:
+            metadata.setdefault("warnings", []).extend(refinement_flags)
 
         return {
             "extracted_fields": extracted_fields,
             "confidences": confidences,
-            "_constraint_flags": list(structured_document.get("_constraint_flags", [])),
+            "_constraint_flags": list(structured_document.get("_constraint_flags", [])) + refinement_flags,
             "_errors": [str(error) for error in structured_document.get("_errors", [])],
             "latency_ms": float(latency_ms),
             "cost_usd": round(cost_usd, 6),
@@ -204,6 +212,53 @@ def _ensure_required_output_fields(
         normalized_confidences.setdefault(field_name, 0.0)
 
     return normalized_fields, normalized_confidences
+
+
+def _apply_experiment_refinements(
+    extracted_fields: dict[str, Any],
+    confidences: dict[str, float],
+    ocr_tokens: list[dict[str, Any]],
+) -> list[str]:
+    flags: list[str] = []
+    line_items = extracted_fields.get("line_items")
+    if _should_suppress_line_items(line_items, ocr_tokens):
+        extracted_fields["line_items"] = []
+        confidences["line_items"] = min(float(confidences.get("line_items", 0.0)), 0.35)
+        flags.append("suppressed_line_items_non_receipt")
+    return flags
+
+
+def _should_suppress_line_items(line_items: Any, ocr_tokens: list[dict[str, Any]]) -> bool:
+    if not isinstance(line_items, list) or not line_items:
+        return False
+    if _looks_receipt_like(ocr_tokens):
+        return False
+    descriptions = [
+        str(item.get("description", "")).strip()
+        for item in line_items
+        if isinstance(item, dict) and str(item.get("description", "")).strip()
+    ]
+    if not descriptions:
+        return False
+    long_descriptions = [
+        description
+        for description in descriptions
+        if len(description.split()) >= 6 or len(description) >= 40
+    ]
+    quantity_missing = all(
+        not isinstance(item, dict) or item.get("quantity") in (None, "")
+        for item in line_items
+    )
+    return quantity_missing and len(long_descriptions) >= max(1, len(descriptions) // 2)
+
+
+def _looks_receipt_like(ocr_tokens: list[dict[str, Any]]) -> bool:
+    if not ocr_tokens:
+        return False
+    joined = " ".join(str(token.get("text", "")) for token in ocr_tokens).lower()
+    keyword_hits = sum(1 for keyword in ("subtotal", "total", "tax", "cash", "change", "qty", "items") if keyword in joined)
+    amount_hits = len(re.findall(r"\d{1,3}(?:[.,]\d{3})+(?:[.,]\d{2})?|\d+\.\d{2}", joined))
+    return keyword_hits >= 2 and amount_hits >= 3
 
 
 def _invoke_prediction_method(

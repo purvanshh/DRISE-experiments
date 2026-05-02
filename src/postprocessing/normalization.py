@@ -125,10 +125,8 @@ def normalize_currency(value: str) -> float | None:
     candidate = cleanup_text(value)
     negative = candidate.startswith("(") and candidate.endswith(")")
     candidate = candidate.strip("()")
-    candidate = re.sub(r"[^0-9.\-]", "", candidate)
-    if candidate.count(".") > 1:
-        head, *tail = candidate.split(".")
-        candidate = head + "." + "".join(tail)
+    candidate = re.sub(r"[^0-9,.\-]", "", candidate)
+    candidate = _normalize_numeric_separators(candidate)
     if not candidate:
         return None
     try:
@@ -152,6 +150,40 @@ def _normalize_list_value(items: list[Any]) -> list[Any]:
                 normalized_item[key] = cleanup_text(str(value)) if value not in (None, "") else value
         normalized_items.append(normalized_item)
     return normalized_items
+
+
+def _normalize_numeric_separators(candidate: str) -> str:
+    if not candidate:
+        return candidate
+    if "," in candidate and "." in candidate:
+        if candidate.rfind(",") > candidate.rfind("."):
+            return candidate.replace(".", "").replace(",", ".")
+        return candidate.replace(",", "")
+    if "." in candidate:
+        if _looks_like_thousands_separated(candidate, "."):
+            return candidate.replace(".", "")
+        if candidate.count(".") > 1:
+            head, *tail = candidate.split(".")
+            return head + "." + "".join(tail)
+        return candidate
+    if "," in candidate:
+        if _looks_like_thousands_separated(candidate, ","):
+            return candidate.replace(",", "")
+        if candidate.count(",") == 1:
+            return candidate.replace(",", ".")
+        head, *tail = candidate.split(",")
+        return head + "." + "".join(tail)
+    return candidate
+
+
+def _looks_like_thousands_separated(candidate: str, separator: str) -> bool:
+    unsigned = candidate.lstrip("-")
+    parts = unsigned.split(separator)
+    if len(parts) < 2:
+        return False
+    if not parts[0] or len(parts[0]) > 3:
+        return False
+    return all(part.isdigit() and len(part) == 3 for part in parts[1:])
 
 
 def _numeric_context(value: str, index: int) -> bool:

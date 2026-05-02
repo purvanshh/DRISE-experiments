@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from document_intelligence_engine.pipelines.drise import DRISEPipeline
+from document_intelligence_engine.pipelines.drise import DRISEPipeline, _should_suppress_line_items
 from document_intelligence_engine.pipelines.llm_only import LLMOnlyPipeline
 from document_intelligence_engine.pipelines.rag_llm import RAGLLMPipeline
 
@@ -148,6 +148,49 @@ def test_drise_pipeline_can_run_from_ocr_text_without_image_path():
 
     assert output["extracted_fields"]["invoice_number"] == "INV-1023"
     assert output["metadata"]["source"] == "experiment_ocr_tokens"
+
+
+def test_drise_pipeline_retains_low_confidence_fields_when_configured():
+    class StubModelService:
+        name = "heuristic"
+        version = "0.1.0"
+        device = "cpu"
+
+        def predict(self, ocr_tokens, page_image=None):
+            return [
+                {"text": "Date", "label": "B-KEY", "confidence": 0.55},
+                {"text": "2025-01-12", "label": "B-VALUE", "confidence": 0.55},
+            ]
+
+        def predict_text_only(self, ocr_tokens):
+            return self.predict(ocr_tokens)
+
+    class StubParserService:
+        model_service = StubModelService()
+
+    pipeline = DRISEPipeline({"drop_low_confidence": False}, parser_service=StubParserService())
+    output = pipeline.run({"doc_id": "doc-low-confidence", "ocr_text": "Date 2025-01-12"})
+
+    assert output["extracted_fields"]["date"] == "2025-01-12"
+    assert output["confidences"]["date"] == 0.55
+
+
+def test_drise_pipeline_suppresses_narrative_line_items_on_non_receipt_documents():
+    line_items = [
+        {"description": "Please notify this department of any changes immediately", "quantity": None, "unit_price": None},
+        {"description": "Contact the office before making substitutions", "quantity": None, "unit_price": None},
+    ]
+    ocr_tokens = [
+        {"text": "Please", "bbox": [0, 0, 50, 10], "confidence": 0.99, "page_number": 1},
+        {"text": "notify", "bbox": [60, 0, 110, 10], "confidence": 0.99, "page_number": 1},
+        {"text": "this", "bbox": [120, 0, 160, 10], "confidence": 0.99, "page_number": 1},
+        {"text": "department", "bbox": [170, 0, 260, 10], "confidence": 0.99, "page_number": 1},
+        {"text": "of", "bbox": [270, 0, 290, 10], "confidence": 0.99, "page_number": 1},
+        {"text": "any", "bbox": [300, 0, 330, 10], "confidence": 0.99, "page_number": 1},
+        {"text": "changes", "bbox": [340, 0, 410, 10], "confidence": 0.99, "page_number": 1},
+    ]
+
+    assert _should_suppress_line_items(line_items, ocr_tokens) is True
 
 
 def test_drise_pipeline_backfills_required_schema_fields():

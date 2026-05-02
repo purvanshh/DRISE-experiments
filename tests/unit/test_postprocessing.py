@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from postprocessing.entity_grouping import group_entities
-from postprocessing.normalization import normalize_entities
+from postprocessing.normalization import normalize_currency, normalize_entities
 from postprocessing.pipeline import postprocess_predictions
 from tests.assertions import assert_document_schema
 
@@ -59,3 +59,9 @@ def test_postprocessing_output_schema(mock_model_output):
     assert document["invoice_number"]["value"] == "INV-1023"
     assert document["date"]["value"] == "2025-01-12"
     assert document["total_amount"]["value"] == 1200.5
+
+
+def test_normalize_currency_supports_locale_thousands_and_decimal_separators():
+    assert normalize_currency("20.000") == 20000.0
+    assert normalize_currency("36.500,00") == 36500.0
+    assert normalize_currency("1,818") == 1818.0

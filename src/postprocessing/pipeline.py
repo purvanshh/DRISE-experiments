@@ -20,6 +20,8 @@ def postprocess_predictions(
     apply_constraints: bool = True,
     repair_constraints: bool = True,
     ocr_tokens: list[dict[str, Any]] | None = None,
+    min_field_confidence_override: float | None = None,
+    drop_below_threshold_override: bool | None = None,
 ) -> dict[str, Any]:
     settings = get_settings()
 
@@ -43,7 +45,12 @@ def postprocess_predictions(
             settings,
             repair=repair_constraints,
         )
-    final_document, confidence_errors = apply_confidence_policy(constrained_document, settings)
+    final_document, confidence_errors = apply_confidence_policy(
+        constrained_document,
+        settings,
+        min_field_confidence_override=min_field_confidence_override,
+        drop_below_threshold_override=drop_below_threshold_override,
+    )
 
     final_document["_errors"] = (
         grouping_errors
