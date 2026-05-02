@@ -230,6 +230,7 @@ Run configuration used for these numbers:
 - `llm_only` and `rag_llm`: NVIDIA backend with `meta/llama-3.2-1b-instruct`
 - `drise`: real LayoutLMv3 inference via published checkpoint `jinhybr/OCR-LayoutLMv3-Invoice`
 - local fine-tuned artifact under `experiments/artifacts/cord_finetuned/` was incomplete, so the published checkpoint was used instead
+- the LLM baseline latency figures shown below are from cached benchmark artifacts; the live sensitivity runs later in this README better reflect uncached provider latency behavior
 
 | System | Field-level F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) | Total Cost ($) |
 |---|---:|---:|---:|---:|---:|---:|---:|
