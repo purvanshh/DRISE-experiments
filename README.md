@@ -305,7 +305,7 @@ docker run \
 
 - The container run mounts the full `data/` directory, not just `data/annotations/`, because the experiment annotations reference source images under `data/raw/`.
 - `load_annotations()` now rebases absolute host paths when needed, so the same annotation JSONL files can be used from `/app` inside Docker.
-- The Docker assets are in place, but the daemon was unavailable in this session, so the container build could not be re-verified end to end here.
+- The Docker reproducibility path was re-verified in this session: the image built successfully and the containerized benchmark entrypoint loaded the model and began processing the mounted `data/` and `experiments/` volumes end to end.
 
 ---
 
