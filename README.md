@@ -310,7 +310,7 @@ All results below are from the latest full benchmark run with the following conf
 | System | Field F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) | Total Cost ($) |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | `llm_only` | 0.1677 | 0.0000 | 1.0000 | 0.0155 | 0.19* | 0.000368 | 0.073876 |
-| `rag_llm` | 0.0000 | 0.0000 | 0.9701 | 0.0057 | 1.27* | 0.001648 | 0.331337 |
+| `rag_llm` | 0.3582 | 0.0050 | 0.6667 | 0.1426 | 2128.43 | 0.001683 | 0.338263 |
 | **`drise`** | **0.5812** | **0.0498** | **1.0000** | 0.0680 | 301.89 | 0.000042 | 0.008429 |
 | `drise_no_layout` | 0.5667 | 0.0498 | 1.0000 | 0.0351 | 363.07 | 0.000050 | 0.010136 |
 | `drise_no_constraints` | 0.5812 | 0.0498 | 1.0000 | 0.0680 | 396.72 | 0.000055 | 0.011087 |
@@ -337,9 +337,9 @@ The hallucination numbers also need careful interpretation. The automatic metric
 
 ### Key Takeaways
 
-- **DRISE is the most reliable system in the stack today** — it combines the strongest deterministic guarantees with materially higher extraction quality than the small 1B baseline.
+- **DRISE is the most reliable system in the stack today** — it combines the strongest deterministic guarantees with materially higher extraction quality than both text-only baselines.
 - **Non-zero exact match** — DRISE achieves `0.0498` exact-match on the held-out test split, which is enough to support meaningful McNemar comparison against the weaker baselines (`p = 0.004427`).
-- **Structured fields are the clearest win** — DRISE reaches `0.6734` mean field F1 on `line_items` and `0.6020` on `total_amount`, where text-only prompting remains brittle.
+- **Structured fields are the clearest win** — DRISE reaches `0.6734` mean field F1 on `line_items` and `0.6020` on `total_amount`, while the repaired `rag_llm` baseline still trails at `0.4425` and `0.4577` on those fields.
 
 ### Statistical Significance
 
@@ -348,7 +348,7 @@ All pairwise comparisons use McNemar's exact test on document-level exact-match 
 | Comparison | p-value | Significant |
 |---|---:|:---:|
 | `drise` vs `llm_only` | 0.004427 | ✅ |
-| `drise` vs `rag_llm` | 0.004427 | ✅ |
+| `drise` vs `rag_llm` | 0.015861 | ✅ |
 | `llm_only` vs `rag_llm` | 1.000000 | — |
 
 ---
