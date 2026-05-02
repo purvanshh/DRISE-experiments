@@ -148,7 +148,7 @@ class DRISEPipeline(BasePipeline):
         return {
             "extracted_fields": extracted_fields,
             "confidences": confidences,
-            "_constraint_flags": list(structured_document.get("_constraint_flags", [])) + refinement_flags,
+            "_constraint_flags": list(structured_document.get("_constraint_flags", [])),
             "_errors": [str(error) for error in structured_document.get("_errors", [])],
             "latency_ms": float(latency_ms),
             "cost_usd": round(cost_usd, 6),

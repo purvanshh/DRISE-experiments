@@ -1,24 +1,24 @@
 [
   {
-    "system": "drise_no_constraints",
-    "field_level_f1_mean": 0.54609,
-    "exact_match_mean": 0.014925,
+    "system": "drise_no_layout",
+    "field_level_f1_mean": 0.566702,
+    "exact_match_mean": 0.049751,
     "schema_valid_mean": 1.0,
-    "hallucination_rate_mean": 0.03723,
+    "hallucination_rate_mean": 0.035087,
+    "delta_field_level_f1": -0.014449,
+    "delta_exact_match": 0.0,
+    "delta_schema_valid": 0.0,
+    "delta_hallucination_rate": -0.032868
+  },
+  {
+    "system": "drise_no_constraints",
+    "field_level_f1_mean": 0.581151,
+    "exact_match_mean": 0.049751,
+    "schema_valid_mean": 1.0,
+    "hallucination_rate_mean": 0.067955,
     "delta_field_level_f1": 0.0,
     "delta_exact_match": 0.0,
     "delta_schema_valid": 0.0,
     "delta_hallucination_rate": 0.0
-  },
-  {
-    "system": "drise_no_layout",
-    "field_level_f1_mean": 0.53074,
-    "exact_match_mean": 0.014925,
-    "schema_valid_mean": 1.0,
-    "hallucination_rate_mean": 0.039001,
-    "delta_field_level_f1": -0.01535,
-    "delta_exact_match": 0.0,
-    "delta_schema_valid": 0.0,
-    "delta_hallucination_rate": 0.001771
   }
 ]

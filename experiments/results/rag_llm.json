@@ -15,7 +15,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1848.519,
+      "latency_ms": 1.878,
       "cost_usd": 0.001092,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -49,7 +49,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1848.519,
+      "latency_ms": 1.878,
       "cost_usd": 0.001092,
       "metadata": {
         "chunk_count": 1,
@@ -97,7 +97,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1459.805,
+      "latency_ms": 2.242,
       "cost_usd": 0.000934,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -131,7 +131,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1459.805,
+      "latency_ms": 2.242,
       "cost_usd": 0.000934,
       "metadata": {
         "chunk_count": 1,
@@ -179,7 +179,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1381.284,
+      "latency_ms": 2.385,
       "cost_usd": 0.00099,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -213,7 +213,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1381.284,
+      "latency_ms": 2.385,
       "cost_usd": 0.00099,
       "metadata": {
         "chunk_count": 1,
@@ -261,7 +261,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1392.023,
+      "latency_ms": 2.222,
       "cost_usd": 0.000983,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -295,7 +295,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1392.023,
+      "latency_ms": 2.222,
       "cost_usd": 0.000983,
       "metadata": {
         "chunk_count": 1,
@@ -343,7 +343,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1409.733,
+      "latency_ms": 0.683,
       "cost_usd": 0.001207,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -377,7 +377,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1409.733,
+      "latency_ms": 0.683,
       "cost_usd": 0.001207,
       "metadata": {
         "chunk_count": 1,
@@ -425,7 +425,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2685.428,
+      "latency_ms": 1.883,
       "cost_usd": 0.001377,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -459,7 +459,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2685.428,
+      "latency_ms": 1.883,
       "cost_usd": 0.001377,
       "metadata": {
         "chunk_count": 1,
@@ -507,7 +507,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3828.653,
+      "latency_ms": 0.752,
       "cost_usd": 0.001743,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -541,7 +541,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3828.653,
+      "latency_ms": 0.752,
       "cost_usd": 0.001743,
       "metadata": {
         "chunk_count": 1,
@@ -589,7 +589,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1257.19,
+      "latency_ms": 1.303,
       "cost_usd": 0.000922,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -623,7 +623,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1257.19,
+      "latency_ms": 1.303,
       "cost_usd": 0.000922,
       "metadata": {
         "chunk_count": 1,
@@ -671,7 +671,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1664.745,
+      "latency_ms": 0.764,
       "cost_usd": 0.001027,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -705,7 +705,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1664.745,
+      "latency_ms": 0.764,
       "cost_usd": 0.001027,
       "metadata": {
         "chunk_count": 1,
@@ -753,7 +753,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3827.028,
+      "latency_ms": 1.394,
       "cost_usd": 0.001658,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -787,7 +787,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3827.028,
+      "latency_ms": 1.394,
       "cost_usd": 0.001658,
       "metadata": {
         "chunk_count": 1,
@@ -835,7 +835,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1328.281,
+      "latency_ms": 1.609,
       "cost_usd": 0.001119,
       "errors": [
         "date: Extra data: line 2 column 1 (char 5)",
@@ -867,7 +867,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1328.281,
+      "latency_ms": 1.609,
       "cost_usd": 0.001119,
       "metadata": {
         "chunk_count": 1,
@@ -915,7 +915,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4207.736,
+      "latency_ms": 1.839,
       "cost_usd": 0.001808,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -949,7 +949,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4207.736,
+      "latency_ms": 1.839,
       "cost_usd": 0.001808,
       "metadata": {
         "chunk_count": 1,
@@ -997,7 +997,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1697.039,
+      "latency_ms": 2.195,
       "cost_usd": 0.001154,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1031,7 +1031,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1697.039,
+      "latency_ms": 2.195,
       "cost_usd": 0.001154,
       "metadata": {
         "chunk_count": 1,
@@ -1079,7 +1079,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3913.345,
+      "latency_ms": 1.075,
       "cost_usd": 0.002143,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1113,7 +1113,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3913.345,
+      "latency_ms": 1.075,
       "cost_usd": 0.002143,
       "metadata": {
         "chunk_count": 1,
@@ -1161,7 +1161,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1349.405,
+      "latency_ms": 0.681,
       "cost_usd": 0.000981,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1195,7 +1195,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1349.405,
+      "latency_ms": 0.681,
       "cost_usd": 0.000981,
       "metadata": {
         "chunk_count": 1,
@@ -1243,7 +1243,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3762.884,
+      "latency_ms": 0.768,
       "cost_usd": 0.001477,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1277,7 +1277,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3762.884,
+      "latency_ms": 0.768,
       "cost_usd": 0.001477,
       "metadata": {
         "chunk_count": 1,
@@ -1325,7 +1325,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3758.864,
+      "latency_ms": 1.621,
       "cost_usd": 0.001818,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1359,7 +1359,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3758.864,
+      "latency_ms": 1.621,
       "cost_usd": 0.001818,
       "metadata": {
         "chunk_count": 1,
@@ -1407,7 +1407,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1401.822,
+      "latency_ms": 2.165,
       "cost_usd": 0.001022,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1441,7 +1441,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1401.822,
+      "latency_ms": 2.165,
       "cost_usd": 0.001022,
       "metadata": {
         "chunk_count": 1,
@@ -1489,7 +1489,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3844.678,
+      "latency_ms": 1.388,
       "cost_usd": 0.002458,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1523,7 +1523,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3844.678,
+      "latency_ms": 1.388,
       "cost_usd": 0.002458,
       "metadata": {
         "chunk_count": 1,
@@ -1571,7 +1571,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2381.174,
+      "latency_ms": 1.539,
       "cost_usd": 0.000919,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1605,7 +1605,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2381.174,
+      "latency_ms": 1.539,
       "cost_usd": 0.000919,
       "metadata": {
         "chunk_count": 1,
@@ -1653,7 +1653,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1323.901,
+      "latency_ms": 0.97,
       "cost_usd": 0.001025,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1687,7 +1687,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1323.901,
+      "latency_ms": 0.97,
       "cost_usd": 0.001025,
       "metadata": {
         "chunk_count": 1,
@@ -1735,7 +1735,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3512.936,
+      "latency_ms": 2.08,
       "cost_usd": 0.001547,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1769,7 +1769,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3512.936,
+      "latency_ms": 2.08,
       "cost_usd": 0.001547,
       "metadata": {
         "chunk_count": 1,
@@ -1817,7 +1817,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2443.867,
+      "latency_ms": 1.926,
       "cost_usd": 0.001291,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1851,7 +1851,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2443.867,
+      "latency_ms": 1.926,
       "cost_usd": 0.001291,
       "metadata": {
         "chunk_count": 1,
@@ -1899,7 +1899,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3787.925,
+      "latency_ms": 0.652,
       "cost_usd": 0.001943,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -1933,7 +1933,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3787.925,
+      "latency_ms": 0.652,
       "cost_usd": 0.001943,
       "metadata": {
         "chunk_count": 1,
@@ -1981,7 +1981,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1270.973,
+      "latency_ms": 0.766,
       "cost_usd": 0.000979,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2015,7 +2015,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1270.973,
+      "latency_ms": 0.766,
       "cost_usd": 0.000979,
       "metadata": {
         "chunk_count": 1,
@@ -2063,7 +2063,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2653.076,
+      "latency_ms": 0.599,
       "cost_usd": 0.001249,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2097,7 +2097,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2653.076,
+      "latency_ms": 0.599,
       "cost_usd": 0.001249,
       "metadata": {
         "chunk_count": 1,
@@ -2145,7 +2145,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4182.802,
+      "latency_ms": 1.752,
       "cost_usd": 0.001638,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2179,7 +2179,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4182.802,
+      "latency_ms": 1.752,
       "cost_usd": 0.001638,
       "metadata": {
         "chunk_count": 1,
@@ -2227,7 +2227,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3443.858,
+      "latency_ms": 0.666,
       "cost_usd": 0.001407,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2261,7 +2261,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3443.858,
+      "latency_ms": 0.666,
       "cost_usd": 0.001407,
       "metadata": {
         "chunk_count": 1,
@@ -2309,7 +2309,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3855.183,
+      "latency_ms": 1.203,
       "cost_usd": 0.001773,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2343,7 +2343,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3855.183,
+      "latency_ms": 1.203,
       "cost_usd": 0.001773,
       "metadata": {
         "chunk_count": 1,
@@ -2391,7 +2391,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1834.552,
+      "latency_ms": 2.265,
       "cost_usd": 0.001113,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2425,7 +2425,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1834.552,
+      "latency_ms": 2.265,
       "cost_usd": 0.001113,
       "metadata": {
         "chunk_count": 1,
@@ -2473,7 +2473,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3361.813,
+      "latency_ms": 0.857,
       "cost_usd": 0.001638,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2507,7 +2507,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3361.813,
+      "latency_ms": 0.857,
       "cost_usd": 0.001638,
       "metadata": {
         "chunk_count": 1,
@@ -2555,7 +2555,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2031.121,
+      "latency_ms": 1.464,
       "cost_usd": 0.001194,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2589,7 +2589,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2031.121,
+      "latency_ms": 1.464,
       "cost_usd": 0.001194,
       "metadata": {
         "chunk_count": 1,
@@ -2637,7 +2637,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3825.361,
+      "latency_ms": 0.937,
       "cost_usd": 0.001643,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2671,7 +2671,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3825.361,
+      "latency_ms": 0.937,
       "cost_usd": 0.001643,
       "metadata": {
         "chunk_count": 1,
@@ -2719,7 +2719,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3804.44,
+      "latency_ms": 0.616,
       "cost_usd": 0.001898,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2753,7 +2753,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3804.44,
+      "latency_ms": 0.616,
       "cost_usd": 0.001898,
       "metadata": {
         "chunk_count": 1,
@@ -2801,7 +2801,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1359.67,
+      "latency_ms": 2.247,
       "cost_usd": 0.001132,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2835,7 +2835,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1359.67,
+      "latency_ms": 2.247,
       "cost_usd": 0.001132,
       "metadata": {
         "chunk_count": 1,
@@ -2883,7 +2883,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1541.33,
+      "latency_ms": 1.406,
       "cost_usd": 0.001006,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2917,7 +2917,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1541.33,
+      "latency_ms": 1.406,
       "cost_usd": 0.001006,
       "metadata": {
         "chunk_count": 1,
@@ -2965,7 +2965,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3029.721,
+      "latency_ms": 1.63,
       "cost_usd": 0.00134,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -2999,7 +2999,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3029.721,
+      "latency_ms": 1.63,
       "cost_usd": 0.00134,
       "metadata": {
         "chunk_count": 1,
@@ -3047,7 +3047,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 5394.717,
+      "latency_ms": 1.026,
       "cost_usd": 0.001778,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3081,7 +3081,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 5394.717,
+      "latency_ms": 1.026,
       "cost_usd": 0.001778,
       "metadata": {
         "chunk_count": 1,
@@ -3129,7 +3129,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1630.127,
+      "latency_ms": 0.707,
       "cost_usd": 0.000993,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3163,7 +3163,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1630.127,
+      "latency_ms": 0.707,
       "cost_usd": 0.000993,
       "metadata": {
         "chunk_count": 1,
@@ -3211,7 +3211,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1849.004,
+      "latency_ms": 0.726,
       "cost_usd": 0.001152,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3245,7 +3245,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1849.004,
+      "latency_ms": 0.726,
       "cost_usd": 0.001152,
       "metadata": {
         "chunk_count": 1,
@@ -3293,7 +3293,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3265.262,
+      "latency_ms": 1.455,
       "cost_usd": 0.001401,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3327,7 +3327,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3265.262,
+      "latency_ms": 1.455,
       "cost_usd": 0.001401,
       "metadata": {
         "chunk_count": 1,
@@ -3375,7 +3375,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1303.025,
+      "latency_ms": 0.686,
       "cost_usd": 0.000945,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3409,7 +3409,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1303.025,
+      "latency_ms": 0.686,
       "cost_usd": 0.000945,
       "metadata": {
         "chunk_count": 1,
@@ -3457,7 +3457,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4131.176,
+      "latency_ms": 2.289,
       "cost_usd": 0.001643,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3491,7 +3491,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4131.176,
+      "latency_ms": 2.289,
       "cost_usd": 0.001643,
       "metadata": {
         "chunk_count": 1,
@@ -3539,7 +3539,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1820.835,
+      "latency_ms": 0.708,
       "cost_usd": 0.001104,
       "errors": [
         "date: Extra data: line 2 column 1 (char 5)",
@@ -3569,7 +3569,7 @@
         "vendor: Extra data: line 2 column 1 (char 5)",
         "total_amount: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1820.835,
+      "latency_ms": 0.708,
       "cost_usd": 0.001104,
       "metadata": {
         "chunk_count": 1,
@@ -3617,7 +3617,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3348.638,
+      "latency_ms": 1.299,
       "cost_usd": 0.001841,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3651,7 +3651,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3348.638,
+      "latency_ms": 1.299,
       "cost_usd": 0.001841,
       "metadata": {
         "chunk_count": 1,
@@ -3699,7 +3699,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2918.047,
+      "latency_ms": 0.799,
       "cost_usd": 0.001361,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3733,7 +3733,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2918.047,
+      "latency_ms": 0.799,
       "cost_usd": 0.001361,
       "metadata": {
         "chunk_count": 1,
@@ -3781,7 +3781,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3973.671,
+      "latency_ms": 0.696,
       "cost_usd": 0.001668,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3815,7 +3815,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3973.671,
+      "latency_ms": 0.696,
       "cost_usd": 0.001668,
       "metadata": {
         "chunk_count": 1,
@@ -3863,7 +3863,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3547.822,
+      "latency_ms": 1.932,
       "cost_usd": 0.001392,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3897,7 +3897,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3547.822,
+      "latency_ms": 1.932,
       "cost_usd": 0.001392,
       "metadata": {
         "chunk_count": 1,
@@ -3945,7 +3945,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3013.407,
+      "latency_ms": 1.575,
       "cost_usd": 0.001404,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -3979,7 +3979,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3013.407,
+      "latency_ms": 1.575,
       "cost_usd": 0.001404,
       "metadata": {
         "chunk_count": 1,
@@ -4027,7 +4027,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3945.086,
+      "latency_ms": 1.482,
       "cost_usd": 0.002393,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4061,7 +4061,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3945.086,
+      "latency_ms": 1.482,
       "cost_usd": 0.002393,
       "metadata": {
         "chunk_count": 1,
@@ -4109,7 +4109,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1393.803,
+      "latency_ms": 0.701,
       "cost_usd": 0.001231,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4143,7 +4143,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1393.803,
+      "latency_ms": 0.701,
       "cost_usd": 0.001231,
       "metadata": {
         "chunk_count": 1,
@@ -4191,7 +4191,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1340.309,
+      "latency_ms": 1.673,
       "cost_usd": 0.001013,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4225,7 +4225,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1340.309,
+      "latency_ms": 1.673,
       "cost_usd": 0.001013,
       "metadata": {
         "chunk_count": 1,
@@ -4273,7 +4273,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4315.236,
+      "latency_ms": 1.445,
       "cost_usd": 0.001838,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4307,7 +4307,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4315.236,
+      "latency_ms": 1.445,
       "cost_usd": 0.001838,
       "metadata": {
         "chunk_count": 1,
@@ -4355,7 +4355,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2754.687,
+      "latency_ms": 1.765,
       "cost_usd": 0.001345,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4389,7 +4389,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2754.687,
+      "latency_ms": 1.765,
       "cost_usd": 0.001345,
       "metadata": {
         "chunk_count": 1,
@@ -4437,7 +4437,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1514.752,
+      "latency_ms": 0.696,
       "cost_usd": 0.001153,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4471,7 +4471,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1514.752,
+      "latency_ms": 0.696,
       "cost_usd": 0.001153,
       "metadata": {
         "chunk_count": 1,
@@ -4519,7 +4519,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1390.739,
+      "latency_ms": 1.56,
       "cost_usd": 0.001118,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4553,7 +4553,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1390.739,
+      "latency_ms": 1.56,
       "cost_usd": 0.001118,
       "metadata": {
         "chunk_count": 1,
@@ -4601,7 +4601,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1537.579,
+      "latency_ms": 0.658,
       "cost_usd": 0.00118,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4635,7 +4635,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1537.579,
+      "latency_ms": 0.658,
       "cost_usd": 0.00118,
       "metadata": {
         "chunk_count": 1,
@@ -4683,7 +4683,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1430.663,
+      "latency_ms": 0.651,
       "cost_usd": 0.000898,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4717,7 +4717,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1430.663,
+      "latency_ms": 0.651,
       "cost_usd": 0.000898,
       "metadata": {
         "chunk_count": 1,
@@ -4765,7 +4765,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3493.372,
+      "latency_ms": 3.035,
       "cost_usd": 0.001709,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4799,7 +4799,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3493.372,
+      "latency_ms": 3.035,
       "cost_usd": 0.001709,
       "metadata": {
         "chunk_count": 1,
@@ -4847,7 +4847,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3796.87,
+      "latency_ms": 0.943,
       "cost_usd": 0.001563,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4881,7 +4881,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3796.87,
+      "latency_ms": 0.943,
       "cost_usd": 0.001563,
       "metadata": {
         "chunk_count": 1,
@@ -4929,7 +4929,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1492.269,
+      "latency_ms": 0.683,
       "cost_usd": 0.001042,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -4963,7 +4963,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1492.269,
+      "latency_ms": 0.683,
       "cost_usd": 0.001042,
       "metadata": {
         "chunk_count": 1,
@@ -5011,7 +5011,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3264.594,
+      "latency_ms": 1.527,
       "cost_usd": 0.001572,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5045,7 +5045,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3264.594,
+      "latency_ms": 1.527,
       "cost_usd": 0.001572,
       "metadata": {
         "chunk_count": 1,
@@ -5093,7 +5093,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4137.999,
+      "latency_ms": 0.823,
       "cost_usd": 0.001743,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5127,7 +5127,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4137.999,
+      "latency_ms": 0.823,
       "cost_usd": 0.001743,
       "metadata": {
         "chunk_count": 1,
@@ -5175,7 +5175,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4125.652,
+      "latency_ms": 1.689,
       "cost_usd": 0.001793,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5209,7 +5209,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4125.652,
+      "latency_ms": 1.689,
       "cost_usd": 0.001793,
       "metadata": {
         "chunk_count": 1,
@@ -5257,7 +5257,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3723.291,
+      "latency_ms": 0.621,
       "cost_usd": 0.001971,
       "errors": [
         "date: Extra data: line 2 column 1 (char 5)",
@@ -5304,7 +5304,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3723.291,
+      "latency_ms": 0.621,
       "cost_usd": 0.001971,
       "metadata": {
         "chunk_count": 1,
@@ -5352,7 +5352,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3761.54,
+      "latency_ms": 1.464,
       "cost_usd": 0.001748,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5386,7 +5386,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3761.54,
+      "latency_ms": 1.464,
       "cost_usd": 0.001748,
       "metadata": {
         "chunk_count": 1,
@@ -5434,7 +5434,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1627.781,
+      "latency_ms": 1.431,
       "cost_usd": 0.00096,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5468,7 +5468,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1627.781,
+      "latency_ms": 1.431,
       "cost_usd": 0.00096,
       "metadata": {
         "chunk_count": 1,
@@ -5516,7 +5516,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3891.73,
+      "latency_ms": 2.583,
       "cost_usd": 0.001708,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5550,7 +5550,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3891.73,
+      "latency_ms": 2.583,
       "cost_usd": 0.001708,
       "metadata": {
         "chunk_count": 1,
@@ -5598,7 +5598,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3865.189,
+      "latency_ms": 0.755,
       "cost_usd": 0.001638,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5632,7 +5632,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3865.189,
+      "latency_ms": 0.755,
       "cost_usd": 0.001638,
       "metadata": {
         "chunk_count": 1,
@@ -5680,7 +5680,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4515.854,
+      "latency_ms": 0.737,
       "cost_usd": 0.001923,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5712,7 +5712,7 @@
         "vendor: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4515.854,
+      "latency_ms": 0.737,
       "cost_usd": 0.001923,
       "metadata": {
         "chunk_count": 1,
@@ -5760,7 +5760,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3466.56,
+      "latency_ms": 0.827,
       "cost_usd": 0.002112,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5794,7 +5794,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3466.56,
+      "latency_ms": 0.827,
       "cost_usd": 0.002112,
       "metadata": {
         "chunk_count": 1,
@@ -5842,7 +5842,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3841.837,
+      "latency_ms": 1.587,
       "cost_usd": 0.001653,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5876,7 +5876,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3841.837,
+      "latency_ms": 1.587,
       "cost_usd": 0.001653,
       "metadata": {
         "chunk_count": 1,
@@ -5924,7 +5924,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1513.522,
+      "latency_ms": 0.931,
       "cost_usd": 0.001042,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -5958,7 +5958,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1513.522,
+      "latency_ms": 0.931,
       "cost_usd": 0.001042,
       "metadata": {
         "chunk_count": 1,
@@ -6006,7 +6006,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3519.614,
+      "latency_ms": 1.114,
       "cost_usd": 0.001552,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6040,7 +6040,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3519.614,
+      "latency_ms": 1.114,
       "cost_usd": 0.001552,
       "metadata": {
         "chunk_count": 1,
@@ -6088,7 +6088,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2526.789,
+      "latency_ms": 0.84,
       "cost_usd": 0.001291,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6122,7 +6122,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2526.789,
+      "latency_ms": 0.84,
       "cost_usd": 0.001291,
       "metadata": {
         "chunk_count": 1,
@@ -6170,7 +6170,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3623.452,
+      "latency_ms": 1.75,
       "cost_usd": 0.001457,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6204,7 +6204,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3623.452,
+      "latency_ms": 1.75,
       "cost_usd": 0.001457,
       "metadata": {
         "chunk_count": 1,
@@ -6252,7 +6252,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1779.725,
+      "latency_ms": 1.17,
       "cost_usd": 0.001057,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6286,7 +6286,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1779.725,
+      "latency_ms": 1.17,
       "cost_usd": 0.001057,
       "metadata": {
         "chunk_count": 1,
@@ -6334,7 +6334,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3834.061,
+      "latency_ms": 0.744,
       "cost_usd": 0.002683,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6368,7 +6368,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3834.061,
+      "latency_ms": 0.744,
       "cost_usd": 0.002683,
       "metadata": {
         "chunk_count": 1,
@@ -6416,7 +6416,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3798.351,
+      "latency_ms": 1.575,
       "cost_usd": 0.001758,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6450,7 +6450,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3798.351,
+      "latency_ms": 1.575,
       "cost_usd": 0.001758,
       "metadata": {
         "chunk_count": 1,
@@ -6498,7 +6498,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1749.448,
+      "latency_ms": 2.603,
       "cost_usd": 0.001178,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6532,7 +6532,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1749.448,
+      "latency_ms": 2.603,
       "cost_usd": 0.001178,
       "metadata": {
         "chunk_count": 1,
@@ -6580,7 +6580,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3780.896,
+      "latency_ms": 1.515,
       "cost_usd": 0.002078,
       "errors": [
         "invoice_number: max() arg is an empty sequence",
@@ -6614,7 +6614,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3780.896,
+      "latency_ms": 1.515,
       "cost_usd": 0.002078,
       "metadata": {
         "chunk_count": 1,
@@ -6662,7 +6662,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3766.363,
+      "latency_ms": 0.998,
       "cost_usd": 0.001848,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6696,7 +6696,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3766.363,
+      "latency_ms": 0.998,
       "cost_usd": 0.001848,
       "metadata": {
         "chunk_count": 1,
@@ -6744,7 +6744,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2751.498,
+      "latency_ms": 1.18,
       "cost_usd": 0.001337,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6778,7 +6778,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2751.498,
+      "latency_ms": 1.18,
       "cost_usd": 0.001337,
       "metadata": {
         "chunk_count": 1,
@@ -6826,7 +6826,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1807.005,
+      "latency_ms": 0.68,
       "cost_usd": 0.001046,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6860,7 +6860,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1807.005,
+      "latency_ms": 0.68,
       "cost_usd": 0.001046,
       "metadata": {
         "chunk_count": 1,
@@ -6908,7 +6908,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3825.459,
+      "latency_ms": 1.397,
       "cost_usd": 0.001628,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -6942,7 +6942,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3825.459,
+      "latency_ms": 1.397,
       "cost_usd": 0.001628,
       "metadata": {
         "chunk_count": 1,
@@ -6990,7 +6990,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3596.454,
+      "latency_ms": 0.678,
       "cost_usd": 0.001587,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7024,7 +7024,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3596.454,
+      "latency_ms": 0.678,
       "cost_usd": 0.001587,
       "metadata": {
         "chunk_count": 1,
@@ -7072,7 +7072,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2826.799,
+      "latency_ms": 1.226,
       "cost_usd": 0.001362,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7106,7 +7106,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2826.799,
+      "latency_ms": 1.226,
       "cost_usd": 0.001362,
       "metadata": {
         "chunk_count": 1,
@@ -7154,7 +7154,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3887.732,
+      "latency_ms": 0.706,
       "cost_usd": 0.001898,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7188,7 +7188,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3887.732,
+      "latency_ms": 0.706,
       "cost_usd": 0.001898,
       "metadata": {
         "chunk_count": 1,
@@ -7236,7 +7236,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2430.726,
+      "latency_ms": 1.042,
       "cost_usd": 0.001039,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7270,7 +7270,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2430.726,
+      "latency_ms": 1.042,
       "cost_usd": 0.001039,
       "metadata": {
         "chunk_count": 1,
@@ -7318,7 +7318,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1332.444,
+      "latency_ms": 1.496,
       "cost_usd": 0.001024,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7352,7 +7352,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1332.444,
+      "latency_ms": 1.496,
       "cost_usd": 0.001024,
       "metadata": {
         "chunk_count": 1,
@@ -7400,7 +7400,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2904.757,
+      "latency_ms": 1.427,
       "cost_usd": 0.001384,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7434,7 +7434,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2904.757,
+      "latency_ms": 1.427,
       "cost_usd": 0.001384,
       "metadata": {
         "chunk_count": 1,
@@ -7482,7 +7482,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1497.879,
+      "latency_ms": 1.476,
       "cost_usd": 0.00102,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7516,7 +7516,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1497.879,
+      "latency_ms": 1.476,
       "cost_usd": 0.00102,
       "metadata": {
         "chunk_count": 1,
@@ -7564,7 +7564,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4103.3,
+      "latency_ms": 1.514,
       "cost_usd": 0.002363,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7598,7 +7598,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4103.3,
+      "latency_ms": 1.514,
       "cost_usd": 0.002363,
       "metadata": {
         "chunk_count": 1,
@@ -7646,7 +7646,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1827.119,
+      "latency_ms": 0.866,
       "cost_usd": 0.001154,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7680,7 +7680,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1827.119,
+      "latency_ms": 0.866,
       "cost_usd": 0.001154,
       "metadata": {
         "chunk_count": 1,
@@ -7728,7 +7728,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3867.005,
+      "latency_ms": 0.767,
       "cost_usd": 0.001903,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7762,7 +7762,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3867.005,
+      "latency_ms": 0.767,
       "cost_usd": 0.001903,
       "metadata": {
         "chunk_count": 1,
@@ -7810,7 +7810,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3290.291,
+      "latency_ms": 0.64,
       "cost_usd": 0.001436,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -7844,7 +7844,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3290.291,
+      "latency_ms": 0.64,
       "cost_usd": 0.001436,
       "metadata": {
         "chunk_count": 1,
@@ -7892,7 +7892,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1139.05,
+      "latency_ms": 1.057,
       "cost_usd": 0.000955,
       "errors": [
         "date: Extra data: line 2 column 1 (char 5)",
@@ -7922,7 +7922,7 @@
         "vendor: Extra data: line 2 column 1 (char 5)",
         "total_amount: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1139.05,
+      "latency_ms": 1.057,
       "cost_usd": 0.000955,
       "metadata": {
         "chunk_count": 1,
@@ -7970,7 +7970,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1264.942,
+      "latency_ms": 1.367,
       "cost_usd": 0.000936,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8004,7 +8004,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1264.942,
+      "latency_ms": 1.367,
       "cost_usd": 0.000936,
       "metadata": {
         "chunk_count": 1,
@@ -8052,7 +8052,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1408.036,
+      "latency_ms": 2.492,
       "cost_usd": 0.00104,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8086,7 +8086,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1408.036,
+      "latency_ms": 2.492,
       "cost_usd": 0.00104,
       "metadata": {
         "chunk_count": 1,
@@ -8134,7 +8134,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3801.225,
+      "latency_ms": 0.897,
       "cost_usd": 0.002993,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8168,7 +8168,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3801.225,
+      "latency_ms": 0.897,
       "cost_usd": 0.002993,
       "metadata": {
         "chunk_count": 1,
@@ -8216,7 +8216,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3979.45,
+      "latency_ms": 0.637,
       "cost_usd": 0.001753,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8250,7 +8250,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3979.45,
+      "latency_ms": 0.637,
       "cost_usd": 0.001753,
       "metadata": {
         "chunk_count": 1,
@@ -8298,7 +8298,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3467.454,
+      "latency_ms": 0.603,
       "cost_usd": 0.001448,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8332,7 +8332,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3467.454,
+      "latency_ms": 0.603,
       "cost_usd": 0.001448,
       "metadata": {
         "chunk_count": 1,
@@ -8380,7 +8380,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2616.168,
+      "latency_ms": 0.668,
       "cost_usd": 0.001417,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8414,7 +8414,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2616.168,
+      "latency_ms": 0.668,
       "cost_usd": 0.001417,
       "metadata": {
         "chunk_count": 1,
@@ -8462,7 +8462,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1310.246,
+      "latency_ms": 1.105,
       "cost_usd": 0.001014,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8496,7 +8496,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1310.246,
+      "latency_ms": 1.105,
       "cost_usd": 0.001014,
       "metadata": {
         "chunk_count": 1,
@@ -8544,7 +8544,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2424.651,
+      "latency_ms": 0.819,
       "cost_usd": 0.001199,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8578,7 +8578,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2424.651,
+      "latency_ms": 0.819,
       "cost_usd": 0.001199,
       "metadata": {
         "chunk_count": 1,
@@ -8626,7 +8626,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1594.881,
+      "latency_ms": 0.91,
       "cost_usd": 0.001016,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8660,7 +8660,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1594.881,
+      "latency_ms": 0.91,
       "cost_usd": 0.001016,
       "metadata": {
         "chunk_count": 1,
@@ -8708,7 +8708,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1392.96,
+      "latency_ms": 2.398,
       "cost_usd": 0.001005,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8742,7 +8742,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1392.96,
+      "latency_ms": 2.398,
       "cost_usd": 0.001005,
       "metadata": {
         "chunk_count": 1,
@@ -8790,7 +8790,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1239.129,
+      "latency_ms": 1.399,
       "cost_usd": 0.000921,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8824,7 +8824,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1239.129,
+      "latency_ms": 1.399,
       "cost_usd": 0.000921,
       "metadata": {
         "chunk_count": 1,
@@ -8872,7 +8872,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3758.574,
+      "latency_ms": 2.053,
       "cost_usd": 0.002038,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8906,7 +8906,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3758.574,
+      "latency_ms": 2.053,
       "cost_usd": 0.002038,
       "metadata": {
         "chunk_count": 1,
@@ -8954,7 +8954,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1287.144,
+      "latency_ms": 1.48,
       "cost_usd": 0.000974,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -8988,7 +8988,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1287.144,
+      "latency_ms": 1.48,
       "cost_usd": 0.000974,
       "metadata": {
         "chunk_count": 1,
@@ -9036,7 +9036,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3409.293,
+      "latency_ms": 2.011,
       "cost_usd": 0.001552,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9070,7 +9070,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3409.293,
+      "latency_ms": 2.011,
       "cost_usd": 0.001552,
       "metadata": {
         "chunk_count": 1,
@@ -9118,7 +9118,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1406.686,
+      "latency_ms": 0.74,
       "cost_usd": 0.00102,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9152,7 +9152,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1406.686,
+      "latency_ms": 0.74,
       "cost_usd": 0.00102,
       "metadata": {
         "chunk_count": 1,
@@ -9200,7 +9200,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2890.321,
+      "latency_ms": 0.933,
       "cost_usd": 0.001408,
       "errors": [
         "date: Extra data: line 2 column 1 (char 5)",
@@ -9230,7 +9230,7 @@
         "vendor: Extra data: line 2 column 1 (char 5)",
         "total_amount: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2890.321,
+      "latency_ms": 0.933,
       "cost_usd": 0.001408,
       "metadata": {
         "chunk_count": 1,
@@ -9278,7 +9278,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3976.345,
+      "latency_ms": 0.716,
       "cost_usd": 0.001723,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9312,7 +9312,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3976.345,
+      "latency_ms": 0.716,
       "cost_usd": 0.001723,
       "metadata": {
         "chunk_count": 1,
@@ -9360,7 +9360,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3602.816,
+      "latency_ms": 0.795,
       "cost_usd": 0.001752,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9394,7 +9394,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3602.816,
+      "latency_ms": 0.795,
       "cost_usd": 0.001752,
       "metadata": {
         "chunk_count": 1,
@@ -9442,7 +9442,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3441.349,
+      "latency_ms": 2.699,
       "cost_usd": 0.001769,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9476,7 +9476,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3441.349,
+      "latency_ms": 2.699,
       "cost_usd": 0.001769,
       "metadata": {
         "chunk_count": 1,
@@ -9524,7 +9524,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1302.661,
+      "latency_ms": 0.832,
       "cost_usd": 0.000918,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9558,7 +9558,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1302.661,
+      "latency_ms": 0.832,
       "cost_usd": 0.000918,
       "metadata": {
         "chunk_count": 1,
@@ -9606,7 +9606,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3837.354,
+      "latency_ms": 1.619,
       "cost_usd": 0.001948,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9640,7 +9640,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3837.354,
+      "latency_ms": 1.619,
       "cost_usd": 0.001948,
       "metadata": {
         "chunk_count": 1,
@@ -9688,7 +9688,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4146.022,
+      "latency_ms": 1.379,
       "cost_usd": 0.001858,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9722,7 +9722,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4146.022,
+      "latency_ms": 1.379,
       "cost_usd": 0.001858,
       "metadata": {
         "chunk_count": 1,
@@ -9770,7 +9770,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1291.866,
+      "latency_ms": 2.056,
       "cost_usd": 0.000914,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9804,7 +9804,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1291.866,
+      "latency_ms": 2.056,
       "cost_usd": 0.000914,
       "metadata": {
         "chunk_count": 1,
@@ -9852,7 +9852,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2708.009,
+      "latency_ms": 0.932,
       "cost_usd": 0.001224,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9886,7 +9886,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2708.009,
+      "latency_ms": 0.932,
       "cost_usd": 0.001224,
       "metadata": {
         "chunk_count": 1,
@@ -9934,7 +9934,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3280.787,
+      "latency_ms": 1.982,
       "cost_usd": 0.001637,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -9968,7 +9968,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3280.787,
+      "latency_ms": 1.982,
       "cost_usd": 0.001637,
       "metadata": {
         "chunk_count": 1,
@@ -10016,7 +10016,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1339.142,
+      "latency_ms": 0.89,
       "cost_usd": 0.000919,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10050,7 +10050,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1339.142,
+      "latency_ms": 0.89,
       "cost_usd": 0.000919,
       "metadata": {
         "chunk_count": 1,
@@ -10098,7 +10098,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1725.908,
+      "latency_ms": 1.55,
       "cost_usd": 0.001065,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10132,7 +10132,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1725.908,
+      "latency_ms": 1.55,
       "cost_usd": 0.001065,
       "metadata": {
         "chunk_count": 1,
@@ -10180,7 +10180,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1446.122,
+      "latency_ms": 3.983,
       "cost_usd": 0.001146,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10214,7 +10214,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1446.122,
+      "latency_ms": 3.983,
       "cost_usd": 0.001146,
       "metadata": {
         "chunk_count": 1,
@@ -10262,7 +10262,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1325.798,
+      "latency_ms": 0.746,
       "cost_usd": 0.000975,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10296,7 +10296,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1325.798,
+      "latency_ms": 0.746,
       "cost_usd": 0.000975,
       "metadata": {
         "chunk_count": 1,
@@ -10344,7 +10344,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3997.309,
+      "latency_ms": 0.725,
       "cost_usd": 0.002108,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10378,7 +10378,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3997.309,
+      "latency_ms": 0.725,
       "cost_usd": 0.002108,
       "metadata": {
         "chunk_count": 1,
@@ -10426,7 +10426,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1489.823,
+      "latency_ms": 1.513,
       "cost_usd": 0.001148,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10460,7 +10460,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1489.823,
+      "latency_ms": 1.513,
       "cost_usd": 0.001148,
       "metadata": {
         "chunk_count": 1,
@@ -10508,7 +10508,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1956.578,
+      "latency_ms": 0.619,
       "cost_usd": 0.001102,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10542,7 +10542,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1956.578,
+      "latency_ms": 0.619,
       "cost_usd": 0.001102,
       "metadata": {
         "chunk_count": 1,
@@ -10590,7 +10590,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1407.604,
+      "latency_ms": 1.453,
       "cost_usd": 0.001096,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10624,7 +10624,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1407.604,
+      "latency_ms": 1.453,
       "cost_usd": 0.001096,
       "metadata": {
         "chunk_count": 1,
@@ -10672,7 +10672,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1707.507,
+      "latency_ms": 0.897,
       "cost_usd": 0.00114,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10706,7 +10706,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1707.507,
+      "latency_ms": 0.897,
       "cost_usd": 0.00114,
       "metadata": {
         "chunk_count": 1,
@@ -10754,7 +10754,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3362.662,
+      "latency_ms": 1.431,
       "cost_usd": 0.001662,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10788,7 +10788,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3362.662,
+      "latency_ms": 1.431,
       "cost_usd": 0.001662,
       "metadata": {
         "chunk_count": 1,
@@ -10836,7 +10836,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1227.196,
+      "latency_ms": 0.873,
       "cost_usd": 0.000935,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10870,7 +10870,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1227.196,
+      "latency_ms": 0.873,
       "cost_usd": 0.000935,
       "metadata": {
         "chunk_count": 1,
@@ -10918,7 +10918,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3758.103,
+      "latency_ms": 0.658,
       "cost_usd": 0.001908,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -10952,7 +10952,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3758.103,
+      "latency_ms": 0.658,
       "cost_usd": 0.001908,
       "metadata": {
         "chunk_count": 1,
@@ -11000,7 +11000,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3802.131,
+      "latency_ms": 1.807,
       "cost_usd": 0.001713,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11034,7 +11034,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3802.131,
+      "latency_ms": 1.807,
       "cost_usd": 0.001713,
       "metadata": {
         "chunk_count": 1,
@@ -11082,7 +11082,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3999.226,
+      "latency_ms": 0.913,
       "cost_usd": 0.001868,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11116,7 +11116,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3999.226,
+      "latency_ms": 0.913,
       "cost_usd": 0.001868,
       "metadata": {
         "chunk_count": 1,
@@ -11164,7 +11164,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2558.794,
+      "latency_ms": 0.773,
       "cost_usd": 0.00116,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11198,7 +11198,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2558.794,
+      "latency_ms": 0.773,
       "cost_usd": 0.00116,
       "metadata": {
         "chunk_count": 1,
@@ -11246,7 +11246,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3269.397,
+      "latency_ms": 1.062,
       "cost_usd": 0.001527,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11280,7 +11280,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3269.397,
+      "latency_ms": 1.062,
       "cost_usd": 0.001527,
       "metadata": {
         "chunk_count": 1,
@@ -11328,7 +11328,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1975.986,
+      "latency_ms": 1.228,
       "cost_usd": 0.00122,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11362,7 +11362,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1975.986,
+      "latency_ms": 1.228,
       "cost_usd": 0.00122,
       "metadata": {
         "chunk_count": 1,
@@ -11410,7 +11410,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2180.189,
+      "latency_ms": 0.677,
       "cost_usd": 0.000995,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11444,7 +11444,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2180.189,
+      "latency_ms": 0.677,
       "cost_usd": 0.000995,
       "metadata": {
         "chunk_count": 1,
@@ -11492,7 +11492,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2977.337,
+      "latency_ms": 0.713,
       "cost_usd": 0.001274,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11526,7 +11526,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2977.337,
+      "latency_ms": 0.713,
       "cost_usd": 0.001274,
       "metadata": {
         "chunk_count": 1,
@@ -11574,7 +11574,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1617.938,
+      "latency_ms": 1.038,
       "cost_usd": 0.001113,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11608,7 +11608,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1617.938,
+      "latency_ms": 1.038,
       "cost_usd": 0.001113,
       "metadata": {
         "chunk_count": 1,
@@ -11656,7 +11656,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2107.574,
+      "latency_ms": 1.639,
       "cost_usd": 0.001113,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11690,7 +11690,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2107.574,
+      "latency_ms": 1.639,
       "cost_usd": 0.001113,
       "metadata": {
         "chunk_count": 1,
@@ -11738,7 +11738,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2024.726,
+      "latency_ms": 0.788,
       "cost_usd": 0.001158,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11772,7 +11772,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2024.726,
+      "latency_ms": 0.788,
       "cost_usd": 0.001158,
       "metadata": {
         "chunk_count": 1,
@@ -11820,7 +11820,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3262.457,
+      "latency_ms": 1.018,
       "cost_usd": 0.001726,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11854,7 +11854,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3262.457,
+      "latency_ms": 1.018,
       "cost_usd": 0.001726,
       "metadata": {
         "chunk_count": 1,
@@ -11902,7 +11902,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1333.917,
+      "latency_ms": 0.634,
       "cost_usd": 0.000914,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -11936,7 +11936,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1333.917,
+      "latency_ms": 0.634,
       "cost_usd": 0.000914,
       "metadata": {
         "chunk_count": 1,
@@ -11984,7 +11984,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3779.703,
+      "latency_ms": 2.438,
       "cost_usd": 0.001798,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12018,7 +12018,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3779.703,
+      "latency_ms": 2.438,
       "cost_usd": 0.001798,
       "metadata": {
         "chunk_count": 1,
@@ -12066,7 +12066,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2452.758,
+      "latency_ms": 2.399,
       "cost_usd": 0.001263,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12100,7 +12100,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2452.758,
+      "latency_ms": 2.399,
       "cost_usd": 0.001263,
       "metadata": {
         "chunk_count": 1,
@@ -12148,7 +12148,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1436.009,
+      "latency_ms": 1.731,
       "cost_usd": 0.000909,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12182,7 +12182,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1436.009,
+      "latency_ms": 1.731,
       "cost_usd": 0.000909,
       "metadata": {
         "chunk_count": 1,
@@ -12230,7 +12230,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3335.294,
+      "latency_ms": 0.864,
       "cost_usd": 0.001502,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12264,7 +12264,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3335.294,
+      "latency_ms": 0.864,
       "cost_usd": 0.001502,
       "metadata": {
         "chunk_count": 1,
@@ -12312,7 +12312,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1584.82,
+      "latency_ms": 0.634,
       "cost_usd": 0.001163,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12346,7 +12346,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1584.82,
+      "latency_ms": 0.634,
       "cost_usd": 0.001163,
       "metadata": {
         "chunk_count": 1,
@@ -12394,7 +12394,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3840.717,
+      "latency_ms": 1.209,
       "cost_usd": 0.001668,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12428,7 +12428,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3840.717,
+      "latency_ms": 1.209,
       "cost_usd": 0.001668,
       "metadata": {
         "chunk_count": 1,
@@ -12476,7 +12476,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2461.882,
+      "latency_ms": 0.655,
       "cost_usd": 0.001013,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12510,7 +12510,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2461.882,
+      "latency_ms": 0.655,
       "cost_usd": 0.001013,
       "metadata": {
         "chunk_count": 1,
@@ -12558,7 +12558,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2450.314,
+      "latency_ms": 0.896,
       "cost_usd": 0.00136,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12592,7 +12592,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2450.314,
+      "latency_ms": 0.896,
       "cost_usd": 0.00136,
       "metadata": {
         "chunk_count": 1,
@@ -12640,7 +12640,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3675.033,
+      "latency_ms": 0.824,
       "cost_usd": 0.001612,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12674,7 +12674,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3675.033,
+      "latency_ms": 0.824,
       "cost_usd": 0.001612,
       "metadata": {
         "chunk_count": 1,
@@ -12722,7 +12722,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3764.398,
+      "latency_ms": 0.802,
       "cost_usd": 0.001753,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12756,7 +12756,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3764.398,
+      "latency_ms": 0.802,
       "cost_usd": 0.001753,
       "metadata": {
         "chunk_count": 1,
@@ -12804,7 +12804,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3872.791,
+      "latency_ms": 2.065,
       "cost_usd": 0.001768,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12838,7 +12838,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3872.791,
+      "latency_ms": 2.065,
       "cost_usd": 0.001768,
       "metadata": {
         "chunk_count": 1,
@@ -12886,7 +12886,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1928.355,
+      "latency_ms": 1.243,
       "cost_usd": 0.001138,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -12920,7 +12920,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1928.355,
+      "latency_ms": 1.243,
       "cost_usd": 0.001138,
       "metadata": {
         "chunk_count": 1,
@@ -12968,7 +12968,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1424.653,
+      "latency_ms": 0.597,
       "cost_usd": 0.001112,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13002,7 +13002,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1424.653,
+      "latency_ms": 0.597,
       "cost_usd": 0.001112,
       "metadata": {
         "chunk_count": 1,
@@ -13050,7 +13050,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 1187.797,
+      "latency_ms": 1.205,
       "cost_usd": 0.000921,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13084,7 +13084,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 1187.797,
+      "latency_ms": 1.205,
       "cost_usd": 0.000921,
       "metadata": {
         "chunk_count": 1,
@@ -13132,7 +13132,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2908.916,
+      "latency_ms": 0.851,
       "cost_usd": 0.001341,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13166,7 +13166,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2908.916,
+      "latency_ms": 0.851,
       "cost_usd": 0.001341,
       "metadata": {
         "chunk_count": 1,
@@ -13214,7 +13214,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4073.945,
+      "latency_ms": 0.746,
       "cost_usd": 0.001653,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13248,7 +13248,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4073.945,
+      "latency_ms": 0.746,
       "cost_usd": 0.001653,
       "metadata": {
         "chunk_count": 1,
@@ -13296,7 +13296,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3875.802,
+      "latency_ms": 0.743,
       "cost_usd": 0.002068,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13330,7 +13330,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3875.802,
+      "latency_ms": 0.743,
       "cost_usd": 0.002068,
       "metadata": {
         "chunk_count": 1,
@@ -13378,7 +13378,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2583.777,
+      "latency_ms": 0.881,
       "cost_usd": 0.001247,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13412,7 +13412,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2583.777,
+      "latency_ms": 0.881,
       "cost_usd": 0.001247,
       "metadata": {
         "chunk_count": 1,
@@ -13460,7 +13460,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2492.912,
+      "latency_ms": 1.77,
       "cost_usd": 0.00129,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13494,7 +13494,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2492.912,
+      "latency_ms": 1.77,
       "cost_usd": 0.00129,
       "metadata": {
         "chunk_count": 1,
@@ -13542,7 +13542,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 2884.365,
+      "latency_ms": 0.741,
       "cost_usd": 0.001431,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13576,7 +13576,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 2884.365,
+      "latency_ms": 0.741,
       "cost_usd": 0.001431,
       "metadata": {
         "chunk_count": 1,
@@ -13624,7 +13624,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3862.022,
+      "latency_ms": 1.758,
       "cost_usd": 0.002663,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13658,7 +13658,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3862.022,
+      "latency_ms": 1.758,
       "cost_usd": 0.002663,
       "metadata": {
         "chunk_count": 1,
@@ -13706,7 +13706,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3388.235,
+      "latency_ms": 0.793,
       "cost_usd": 0.002846,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13738,7 +13738,7 @@
         "vendor: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3388.235,
+      "latency_ms": 0.793,
       "cost_usd": 0.002846,
       "metadata": {
         "chunk_count": 1,
@@ -13786,7 +13786,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3691.796,
+      "latency_ms": 1.47,
       "cost_usd": 0.001499,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13820,7 +13820,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3691.796,
+      "latency_ms": 1.47,
       "cost_usd": 0.001499,
       "metadata": {
         "chunk_count": 1,
@@ -13868,7 +13868,7 @@
       "hallucination_rate": 1.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4338.952,
+      "latency_ms": 0.71,
       "cost_usd": 0.002844,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13900,7 +13900,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4338.952,
+      "latency_ms": 0.71,
       "cost_usd": 0.002844,
       "metadata": {
         "chunk_count": 1,
@@ -13948,7 +13948,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3795.504,
+      "latency_ms": 2.567,
       "cost_usd": 0.003068,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -13982,7 +13982,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3795.504,
+      "latency_ms": 2.567,
       "cost_usd": 0.003068,
       "metadata": {
         "chunk_count": 1,
@@ -14030,7 +14030,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3800.771,
+      "latency_ms": 0.985,
       "cost_usd": 0.003093,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14064,7 +14064,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3800.771,
+      "latency_ms": 0.985,
       "cost_usd": 0.003093,
       "metadata": {
         "chunk_count": 1,
@@ -14112,7 +14112,7 @@
       "hallucination_rate": 0.14285714285714285,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3778.382,
+      "latency_ms": 1.035,
       "cost_usd": 0.003032,
       "errors": [
         "date: Extra data: line 2 column 1 (char 5)",
@@ -14162,7 +14162,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3778.382,
+      "latency_ms": 1.035,
       "cost_usd": 0.003032,
       "metadata": {
         "chunk_count": 1,
@@ -14210,7 +14210,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3792.974,
+      "latency_ms": 1.559,
       "cost_usd": 0.003898,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14244,7 +14244,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3792.974,
+      "latency_ms": 1.559,
       "cost_usd": 0.003898,
       "metadata": {
         "chunk_count": 1,
@@ -14292,7 +14292,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4070.4,
+      "latency_ms": 0.9,
       "cost_usd": 0.003418,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14326,7 +14326,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4070.4,
+      "latency_ms": 0.9,
       "cost_usd": 0.003418,
       "metadata": {
         "chunk_count": 1,
@@ -14374,7 +14374,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4010.768,
+      "latency_ms": 1.251,
       "cost_usd": 0.002168,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14408,7 +14408,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4010.768,
+      "latency_ms": 1.251,
       "cost_usd": 0.002168,
       "metadata": {
         "chunk_count": 1,
@@ -14456,7 +14456,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3816.438,
+      "latency_ms": 2.075,
       "cost_usd": 0.003438,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14490,7 +14490,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3816.438,
+      "latency_ms": 2.075,
       "cost_usd": 0.003438,
       "metadata": {
         "chunk_count": 1,
@@ -14538,7 +14538,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3813.16,
+      "latency_ms": 1.442,
       "cost_usd": 0.002543,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14572,7 +14572,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3813.16,
+      "latency_ms": 1.442,
       "cost_usd": 0.002543,
       "metadata": {
         "chunk_count": 1,
@@ -14620,7 +14620,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4494.532,
+      "latency_ms": 0.845,
       "cost_usd": 0.002428,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14654,7 +14654,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4494.532,
+      "latency_ms": 0.845,
       "cost_usd": 0.002428,
       "metadata": {
         "chunk_count": 1,
@@ -14702,7 +14702,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3748.344,
+      "latency_ms": 1.561,
       "cost_usd": 0.002558,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14736,7 +14736,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3748.344,
+      "latency_ms": 1.561,
       "cost_usd": 0.002558,
       "metadata": {
         "chunk_count": 1,
@@ -14784,7 +14784,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3854.911,
+      "latency_ms": 1.415,
       "cost_usd": 0.002528,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14818,7 +14818,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3854.911,
+      "latency_ms": 1.415,
       "cost_usd": 0.002528,
       "metadata": {
         "chunk_count": 1,
@@ -14866,7 +14866,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3800.795,
+      "latency_ms": 0.887,
       "cost_usd": 0.002743,
       "errors": [
         "invoice_number: Extra data: line 1 column 6 (char 5)",
@@ -14900,7 +14900,7 @@
         "total_amount: Extra data: line 1 column 6 (char 5)",
         "line_items: Extra data: line 1 column 6 (char 5)"
       ],
-      "latency_ms": 3800.795,
+      "latency_ms": 0.887,
       "cost_usd": 0.002743,
       "metadata": {
         "chunk_count": 1,
@@ -14948,7 +14948,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3954.509,
+      "latency_ms": 1.117,
       "cost_usd": 0.003178,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -14982,7 +14982,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3954.509,
+      "latency_ms": 1.117,
       "cost_usd": 0.003178,
       "metadata": {
         "chunk_count": 1,
@@ -15030,7 +15030,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3817.343,
+      "latency_ms": 1.531,
       "cost_usd": 0.003358,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15064,7 +15064,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3817.343,
+      "latency_ms": 1.531,
       "cost_usd": 0.003358,
       "metadata": {
         "chunk_count": 1,
@@ -15112,7 +15112,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3755.784,
+      "latency_ms": 1.867,
       "cost_usd": 0.002183,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15146,7 +15146,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3755.784,
+      "latency_ms": 1.867,
       "cost_usd": 0.002183,
       "metadata": {
         "chunk_count": 1,
@@ -15194,7 +15194,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3873.889,
+      "latency_ms": 0.65,
       "cost_usd": 0.002383,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15228,7 +15228,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3873.889,
+      "latency_ms": 0.65,
       "cost_usd": 0.002383,
       "metadata": {
         "chunk_count": 1,
@@ -15276,7 +15276,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3830.514,
+      "latency_ms": 0.915,
       "cost_usd": 0.002568,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15310,7 +15310,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3830.514,
+      "latency_ms": 0.915,
       "cost_usd": 0.002568,
       "metadata": {
         "chunk_count": 1,
@@ -15358,7 +15358,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3788.635,
+      "latency_ms": 0.616,
       "cost_usd": 0.002563,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15392,7 +15392,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3788.635,
+      "latency_ms": 0.616,
       "cost_usd": 0.002563,
       "metadata": {
         "chunk_count": 1,
@@ -15440,7 +15440,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3796.636,
+      "latency_ms": 0.952,
       "cost_usd": 0.002488,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15474,7 +15474,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3796.636,
+      "latency_ms": 0.952,
       "cost_usd": 0.002488,
       "metadata": {
         "chunk_count": 1,
@@ -15522,7 +15522,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3816.464,
+      "latency_ms": 2.081,
       "cost_usd": 0.002463,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15556,7 +15556,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3816.464,
+      "latency_ms": 2.081,
       "cost_usd": 0.002463,
       "metadata": {
         "chunk_count": 1,
@@ -15604,7 +15604,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3283.659,
+      "latency_ms": 0.818,
       "cost_usd": 0.002471,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15636,7 +15636,7 @@
         "vendor: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3283.659,
+      "latency_ms": 0.818,
       "cost_usd": 0.002471,
       "metadata": {
         "chunk_count": 1,
@@ -15684,7 +15684,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3892.767,
+      "latency_ms": 0.809,
       "cost_usd": 0.002458,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15718,7 +15718,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3892.767,
+      "latency_ms": 0.809,
       "cost_usd": 0.002458,
       "metadata": {
         "chunk_count": 1,
@@ -15766,7 +15766,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3859.715,
+      "latency_ms": 0.767,
       "cost_usd": 0.002663,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15800,7 +15800,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3859.715,
+      "latency_ms": 0.767,
       "cost_usd": 0.002663,
       "metadata": {
         "chunk_count": 1,
@@ -15848,7 +15848,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3792.639,
+      "latency_ms": 1.661,
       "cost_usd": 0.003468,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15882,7 +15882,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3792.639,
+      "latency_ms": 1.661,
       "cost_usd": 0.003468,
       "metadata": {
         "chunk_count": 1,
@@ -15930,7 +15930,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3974.072,
+      "latency_ms": 1.653,
       "cost_usd": 0.002103,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -15964,7 +15964,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3974.072,
+      "latency_ms": 1.653,
       "cost_usd": 0.002103,
       "metadata": {
         "chunk_count": 1,
@@ -16012,7 +16012,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3564.362,
+      "latency_ms": 1.609,
       "cost_usd": 0.002761,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -16044,7 +16044,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3564.362,
+      "latency_ms": 1.609,
       "cost_usd": 0.002761,
       "metadata": {
         "chunk_count": 1,
@@ -16092,7 +16092,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3790.597,
+      "latency_ms": 0.827,
       "cost_usd": 0.003628,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -16126,7 +16126,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3790.597,
+      "latency_ms": 0.827,
       "cost_usd": 0.003628,
       "metadata": {
         "chunk_count": 1,
@@ -16174,7 +16174,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3917.879,
+      "latency_ms": 1.642,
       "cost_usd": 0.002868,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -16208,7 +16208,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3917.879,
+      "latency_ms": 1.642,
       "cost_usd": 0.002868,
       "metadata": {
         "chunk_count": 1,
@@ -16256,7 +16256,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3897.409,
+      "latency_ms": 1.542,
       "cost_usd": 0.003458,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -16290,7 +16290,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3897.409,
+      "latency_ms": 1.542,
       "cost_usd": 0.003458,
       "metadata": {
         "chunk_count": 1,
@@ -16338,7 +16338,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 4031.716,
+      "latency_ms": 0.654,
       "cost_usd": 0.002043,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -16372,7 +16372,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 4031.716,
+      "latency_ms": 0.654,
       "cost_usd": 0.002043,
       "metadata": {
         "chunk_count": 1,
@@ -16420,7 +16420,7 @@
       "hallucination_rate": 0.0,
       "constraint_flag_rate": 0.0,
       "constraint_repair_rate": 0.0,
-      "latency_ms": 3633.278,
+      "latency_ms": 1.889,
       "cost_usd": 0.003279,
       "errors": [
         "invoice_number: Extra data: line 2 column 1 (char 5)",
@@ -16452,7 +16452,7 @@
         "total_amount: Extra data: line 2 column 1 (char 5)",
         "line_items: Extra data: line 2 column 1 (char 5)"
       ],
-      "latency_ms": 3633.278,
+      "latency_ms": 1.889,
       "cost_usd": 0.003279,
       "metadata": {
         "chunk_count": 1,

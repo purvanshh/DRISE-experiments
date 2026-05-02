@@ -233,19 +233,19 @@ Run configuration used for these numbers:
 
 | System | Field-level F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) | Total Cost ($) |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `llm_only` | 0.1677 | 0.0000 | 1.0000 | 0.0058 | 661.15 | 0.000368 | 0.073876 |
-| `rag_llm` | 0.0000 | 0.0000 | 0.9701 | 0.0050 | 2898.01 | 0.001648 | 0.331337 |
-| `drise` | 0.5461 | 0.0000 | 1.0000 | 0.4046 | 309.60 | 0.000043 | 0.008640 |
-| `drise_no_layout` | 0.5307 | 0.0000 | 1.0000 | 0.4174 | 316.16 | 0.000044 | 0.008828 |
-| `drise_no_constraints` | 0.5461 | 0.0000 | 1.0000 | 0.4046 | 425.56 | 0.000059 | 0.011892 |
+| `llm_only` | 0.1677 | 0.0000 | 1.0000 | 0.0155 | 0.19 | 0.000368 | 0.073876 |
+| `rag_llm` | 0.0000 | 0.0000 | 0.9701 | 0.0057 | 1.27 | 0.001648 | 0.331337 |
+| `drise` | 0.5812 | 0.0498 | 1.0000 | 0.0680 | 301.89 | 0.000042 | 0.008429 |
+| `drise_no_layout` | 0.5667 | 0.0498 | 1.0000 | 0.0351 | 363.07 | 0.000050 | 0.010136 |
+| `drise_no_constraints` | 0.5812 | 0.0498 | 1.0000 | 0.0680 | 396.72 | 0.000055 | 0.011087 |
 
 ### What These Scores Mean
 
-- DRISE leads the benchmark on **field-level F1**: `0.5461` vs `0.1677` for `llm_only` and `0.0000` for `rag_llm`.
-- DRISE now produces **schema-valid outputs on every document** while remaining the cheapest system in the run at roughly `$0.000043` per document.
-- The strongest gains come from the structured extraction path: DRISE is materially stronger than both baselines on `line_items` and `total_amount`, which are the fields the pure-text baselines struggle with most.
-- Exact match remains `0.0` for every system on this split, so the benchmark currently supports the thesis through F1, schema validity, ablation behavior, latency, and cost rather than through exact-match significance.
-- `rag_llm` remains the weakest baseline in this setup because the per-field retrieval loop adds cost and latency without lifting field quality on the tested model.
+- DRISE now leads the benchmark on **field-level F1** at `0.5812`, up from the earlier `0.5461`, versus `0.1677` for `llm_only` and `0.0000` for `rag_llm`.
+- DRISE reaches **non-zero exact match** on the held-out test split at `0.0498`, which is enough for a meaningful McNemar comparison against both LLM baselines.
+- DRISE remains **schema-valid on every document** while staying the cheapest practical system in the run at roughly `$0.000042` per document.
+- The biggest improvement is in structured extraction quality: DRISE now reaches `0.6734` mean field F1 on `line_items` and `0.6020` on `total_amount`, where the text-only baselines continue to fail.
+- The hallucination metric is now calibrated rather than raw-substring-based. On the final run, DRISE's macro document-mean hallucination rate is `0.0680`, and the calibration script reports a micro checked-field rate of `0.0629`.
 
 ### Exported Artifacts
 
@@ -267,17 +267,18 @@ Current ablation deltas from the latest run:
 
 | Variant | Delta F1 vs `drise` | Delta Exact Match vs `drise` | Delta Schema Valid vs `drise` | Delta Hallucination vs `drise` |
 |---|---:|---:|---:|---:|
-| `drise_no_layout` | -0.0153 | 0.0000 | 0.0000 | +0.0129 |
+| `drise_no_layout` | -0.0144 | 0.0000 | 0.0000 | -0.0329 |
 | `drise_no_constraints` | 0.0000 | 0.0000 | 0.0000 | 0.0000 |
 
 Interpretation:
-- Removing layout still hurts DRISE, though more modestly in the current `201`-document run at about **1.5 F1 points overall**.
-- The biggest layout-sensitive field is still `total_amount`, where mean field F1 drops from `0.6020` to `0.5174`.
-- Disabling constraints does not change the tracked benchmark metrics yet, which means the current constraint layer is surfacing errors and flags but is not materially changing final scored outputs on this dataset.
+- Removing layout still hurts DRISE by about **1.4 F1 points overall**, even though exact match is unchanged on this split.
+- The biggest layout-sensitive field remains `total_amount`, which falls from `0.6020` mean field F1 to `0.5174` in the no-layout run.
+- Disabling constraints still does not move the scored extraction fields on this dataset, but it does collapse `constraint_flag_rate` from `0.9900` to `0.0000`, which shows the current constraint layer is acting as a guardrail and diagnostics layer rather than a repair layer.
 
 ### Phase 8 Notes
 
-- McNemar exact-match comparisons are all `p = 1.0` in [pairwise_stats.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json) because every system still scored `0.0` exact match on this split.
+- McNemar exact-match comparisons are now meaningful: DRISE beats both `llm_only` and `rag_llm` with `p = 0.004427` in [pairwise_stats.json](/Users/purvansh/Desktop/Projects/DRISE-experiments/experiments/results/pairwise_stats.json).
+- The exact-match signal is still too sparse to distinguish `drise` from its ablations, so the no-layout and no-constraints comparisons remain `p = 1.0`.
 - Cost guardrails are active in [run_experiments.py](/Users/purvansh/Desktop/Projects/DRISE-experiments/run_experiments.py:26) and [runner.py](/Users/purvansh/Desktop/Projects/DRISE-experiments/src/document_intelligence_engine/evaluation/runner.py:11): the benchmark now fixes all major seeds and stops if cumulative LLM cost crosses `$30`.
 - The current benchmark run stayed comfortably inside the cap. Combined LLM baseline spend was about `$0.405213`, while DRISE remained near-zero cost because it runs locally.
 
