@@ -14,8 +14,16 @@
         "std": 0.0
       },
       "hallucination_rate": {
-        "mean": 0.111681,
-        "std": 0.144534
+        "mean": 0.03723,
+        "std": 0.08416
+      },
+      "constraint_flag_rate": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "constraint_repair_rate": {
+        "mean": 0.00995,
+        "std": 0.099253
       },
       "latency_ms": {
         "mean": 309.604383,
@@ -65,8 +73,16 @@
         "std": 0.0
       },
       "hallucination_rate": {
-        "mean": 0.111681,
-        "std": 0.144534
+        "mean": 0.03723,
+        "std": 0.08416
+      },
+      "constraint_flag_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "constraint_repair_rate": {
+        "mean": 0.0,
+        "std": 0.0
       },
       "latency_ms": {
         "mean": 425.558886,
@@ -116,8 +132,16 @@
         "std": 0.0
       },
       "hallucination_rate": {
-        "mean": 0.116404,
-        "std": 0.150093
+        "mean": 0.039001,
+        "std": 0.088157
+      },
+      "constraint_flag_rate": {
+        "mean": 1.0,
+        "std": 0.0
+      },
+      "constraint_repair_rate": {
+        "mean": 0.0,
+        "std": 0.0
       },
       "latency_ms": {
         "mean": 316.160731,
@@ -167,8 +191,16 @@
         "std": 0.0
       },
       "hallucination_rate": {
-        "mean": 0.016631,
-        "std": 0.062554
+        "mean": 0.015508,
+        "std": 0.061606
+      },
+      "constraint_flag_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "constraint_repair_rate": {
+        "mean": 0.0,
+        "std": 0.0
       },
       "latency_ms": {
         "mean": 661.146413,
@@ -218,8 +250,16 @@
         "std": 0.170175
       },
       "hallucination_rate": {
-        "mean": 0.005597,
-        "std": 0.070863
+        "mean": 0.005686,
+        "std": 0.071023
+      },
+      "constraint_flag_rate": {
+        "mean": 0.0,
+        "std": 0.0
+      },
+      "constraint_repair_rate": {
+        "mean": 0.0,
+        "std": 0.0
       },
       "latency_ms": {
         "mean": 2898.014488,
@@ -324,7 +364,7 @@
       "field_level_f1_mean": 0.54609,
       "exact_match_mean": 0.014925,
       "schema_valid_mean": 1.0,
-      "hallucination_rate_mean": 0.111681,
+      "hallucination_rate_mean": 0.03723,
       "delta_field_level_f1": 0.0,
       "delta_exact_match": 0.0,
       "delta_schema_valid": 0.0,
@@ -335,11 +375,11 @@
       "field_level_f1_mean": 0.53074,
       "exact_match_mean": 0.014925,
       "schema_valid_mean": 1.0,
-      "hallucination_rate_mean": 0.116404,
+      "hallucination_rate_mean": 0.039001,
       "delta_field_level_f1": -0.01535,
       "delta_exact_match": 0.0,
       "delta_schema_valid": 0.0,
-      "delta_hallucination_rate": 0.004723
+      "delta_hallucination_rate": 0.001771
     }
   ],
   "artifacts": {

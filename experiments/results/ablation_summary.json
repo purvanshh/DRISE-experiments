@@ -4,7 +4,7 @@
     "field_level_f1_mean": 0.54609,
     "exact_match_mean": 0.014925,
     "schema_valid_mean": 1.0,
-    "hallucination_rate_mean": 0.111681,
+    "hallucination_rate_mean": 0.03723,
     "delta_field_level_f1": 0.0,
     "delta_exact_match": 0.0,
     "delta_schema_valid": 0.0,
@@ -15,10 +15,10 @@
     "field_level_f1_mean": 0.53074,
     "exact_match_mean": 0.014925,
     "schema_valid_mean": 1.0,
-    "hallucination_rate_mean": 0.116404,
+    "hallucination_rate_mean": 0.039001,
     "delta_field_level_f1": -0.01535,
     "delta_exact_match": 0.0,
     "delta_schema_valid": 0.0,
-    "delta_hallucination_rate": 0.004723
+    "delta_hallucination_rate": 0.001771
   }
 ]

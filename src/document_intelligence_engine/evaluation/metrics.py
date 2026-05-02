@@ -162,56 +162,126 @@ def compute_schema_validity(
 def compute_hallucination_rate(prediction: dict[str, Any], source_text: str) -> float:
     """Measure the fraction of extracted text-bearing values missing from the source text."""
 
-    normalized_source = _normalize_hallucination_source(source_text)
-    normalized_lines = [line for line in (_normalize_hallucination_source(line) for line in source_text.splitlines()) if line]
-    checked = 0
-    hallucinated = 0
-
-    for field_name, value in prediction.items():
-        if str(field_name).startswith("_") or value is None:
-            continue
-        for candidate_group in _text_hallucination_candidate_groups(str(field_name), value):
-            candidate_group = [candidate for candidate in candidate_group if candidate]
-            if not candidate_group:
-                continue
-            checked += 1
-            if not any(_text_appears_in_source(candidate, normalized_source, normalized_lines) for candidate in candidate_group):
-                hallucinated += 1
+    checks = collect_hallucination_checks(prediction, source_text)
+    checked = sum(1 for check in checks if check["counted"])
+    hallucinated = sum(1 for check in checks if check["counted"] and not check["grounded"])
 
     if checked == 0:
         return 0.0
     return hallucinated / checked
 
 
-def _text_hallucination_candidate_groups(field_name: str, value: Any) -> list[list[str]]:
+def collect_hallucination_checks(prediction: dict[str, Any], source_text: str) -> list[dict[str, Any]]:
+    """Return field-level hallucination grounding checks for inspection and calibration."""
+
+    normalized_source = _normalize_hallucination_source(source_text)
+    normalized_lines = [line for line in (_normalize_hallucination_source(line) for line in source_text.splitlines()) if line]
+    textual_lines = [
+        " ".join(tokens)
+        for tokens in (_tokenize_textual_hallucination(line) for line in source_text.splitlines())
+        if tokens
+    ]
+
+    checks: list[dict[str, Any]] = []
+    for field_name, value in prediction.items():
+        if str(field_name).startswith("_") or value is None:
+            continue
+        checks.extend(
+            _collect_hallucination_checks_for_value(
+                field_path=str(field_name),
+                field_name=str(field_name),
+                value=value,
+                normalized_source=normalized_source,
+                normalized_lines=normalized_lines,
+                textual_lines=textual_lines,
+            )
+        )
+    return checks
+
+
+def _collect_hallucination_checks_for_value(
+    *,
+    field_path: str,
+    field_name: str,
+    value: Any,
+    normalized_source: str,
+    normalized_lines: list[str],
+    textual_lines: list[str],
+) -> list[dict[str, Any]]:
     if value is None:
         return []
-    if isinstance(value, str):
-        candidates = _hallucination_candidates_for_scalar(value, field_name)
-        return [candidates] if candidates else []
     if isinstance(value, list):
-        candidates: list[list[str]] = []
-        for item in value:
-            candidates.extend(_text_hallucination_candidate_groups(field_name, item))
-        return candidates
+        checks: list[dict[str, Any]] = []
+        for index, item in enumerate(value):
+            checks.extend(
+                _collect_hallucination_checks_for_value(
+                    field_path=f"{field_path}[{index}]",
+                    field_name=field_name,
+                    value=item,
+                    normalized_source=normalized_source,
+                    normalized_lines=normalized_lines,
+                    textual_lines=textual_lines,
+                )
+            )
+        return checks
     if isinstance(value, dict):
-        candidates: list[list[str]] = []
+        checks: list[dict[str, Any]] = []
         for nested_key, nested_value in value.items():
-            candidates.extend(_text_hallucination_candidate_groups(str(nested_key or field_name), nested_value))
-        return candidates
-    candidates = _hallucination_candidates_for_scalar(value, field_name)
-    return [candidates] if candidates else []
+            nested_field_name = str(nested_key or field_name)
+            checks.extend(
+                _collect_hallucination_checks_for_value(
+                    field_path=f"{field_path}.{nested_field_name}",
+                    field_name=nested_field_name,
+                    value=nested_value,
+                    normalized_source=normalized_source,
+                    normalized_lines=normalized_lines,
+                    textual_lines=textual_lines,
+                )
+            )
+        return checks
+
+    candidates = [candidate for candidate in _hallucination_candidates_for_scalar(value, field_name) if candidate]
+    if not candidates:
+        return []
+    grounded = any(
+        _text_appears_in_source(candidate, normalized_source, normalized_lines, textual_lines) for candidate in candidates
+    )
+    return [
+        {
+            "field_path": field_path,
+            "field_name": field_name,
+            "value": value,
+            "candidates": candidates,
+            "grounded": grounded,
+            "counted": True,
+        }
+    ]
 
 
-def _text_appears_in_source(candidate: str, normalized_source: str, normalized_lines: list[str]) -> bool:
+def _text_appears_in_source(
+    candidate: str,
+    normalized_source: str,
+    normalized_lines: list[str],
+    textual_lines: list[str],
+) -> bool:
     if not candidate:
         return True
     if candidate in normalized_source:
         return True
-    if len(candidate) < 5:
+    candidate_tokens = _tokenize_textual_hallucination(candidate)
+    if not candidate_tokens:
         return False
-    best_ratio = max((SequenceMatcher(None, candidate, line).ratio() for line in normalized_lines), default=0.0)
-    return best_ratio >= 0.85
+    candidate_text = " ".join(candidate_tokens)
+    if len("".join(candidate_tokens)) < 3:
+        return False
+    if any(candidate_text in line for line in textual_lines):
+        return True
+    if any(_contains_candidate_token_sequence(candidate_tokens, _tokenize_textual_hallucination(line)) for line in normalized_lines):
+        return True
+    if len(candidate_text) < 5:
+        return False
+    best_ratio = max((SequenceMatcher(None, candidate_text, line).ratio() for line in textual_lines), default=0.0)
+    return best_ratio >= 0.88
 
 
 def _field_f1(prediction: Any, ground_truth: Any) -> float:
@@ -389,12 +459,18 @@ def _hallucination_candidates_for_scalar(value: Any, field_name: str) -> list[st
         if not normalized_date:
             return []
         year, month, day = normalized_date.split("-")
+        month_name = datetime.strptime(month, "%m").strftime("%B")
+        month_abbrev = datetime.strptime(month, "%m").strftime("%b")
         return [
             _normalize_hallucination_source(normalized_date),
             _normalize_hallucination_source(f"{month}/{day}/{year}"),
             _normalize_hallucination_source(f"{day}/{month}/{year}"),
             _normalize_hallucination_source(f"{month}-{day}-{year}"),
             _normalize_hallucination_source(f"{day}-{month}-{year}"),
+            _normalize_hallucination_source(f"{month_name} {int(day)}, {year}"),
+            _normalize_hallucination_source(f"{month_abbrev} {int(day)}, {year}"),
+            _normalize_hallucination_source(f"{int(day)} {month_name} {year}"),
+            _normalize_hallucination_source(f"{int(day)} {month_abbrev} {year}"),
         ]
     if field_name in {"total_amount", "tax_amount", "subtotal", "unit_price", "price", "quantity"}:
         amount = _normalize_amount(value)
@@ -405,4 +481,63 @@ def _hallucination_candidates_for_scalar(value: Any, field_name: str) -> list[st
         return list(dict.fromkeys([canonical, trimmed]))
 
     normalized = _normalize_for_hallucination(value, field_name)
-    return [normalized] if normalized else []
+    textual = " ".join(_tokenize_textual_hallucination(normalized))
+    if len("".join(textual.split())) < 3:
+        return []
+    return [textual] if textual else []
+
+
+def _tokenize_textual_hallucination(value: Any) -> list[str]:
+    if value is None or value == "":
+        return []
+    normalized = _normalize_string(str(value))
+    normalized = normalized.replace(",", " ")
+    normalized = re.sub(r"[$€£¥]", " ", normalized)
+    normalized = re.sub(r"[^a-z0-9]+", " ", normalized)
+    tokens = []
+    for token in normalized.split():
+        cleaned = _normalize_textual_token(token)
+        if cleaned:
+            tokens.append(cleaned)
+    return tokens
+
+
+def _normalize_textual_token(token: str) -> str:
+    cleaned = token.strip().lower()
+    if not cleaned:
+        return ""
+    if re.search(r"[a-z]", cleaned) and re.search(r"\d", cleaned):
+        cleaned = re.sub(r"^\d+(?=[a-z])", "", cleaned)
+        cleaned = re.sub(r"(?<=[a-z])\d+(?=[a-z])", "", cleaned)
+        cleaned = re.sub(r"(?<=[a-z])\d+$", "", cleaned)
+        cleaned = cleaned.replace("0", "o")
+    cleaned = re.sub(r"\s+", "", cleaned)
+    return cleaned
+
+
+def _contains_candidate_token_sequence(candidate_tokens: list[str], line_tokens: list[str]) -> bool:
+    if not candidate_tokens:
+        return False
+    start_index = 0
+    for candidate_token in candidate_tokens:
+        matched = False
+        for index in range(start_index, len(line_tokens)):
+            source_token = line_tokens[index]
+            if source_token.isdigit():
+                continue
+            if _tokens_match(candidate_token, source_token):
+                start_index = index + 1
+                matched = True
+                break
+        if not matched:
+            return False
+    return True
+
+
+def _tokens_match(candidate_token: str, source_token: str) -> bool:
+    if candidate_token == source_token:
+        return True
+    if candidate_token in source_token or source_token in candidate_token:
+        if min(len(candidate_token), len(source_token)) >= 4:
+            return True
+    return SequenceMatcher(None, candidate_token, source_token).ratio() >= 0.84

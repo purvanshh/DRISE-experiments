@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from document_intelligence_engine.evaluation.evaluator import Evaluator
 from document_intelligence_engine.evaluation.metrics import (
+    collect_hallucination_checks,
     compute_document_exact_match,
     compute_field_f1_scores,
     compute_field_level_f1,
@@ -94,6 +95,54 @@ def test_hallucination_normalizes_currency_and_dates_against_source_text():
     source_text = "Invoice Number: INV-404\nDate: 01/12/2025\nVendor: ABC Corp\nTotal: $1,000.50\nWidget A 2 500.25"
 
     assert compute_hallucination_rate(prediction, source_text) == 0.0
+
+
+def test_hallucination_tolerates_interleaved_numbers_and_minor_ocr_noise_in_text_fields():
+    prediction = {
+        "invoice_number": None,
+        "date": None,
+        "vendor": "Puyo",
+        "total_amount": None,
+        "line_items": [
+            {"description": "FL-Xmas Off", "quantity": None, "unit_price": None},
+            {"description": "Siky Lychee", "quantity": None, "unit_price": None},
+        ],
+    }
+    source_text = (
+        "Puyo 6 (Package) 1x 70,000 70,000 "
+        "Vanilla SLC 1 FL-Xmas 30 Off 68,180 "
+        "Si1ky Lychee 2x Sub Total 70,000"
+    )
+
+    assert compute_hallucination_rate(prediction, source_text) == 0.0
+
+
+def test_hallucination_matches_month_name_dates_and_mixed_alnum_receipt_tokens():
+    prediction = {
+        "invoice_number": None,
+        "date": "1995-03-17",
+        "vendor": None,
+        "total_amount": None,
+        "line_items": [{"description": "DE.PSANG IJO MDM", "quantity": None, "unit_price": None}],
+    }
+    source_text = "MARCH 17, 1995 1 DE13.PSANG IJO MDM 29,800"
+
+    assert compute_hallucination_rate(prediction, source_text) == 0.0
+
+
+def test_collect_hallucination_checks_returns_field_paths_for_residual_flags():
+    prediction = {
+        "invoice_number": "INV-404",
+        "date": None,
+        "vendor": "Ghost Corp",
+        "total_amount": None,
+        "line_items": [{"description": "Imaginary Item", "quantity": None, "unit_price": None}],
+    }
+    checks = collect_hallucination_checks(prediction, "Invoice Number: INV-404")
+
+    flagged_paths = {check["field_path"] for check in checks if check["counted"] and not check["grounded"]}
+    assert "vendor" in flagged_paths
+    assert "line_items[0].description" in flagged_paths
 
 
 def test_experiment_metrics_schema_rejects_non_dict_line_items():

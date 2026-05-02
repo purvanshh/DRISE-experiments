@@ -1,8 +1,17 @@
 {
-  "sample_doc_count": 18,
-  "checked_string_values": 82,
-  "manual_like_true_hallucination_rate": 0.487805,
-  "automatic_sample_hallucination_rate": 0.439562,
-  "absolute_difference": 0.048243,
-  "within_tolerance_0_05": true
+  "sample_doc_count": 20,
+  "sample_docs_with_flags": 2,
+  "sample_checked_values": 31,
+  "sample_flagged_values": 7,
+  "automatic_sample_hallucination_rate": 0.225806,
+  "automatic_sample_document_mean_rate": 0.020513,
+  "full_checked_values": 2271,
+  "full_flagged_values": 122,
+  "automatic_full_hallucination_rate": 0.053721,
+  "automatic_full_document_mean_rate": 0.03723,
+  "calibration_notes": [
+    "Sample uses deterministic random seed 42 over stored DRISE outputs.",
+    "Only fields still flagged after normalized grounding checks are emitted for review.",
+    "This sample is intended for manual inspection of residual false positives rather than raw substring mismatches."
+  ]
 }

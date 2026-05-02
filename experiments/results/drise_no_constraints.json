@@ -13,6 +13,8 @@
       "exact_match": 1.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 369.256,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -123,6 +125,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 379.885,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -221,6 +225,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 588.337,
       "cost_usd": 8.2e-05,
       "errors": [
@@ -330,6 +336,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.952,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -437,6 +445,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 368.144,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -579,6 +589,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 468.737,
       "cost_usd": 6.5e-05,
       "errors": [
@@ -714,6 +726,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 387.183,
       "cost_usd": 5.4e-05,
       "errors": [
@@ -818,6 +832,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 395.901,
       "cost_usd": 5.5e-05,
       "errors": [
@@ -912,7 +928,9 @@
       "field_level_f1": 0.5263157894736842,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.25,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 540.316,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -1022,7 +1040,9 @@
       "field_level_f1": 0.5806451612903226,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 359.911,
       "cost_usd": 5e-05,
       "errors": [
@@ -1148,7 +1168,9 @@
       "field_level_f1": 0.1904761904761905,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3333333333333333,
+      "hallucination_rate": 0.14285714285714285,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 461.209,
       "cost_usd": 6.4e-05,
       "errors": [
@@ -1265,6 +1287,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 376.103,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -1421,6 +1445,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 364.19,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -1554,7 +1580,9 @@
       "field_level_f1": 0.6588235294117647,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.06666666666666667,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 389.847,
       "cost_usd": 5.4e-05,
       "errors": [
@@ -1764,6 +1792,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 516.243,
       "cost_usd": 7.2e-05,
       "errors": [
@@ -1869,6 +1899,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 499.094,
       "cost_usd": 6.9e-05,
       "errors": [
@@ -1976,7 +2008,9 @@
       "field_level_f1": 0.68,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.4,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 447.366,
       "cost_usd": 6.2e-05,
       "errors": [
@@ -2137,6 +2171,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 565.159,
       "cost_usd": 7.8e-05,
       "errors": [
@@ -2222,7 +2258,9 @@
       "field_level_f1": 0.6846846846846847,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.027777777777777776,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 382.72,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -2468,6 +2506,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 493.366,
       "cost_usd": 6.9e-05,
       "errors": [
@@ -2558,6 +2598,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 431.387,
       "cost_usd": 6e-05,
       "errors": [
@@ -2647,7 +2689,9 @@
       "field_level_f1": 0.4827586206896552,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1111111111111111,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.485,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -2764,7 +2808,9 @@
       "field_level_f1": 0.606060606060606,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.18181818181818182,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 382.13,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -2894,7 +2940,9 @@
       "field_level_f1": 0.5490196078431373,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.08333333333333333,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 374.738,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -3069,6 +3117,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 353.446,
       "cost_usd": 4.9e-05,
       "errors": [
@@ -3168,7 +3218,9 @@
       "field_level_f1": 0.26666666666666666,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.4,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 377.839,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -3268,6 +3320,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 514.178,
       "cost_usd": 7.1e-05,
       "errors": [
@@ -3394,6 +3448,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 365.954,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -3488,7 +3544,9 @@
       "field_level_f1": 0.6451612903225806,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.16666666666666666,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 531.806,
       "cost_usd": 7.4e-05,
       "errors": [
@@ -3636,6 +3694,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 359.202,
       "cost_usd": 5e-05,
       "errors": [
@@ -3762,7 +3822,9 @@
       "field_level_f1": 0.23255813953488372,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.18181818181818182,
+      "hallucination_rate": 0.1,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 483.493,
       "cost_usd": 6.7e-05,
       "errors": [
@@ -3892,6 +3954,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 497.962,
       "cost_usd": 6.9e-05,
       "errors": [
@@ -4011,7 +4075,9 @@
       "field_level_f1": 0.4705882352941177,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.14285714285714285,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 368.025,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -4116,6 +4182,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 378.12,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -4300,6 +4368,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.09090909090909091,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.723,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -4422,6 +4492,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 361.337,
       "cost_usd": 5e-05,
       "errors": [
@@ -4529,6 +4601,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 372.822,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -4629,7 +4703,9 @@
       "field_level_f1": 0.6341463414634146,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.05263157894736842,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 469.8,
       "cost_usd": 6.5e-05,
       "errors": [
@@ -4797,7 +4873,9 @@
       "field_level_f1": 0.5555555555555556,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 500.182,
       "cost_usd": 6.9e-05,
       "errors": [
@@ -4909,6 +4987,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 540.795,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -5008,6 +5088,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 394.745,
       "cost_usd": 5.5e-05,
       "errors": [
@@ -5114,6 +5196,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 375.833,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -5223,7 +5307,9 @@
       "field_level_f1": 0.5,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1111111111111111,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 537.481,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -5347,6 +5433,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 492.632,
       "cost_usd": 6.8e-05,
       "errors": [
@@ -5461,6 +5549,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 425.169,
       "cost_usd": 5.9e-05,
       "errors": [
@@ -5629,6 +5719,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 551.819,
       "cost_usd": 7.7e-05,
       "errors": [
@@ -5740,7 +5832,9 @@
       "field_level_f1": 1.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.14285714285714285,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 416.934,
       "cost_usd": 5.8e-05,
       "errors": [
@@ -5857,6 +5951,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.775,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -5944,7 +6040,9 @@
       "field_level_f1": 0.42105263157894735,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.25,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 428.469,
       "cost_usd": 6e-05,
       "errors": [
@@ -6047,6 +6145,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 496.46,
       "cost_usd": 6.9e-05,
       "errors": [
@@ -6305,7 +6405,9 @@
       "field_level_f1": 0.8235294117647058,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.0,
+      "hallucination_rate": 0.1,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 497.165,
       "cost_usd": 6.9e-05,
       "errors": [
@@ -6441,6 +6543,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 365.855,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -6527,6 +6631,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 361.527,
       "cost_usd": 5e-05,
       "errors": [
@@ -6698,7 +6804,9 @@
       "field_level_f1": 0.5263157894736842,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.07142857142857142,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 364.36,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -6816,7 +6924,9 @@
       "field_level_f1": 0.4827586206896552,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2222222222222222,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 486.931,
       "cost_usd": 6.8e-05,
       "errors": [
@@ -6935,6 +7045,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.639,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -7058,7 +7170,9 @@
       "field_level_f1": 0.7457627118644068,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.17647058823529413,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 451.16,
       "cost_usd": 6.3e-05,
       "errors": [
@@ -7233,6 +7347,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 543.318,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -7325,6 +7441,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 558.129,
       "cost_usd": 7.8e-05,
       "errors": [
@@ -7477,6 +7595,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 428.5,
       "cost_usd": 6e-05,
       "errors": [
@@ -7590,6 +7710,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 370.984,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -7682,6 +7804,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 372.95,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -7803,7 +7927,9 @@
       "field_level_f1": 0.47619047619047616,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.15384615384615385,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 387.457,
       "cost_usd": 5.4e-05,
       "errors": [
@@ -7941,6 +8067,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.222,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -8095,6 +8223,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.21428571428571427,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 377.477,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -8268,6 +8398,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 370.612,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -8423,6 +8555,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 390.301,
       "cost_usd": 5.4e-05,
       "errors": [
@@ -8533,6 +8667,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 518.679,
       "cost_usd": 7.2e-05,
       "errors": [
@@ -8679,7 +8815,9 @@
       "field_level_f1": 0.875,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.07692307692307693,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 373.704,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -8811,7 +8949,9 @@
       "field_level_f1": 0.6976744186046512,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.043478260869565216,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 539.843,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -9021,7 +9161,9 @@
       "field_level_f1": 0.7572815533980584,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.05128205128205128,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 516.829,
       "cost_usd": 7.2e-05,
       "errors": [
@@ -9287,7 +9429,9 @@
       "field_level_f1": 0.5714285714285715,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.09090909090909091,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 509.986,
       "cost_usd": 7.1e-05,
       "errors": [
@@ -9416,6 +9560,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.3333333333333333,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 491.084,
       "cost_usd": 6.8e-05,
       "errors": [
@@ -9515,7 +9661,9 @@
       "field_level_f1": 0.5333333333333333,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1111111111111111,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 471.52,
       "cost_usd": 6.5e-05,
       "errors": [
@@ -9639,7 +9787,9 @@
       "field_level_f1": 0.5833333333333334,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2857142857142857,
+      "hallucination_rate": 0.14285714285714285,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 455.023,
       "cost_usd": 6.3e-05,
       "errors": [
@@ -9757,7 +9907,9 @@
       "field_level_f1": 0.5454545454545454,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.14285714285714285,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.737,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -9866,6 +10018,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 359.351,
       "cost_usd": 5e-05,
       "errors": [
@@ -9960,6 +10114,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 502.737,
       "cost_usd": 7e-05,
       "errors": [
@@ -10312,7 +10468,9 @@
       "field_level_f1": 0.47619047619047616,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.15384615384615385,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 366.936,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -10449,7 +10607,9 @@
       "field_level_f1": 0.5384615384615384,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.09090909090909091,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 536.47,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -10578,7 +10738,9 @@
       "field_level_f1": 0.41269841269841273,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.15384615384615385,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.965,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -10777,6 +10939,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 406.358,
       "cost_usd": 5.6e-05,
       "errors": [
@@ -10954,6 +11118,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 374.707,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -11073,7 +11239,9 @@
       "field_level_f1": 0.7272727272727272,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.25,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.862,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -11170,6 +11338,8 @@
       "exact_match": 1.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.738,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -11288,6 +11458,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 373.704,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -11425,6 +11597,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 414.293,
       "cost_usd": 5.8e-05,
       "errors": [
@@ -11546,7 +11720,9 @@
       "field_level_f1": 0.23809523809523808,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.14285714285714285,
+      "hallucination_rate": 0.2,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 458.166,
       "cost_usd": 6.4e-05,
       "errors": [
@@ -11694,6 +11870,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 454.259,
       "cost_usd": 6.3e-05,
       "errors": [
@@ -11792,6 +11970,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.3333333333333333,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 435.97,
       "cost_usd": 6.1e-05,
       "errors": [
@@ -11909,6 +12089,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 404.048,
       "cost_usd": 5.6e-05,
       "errors": [
@@ -12037,6 +12219,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 546.826,
       "cost_usd": 7.6e-05,
       "errors": [
@@ -12138,7 +12322,9 @@
       "field_level_f1": 0.47191011235955066,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.10416666666666667,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 391.604,
       "cost_usd": 5.4e-05,
       "errors": [
@@ -12383,6 +12569,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 494.677,
       "cost_usd": 6.9e-05,
       "errors": [
@@ -12502,6 +12690,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 491.541,
       "cost_usd": 6.8e-05,
       "errors": [
@@ -12706,6 +12896,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.49,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -12834,6 +13026,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.843,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -12953,6 +13147,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 559.794,
       "cost_usd": 7.8e-05,
       "errors": [
@@ -13061,6 +13257,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 381.554,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -13168,6 +13366,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.18181818181818182,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 372.864,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -13413,7 +13613,9 @@
       "field_level_f1": 0.5,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.15384615384615385,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 385.128,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -13551,6 +13753,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 378.697,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -13655,7 +13859,9 @@
       "field_level_f1": 0.45161290322580644,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.25,
+      "hallucination_rate": 0.08333333333333333,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 401.329,
       "cost_usd": 5.6e-05,
       "errors": [
@@ -13784,6 +13990,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 435.054,
       "cost_usd": 6e-05,
       "errors": [
@@ -13894,7 +14102,9 @@
       "field_level_f1": 0.4444444444444444,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.14285714285714285,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 363.737,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -13999,6 +14209,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 407.455,
       "cost_usd": 5.7e-05,
       "errors": [
@@ -14107,7 +14319,9 @@
       "field_level_f1": 0.8181818181818182,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 374.948,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -14221,6 +14435,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 382.407,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -14324,7 +14540,9 @@
       "field_level_f1": 0.576271186440678,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.21052631578947367,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 352.116,
       "cost_usd": 4.9e-05,
       "errors": [
@@ -14481,6 +14699,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 444.939,
       "cost_usd": 6.2e-05,
       "errors": [
@@ -14594,6 +14814,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 439.684,
       "cost_usd": 6.1e-05,
       "errors": [
@@ -14736,7 +14958,9 @@
       "field_level_f1": 0.5,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.125,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 397.543,
       "cost_usd": 5.5e-05,
       "errors": [
@@ -14853,6 +15077,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 373.041,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -14976,6 +15202,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.1,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 372.734,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -15105,6 +15333,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 358.02,
       "cost_usd": 5e-05,
       "errors": [
@@ -15252,7 +15482,9 @@
       "field_level_f1": 0.3333333333333333,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 510.244,
       "cost_usd": 7.1e-05,
       "errors": [
@@ -15389,6 +15621,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 509.965,
       "cost_usd": 7.1e-05,
       "errors": [
@@ -15499,6 +15733,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 486.383,
       "cost_usd": 6.8e-05,
       "errors": [
@@ -15698,6 +15934,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.2,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 363.622,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -15846,6 +16084,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 565.715,
       "cost_usd": 7.9e-05,
       "errors": [
@@ -15944,7 +16184,9 @@
       "field_level_f1": 0.625,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 374.043,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -16049,7 +16291,9 @@
       "field_level_f1": 0.5333333333333333,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.23076923076923078,
+      "hallucination_rate": 0.07692307692307693,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 378.177,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -16182,6 +16426,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 413.062,
       "cost_usd": 5.7e-05,
       "errors": [
@@ -16276,6 +16522,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.973,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -16378,7 +16626,9 @@
       "field_level_f1": 0.5294117647058824,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.07142857142857142,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 504.759,
       "cost_usd": 7e-05,
       "errors": [
@@ -16520,6 +16770,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 543.314,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -16630,6 +16882,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.08333333333333333,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 513.826,
       "cost_usd": 7.1e-05,
       "errors": [
@@ -16843,6 +17097,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 431.722,
       "cost_usd": 6e-05,
       "errors": [
@@ -16982,6 +17238,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 378.803,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -17100,6 +17358,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 377.582,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -17237,6 +17497,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.195,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -17362,7 +17624,9 @@
       "field_level_f1": 0.5,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.15384615384615385,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 392.752,
       "cost_usd": 5.5e-05,
       "errors": [
@@ -17502,6 +17766,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 373.163,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -17594,6 +17860,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 466.208,
       "cost_usd": 6.5e-05,
       "errors": [
@@ -17735,6 +18003,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 542.343,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -17875,7 +18145,9 @@
       "field_level_f1": 0.631578947368421,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1111111111111111,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 357.225,
       "cost_usd": 5e-05,
       "errors": [
@@ -18045,6 +18317,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 501.636,
       "cost_usd": 7e-05,
       "errors": [
@@ -18142,7 +18416,9 @@
       "field_level_f1": 0.5714285714285714,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1111111111111111,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 364.885,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -18264,6 +18540,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.37,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -18409,6 +18687,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 523.086,
       "cost_usd": 7.3e-05,
       "errors": [
@@ -18526,6 +18806,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 533.441,
       "cost_usd": 7.4e-05,
       "errors": [
@@ -18636,6 +18918,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 369.44,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -18754,6 +19038,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.067,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -18862,7 +19148,9 @@
       "field_level_f1": 0.4,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3333333333333333,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 491.509,
       "cost_usd": 6.8e-05,
       "errors": [
@@ -18957,6 +19245,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.537,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -19107,6 +19397,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 477.016,
       "cost_usd": 6.6e-05,
       "errors": [
@@ -19205,6 +19497,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 380.471,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -19365,6 +19659,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 370.193,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -19479,6 +19775,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 521.424,
       "cost_usd": 7.2e-05,
       "errors": [
@@ -19572,7 +19870,9 @@
       "field_level_f1": 0.5161290322580645,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1111111111111111,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 366.069,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -19691,7 +19991,9 @@
       "field_level_f1": 0.42857142857142855,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 378.383,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -19812,7 +20114,9 @@
       "field_level_f1": 0.47058823529411764,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 408.776,
       "cost_usd": 5.7e-05,
       "errors": [
@@ -19926,6 +20230,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 378.703,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -20037,6 +20343,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 383.758,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -20144,7 +20452,9 @@
       "field_level_f1": 0.6190476190476191,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.18181818181818182,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 612.761,
       "cost_usd": 8.5e-05,
       "errors": [
@@ -20290,6 +20600,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 421.234,
       "cost_usd": 5.9e-05,
       "errors": [
@@ -20436,7 +20748,9 @@
       "field_level_f1": 0.8510638297872339,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.07692307692307693,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 361.78,
       "cost_usd": 5e-05,
       "errors": [
@@ -20595,6 +20909,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 411.504,
       "cost_usd": 5.7e-05,
       "errors": [
@@ -20699,7 +21015,9 @@
       "field_level_f1": 0.5185185185185186,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.1111111111111111,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 371.753,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -20813,6 +21131,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 394.472,
       "cost_usd": 5.5e-05,
       "errors": [
@@ -20911,6 +21231,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 465.488,
       "cost_usd": 6.5e-05,
       "errors": [
@@ -21010,6 +21332,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 484.955,
       "cost_usd": 6.7e-05,
       "errors": [
@@ -21140,6 +21464,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 424.93,
       "cost_usd": 5.9e-05,
       "errors": [
@@ -21371,6 +21697,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 378.535,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -21514,6 +21842,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 373.496,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -21625,6 +21955,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.4,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 392.007,
       "cost_usd": 5.4e-05,
       "errors": [
@@ -21743,7 +22075,9 @@
       "field_level_f1": 0.04,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3888888888888889,
+      "hallucination_rate": 0.1111111111111111,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 395.515,
       "cost_usd": 5.5e-05,
       "errors": [
@@ -21924,7 +22258,9 @@
       "field_level_f1": 0.019607843137254905,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.4,
+      "hallucination_rate": 0.16666666666666666,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 387.003,
       "cost_usd": 5.4e-05,
       "errors": [
@@ -22124,6 +22460,8 @@
       "exact_match": 1.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 351.443,
       "cost_usd": 4.9e-05,
       "errors": [
@@ -22205,7 +22543,9 @@
       "field_level_f1": 0.13333333333333333,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.25,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 491.014,
       "cost_usd": 6.8e-05,
       "errors": [
@@ -22307,7 +22647,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.42105263157894735,
+      "hallucination_rate": 0.2631578947368421,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 376.87,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -22494,7 +22836,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.42105263157894735,
+      "hallucination_rate": 0.21052631578947367,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 379.659,
       "cost_usd": 5.3e-05,
       "errors": [
@@ -22665,7 +23009,9 @@
       "field_level_f1": 0.012121212121212121,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.43478260869565216,
+      "hallucination_rate": 0.30434782608695654,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 475.548,
       "cost_usd": 6.6e-05,
       "errors": [
@@ -22823,7 +23169,9 @@
       "field_level_f1": 0.020202020202020204,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3684210526315789,
+      "hallucination_rate": 0.3333333333333333,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 377.425,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -22986,7 +23334,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.47368421052631576,
+      "hallucination_rate": 0.42105263157894735,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 370.686,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -23141,7 +23491,9 @@
       "field_level_f1": 0.08695652173913042,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.45454545454545453,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 367.548,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -23256,7 +23608,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.375,
+      "hallucination_rate": 0.20833333333333334,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 365.534,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -23407,6 +23761,8 @@
       "exact_match": 0.0,
       "schema_valid": 1.0,
       "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 428.187,
       "cost_usd": 5.9e-05,
       "errors": [
@@ -23508,7 +23864,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.2857142857142857,
+      "hallucination_rate": 0.125,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 522.049,
       "cost_usd": 7.3e-05,
       "errors": [
@@ -23688,7 +24046,9 @@
       "field_level_f1": 0.0588235294117647,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3333333333333333,
+      "hallucination_rate": 0.2222222222222222,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 445.831,
       "cost_usd": 6.2e-05,
       "errors": [
@@ -23803,7 +24163,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.18181818181818182,
+      "hallucination_rate": 0.09090909090909091,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 401.971,
       "cost_usd": 5.6e-05,
       "errors": [
@@ -23915,7 +24277,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.18181818181818182,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 366.495,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -24041,7 +24405,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.375,
+      "hallucination_rate": 0.125,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 392.93,
       "cost_usd": 5.5e-05,
       "errors": [
@@ -24216,7 +24582,9 @@
       "field_level_f1": 0.03571428571428572,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.45454545454545453,
+      "hallucination_rate": 0.09090909090909091,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 407.241,
       "cost_usd": 5.7e-05,
       "errors": [
@@ -24358,7 +24726,9 @@
       "field_level_f1": 0.06666666666666668,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.36363636363636365,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 355.721,
       "cost_usd": 4.9e-05,
       "errors": [
@@ -24501,7 +24871,9 @@
       "field_level_f1": 0.02666666666666666,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3333333333333333,
+      "hallucination_rate": 0.05,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 479.076,
       "cost_usd": 6.7e-05,
       "errors": [
@@ -24638,7 +25010,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.375,
+      "hallucination_rate": 0.125,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 438.215,
       "cost_usd": 6.1e-05,
       "errors": [
@@ -24754,7 +25128,9 @@
       "field_level_f1": 0.06896551724137931,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.16666666666666666,
+      "hallucination_rate": 0.08333333333333333,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 365.824,
       "cost_usd": 5.1e-05,
       "errors": [
@@ -24874,7 +25250,9 @@
       "field_level_f1": 0.13333333333333333,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.35714285714285715,
+      "hallucination_rate": 0.07692307692307693,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 446.49,
       "cost_usd": 6.2e-05,
       "errors": [
@@ -25061,7 +25439,9 @@
       "field_level_f1": 0.046511627906976744,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3333333333333333,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 352.231,
       "cost_usd": 4.9e-05,
       "errors": [
@@ -25187,7 +25567,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.4166666666666667,
+      "hallucination_rate": 0.3333333333333333,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 414.408,
       "cost_usd": 5.8e-05,
       "errors": [
@@ -25321,7 +25703,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.3333333333333333,
+      "hallucination_rate": 0.16666666666666666,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 541.157,
       "cost_usd": 7.5e-05,
       "errors": [
@@ -25510,7 +25894,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.35,
+      "hallucination_rate": 0.2,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 509.15,
       "cost_usd": 7.1e-05,
       "errors": [
@@ -25666,7 +26052,9 @@
       "field_level_f1": 0.0,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.22727272727272727,
+      "hallucination_rate": 0.19047619047619047,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 363.1,
       "cost_usd": 5e-05,
       "errors": [
@@ -25889,7 +26277,9 @@
       "field_level_f1": 0.3333333333333333,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.5,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 465.43,
       "cost_usd": 6.5e-05,
       "errors": [
@@ -25977,7 +26367,9 @@
       "field_level_f1": 0.016949152542372878,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.34782608695652173,
+      "hallucination_rate": 0.17391304347826086,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 406.673,
       "cost_usd": 5.6e-05,
       "errors": [
@@ -26125,7 +26517,9 @@
       "field_level_f1": 0.019047619047619046,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.35,
+      "hallucination_rate": 0.15,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 472.044,
       "cost_usd": 6.6e-05,
       "errors": [
@@ -26287,7 +26681,9 @@
       "field_level_f1": 0.07142857142857144,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.4666666666666667,
+      "hallucination_rate": 0.21428571428571427,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 410.614,
       "cost_usd": 5.7e-05,
       "errors": [
@@ -26458,7 +26854,9 @@
       "field_level_f1": 0.012121212121212121,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.38461538461538464,
+      "hallucination_rate": 0.19230769230769232,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 375.889,
       "cost_usd": 5.2e-05,
       "errors": [
@@ -26615,7 +27013,9 @@
       "field_level_f1": 0.07407407407407407,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.25,
+      "hallucination_rate": 0.0,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 519.95,
       "cost_usd": 7.2e-05,
       "errors": [
@@ -26761,7 +27161,9 @@
       "field_level_f1": 0.02857142857142857,
       "exact_match": 0.0,
       "schema_valid": 1.0,
-      "hallucination_rate": 0.35714285714285715,
+      "hallucination_rate": 0.07142857142857142,
+      "constraint_flag_rate": 0.0,
+      "constraint_repair_rate": 0.0,
       "latency_ms": 381.419,
       "cost_usd": 5.3e-05,
       "errors": [
