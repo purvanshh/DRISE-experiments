@@ -83,7 +83,7 @@ class LLMClient:
 
         if self.backend == "mock":
             payload = self._call_mock(prompt)
-        elif self.backend in {"openai", "openai_compatible", "nvidia"}:
+        elif self.backend in {"openai", "openai_compatible", "nvidia", "deepseek"}:
             payload = self._call_api(prompt, system_prompt, max_tokens, temperature)
         else:
             raise ValueError(f"Unsupported LLM backend: {self.backend}")
@@ -131,6 +131,17 @@ class LLMClient:
             return OpenAI(
                 base_url=self.base_url or "https://integrate.api.nvidia.com/v1",
                 api_key=api_key,
+                timeout=60.0,
+            )
+
+        if self.backend == "deepseek":
+            api_key = self._api_key or os.getenv("DEEPSEEK_API_KEY")
+            if not api_key:
+                raise RuntimeError("DEEPSEEK_API_KEY is not set.")
+            return OpenAI(
+                base_url=self.base_url or "https://api.deepseek.com",
+                api_key=api_key,
+                timeout=60.0,
             )
 
         if self.backend in {"openai", "openai_compatible"}:
@@ -140,6 +151,7 @@ class LLMClient:
             return OpenAI(
                 api_key=api_key,
                 base_url=self.base_url,
+                timeout=60.0,
             )
 
         raise ValueError(f"Unsupported LLM backend: {self.backend}")
@@ -157,6 +169,7 @@ class LLMClient:
         if self.backend == "nvidia" and effective_temperature <= 0.0:
             # Some NVIDIA-hosted models reject a literal 0.0 temperature.
             effective_temperature = 0.01
+        # DeepSeek accepts temperature=0.0 natively; no workaround needed.
         request_messages = (
             [
                 {"role": "system", "content": system_prompt},
@@ -228,6 +241,9 @@ class LLMClient:
     def _default_pricing(backend: str) -> dict[str, float]:
         if backend == "nvidia":
             return {"input_per_1k": 0.001, "output_per_1k": 0.001}
+        if backend == "deepseek":
+            # DeepSeek V4 Flash cache-miss rates: $0.14/1M input, $0.28/1M output
+            return {"input_per_1k": 0.00014, "output_per_1k": 0.00028}
         return {"input_per_1k": 0.0015, "output_per_1k": 0.0020}
 
 

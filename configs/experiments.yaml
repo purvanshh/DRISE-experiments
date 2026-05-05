@@ -2,7 +2,7 @@ experiment:
   name: drise_vs_baselines
   seed: 42
   cost_cap_usd: 30.0
-  resume: false
+  resume: true
   dataset:
     train_annotations: data/annotations/train.jsonl
     val_annotations: data/annotations/val.jsonl
@@ -18,19 +18,19 @@ experiment:
       config: llm_strong
     - drise
   llm:
-    backend: nvidia
-    model: meta/llama-3.2-1b-instruct
-    base_url: https://integrate.api.nvidia.com/v1
+    backend: deepseek
+    model: deepseek-v4-flash
+    base_url: https://api.deepseek.com
     prompt_variant: strict_v1
     temperature: 0.0
-    max_tokens: 256
-    field_max_tokens: 128
+    max_tokens: 1024
+    field_max_tokens: 512
     cache_dir: experiments/cache/llm
     max_input_tokens: 1500
   llm_strong:
-    backend: nvidia
-    model: meta/llama-3.1-8b-instruct
-    base_url: https://integrate.api.nvidia.com/v1
+    backend: deepseek
+    model: deepseek-v4-pro
+    base_url: https://api.deepseek.com
     temperature: 0.0
   retrieval:
     embedder: all-MiniLM-L6-v2

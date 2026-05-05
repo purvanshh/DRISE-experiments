@@ -194,6 +194,8 @@ def _corrupt_text(text: str) -> str:
 def _resolve_backend(configured_backend: str, *, allow_provider_calls: bool) -> str:
     if not allow_provider_calls:
         return "mock"
+    if configured_backend == "deepseek" and os.getenv("DEEPSEEK_API_KEY"):
+        return configured_backend
     if configured_backend == "nvidia" and os.getenv("NVIDIA_API_KEY"):
         return configured_backend
     if configured_backend in {"openai", "openai_compatible"} and os.getenv("OPENAI_API_KEY"):

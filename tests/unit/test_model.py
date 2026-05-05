@@ -65,6 +65,8 @@ def test_inference_output_format(settings):
 
 def test_model_service_using_heuristic_property(settings):
     """Verify the service reports heuristic mode when no checkpoint exists."""
+    settings.model.checkpoint_path = None
+    settings.model.use_heuristic_fallback = True
     model_service = LayoutAwareModelService(settings)
     model_service.load()
 

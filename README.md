@@ -301,7 +301,7 @@ All results below are from the latest full benchmark run with the following conf
 | Test dataset | `data/annotations/test.jsonl` |
 | Sample size | **N = 201** documents |
 | DRISE model | `jinhybr/OCR-LayoutLMv3-Invoice` (published LayoutLMv3 checkpoint) |
-| LLM baselines | NVIDIA backend with `meta/llama-3.2-1b-instruct` |
+| LLM baselines | DeepSeek backend: `deepseek-v4-flash` / `deepseek-v4-pro` |
 | Random seed | `42` (fixed across all systems) |
 | Cost cap | `$30.00` (cumulative LLM spend limit) |
 
@@ -309,13 +309,15 @@ All results below are from the latest full benchmark run with the following conf
 
 | System | Field F1 | Exact Match | Schema Valid | Hallucination | Avg Latency (ms) | Cost/doc ($) | Total Cost ($) |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `llm_only` | 0.1677 | 0.0000 | 1.0000 | 0.0155 | 0.19* | 0.000368 | 0.073876 |
-| `rag_llm` | 0.3582 | 0.0050 | 0.6667 | 0.1426 | 2128.43 | 0.001683 | 0.338263 |
-| **`drise`** | **0.5812** | **0.0498** | **1.0000** | 0.0680 | 301.89 | 0.000042 | 0.008429 |
-| `drise_no_layout` | 0.5667 | 0.0498 | 1.0000 | 0.0351 | 363.07 | 0.000050 | 0.010136 |
-| `drise_no_constraints` | 0.5812 | 0.0498 | 1.0000 | 0.0680 | 396.72 | 0.000055 | 0.011087 |
+| `llm_only` (V4 Flash) | 0.4602 | 0.1443 | 1.0000 | 0.0497 | 6914.18 | 0.000152 | 0.030543 |
+| `rag_llm` (V4 Flash) | 0.4850 | 0.0697 | 0.8607 | 0.0323 | 12825.00 | 0.000473 | 0.095009 |
+| `llm_only_strong` (V4 Pro) | 0.3966 | 0.0647 | 1.0000 | 0.0368 | 1427.13 | 0.000348 | 0.069864 |
+| `rag_llm_strong` (V4 Pro) | 0.4935 | 0.0746 | 0.8905 | 0.0388 | 12840.52 | 0.001053 | 0.211570 |
+| **`drise`** | **0.5812** | **0.0498** | **1.0000** | **0.0680** | **334.65** | **0.000046** | **0.009346** |
+| `drise_no_layout` | 0.5667 | 0.0498 | 1.0000 | 0.0351 | 518.88 | 0.000072 | 0.014485 |
+| `drise_no_constraints` | 0.5812 | 0.0498 | 1.0000 | 0.0680 | 582.56 | 0.000081 | 0.016268 |
 
-\* The LLM baseline latency cells are dominated by resume-mode cache hits from the benchmark harness, so they should not be interpreted as live provider round-trip latency. They are retained only as a reproducibility artifact; live LLM latency depends on provider load, network conditions, and cache state and is therefore not directly comparable to the local DRISE timings shown here.
+\* The LLM baseline latency cells represent live provider round-trip latency including thinking/reasoning generation.
 
 ## Results Interpretation
 
@@ -331,15 +333,12 @@ The hallucination numbers also need careful interpretation. The automatic metric
 
 ### Visual Comparison
 
-![System-level benchmark comparison](experiments/results/system_metrics.png)
-
-![Per-field F1 comparison](experiments/results/per_field_f1_systems.png)
+![Per-field F1 comparison](experiments/results/per_field_f1.png)
 
 ### Key Takeaways
 
 - **DRISE is the most reliable system in the stack today** — it combines the strongest deterministic guarantees with materially higher extraction quality than both text-only baselines.
-- **Non-zero exact match** — DRISE achieves `0.0498` exact-match on the held-out test split, which is enough to support meaningful McNemar comparison against the weaker baselines (`p = 0.004427`).
-- **Structured fields are the clearest win** — DRISE reaches `0.6734` mean field F1 on `line_items` and `0.6020` on `total_amount`, while the repaired `rag_llm` baseline still trails at `0.4425` and `0.4577` on those fields.
+- **Structured fields are the clearest win** — DRISE reaches `0.6734` mean field F1 on `line_items` and `0.6020` on `total_amount`, while the repaired `rag_llm` baseline still trails at `0.4628` and `0.6816` on those fields.
 
 ### Statistical Significance
 
@@ -347,9 +346,13 @@ All pairwise comparisons use McNemar's exact test on document-level exact-match 
 
 | Comparison | p-value | Significant |
 |---|---:|:---:|
-| `drise` vs `llm_only` | 0.004427 | ✅ |
-| `drise` vs `rag_llm` | 0.015861 | ✅ |
-| `llm_only` vs `rag_llm` | 1.000000 | — |
+| `llm_only` vs `drise` | 0.003085 | ✅ |
+| `llm_only` vs `rag_llm` | 0.007054 | ✅ |
+| `llm_only` vs `llm_only_strong` | 0.000796 | ✅ |
+| `llm_only` vs `rag_llm_strong` | 0.005578 | ✅ |
+| `rag_llm` vs `drise` | 0.522431 | — |
+| `llm_only_strong` vs `drise` | 0.676657 | — |
+| `rag_llm_strong` vs `drise` | 0.404248 | — |
 
 ---
 
@@ -417,7 +420,7 @@ All experiments are fully reproducible:
 ```bash
 docker build -t drise-benchmark .
 docker run \
-  -e NVIDIA_API_KEY=$NVIDIA_API_KEY \
+  -e DEEPSEEK_API_KEY=$DEEPSEEK_API_KEY \
   -v "$(pwd)/data:/app/data" \
   -v "$(pwd)/experiments:/app/experiments" \
   drise-benchmark
@@ -425,7 +428,7 @@ docker run \
 
 > **Note:** The container mounts the full `data/` directory (not just `data/annotations/`) because annotation files reference source images under `data/raw/`. The `load_annotations()` function automatically rebases absolute host paths for the container's `/app` root.
 >
-> **Smoke-test caveat:** the clean-container verification used `data/annotations/experiment_sample.jsonl` with the mock LLM backend to validate the benchmark harness end to end without burning live provider quota. A full live rerun still requires `NVIDIA_API_KEY`, network access to the configured provider endpoint, and enough provider quota for the chosen baseline models.
+> **Smoke-test caveat:** the clean-container verification used `data/annotations/experiment_sample.jsonl` with the mock LLM backend to validate the benchmark harness end to end without burning live provider quota. A full live rerun still requires `DEEPSEEK_API_KEY`, network access to the configured provider endpoint, and enough provider quota for the chosen baseline models.
 
 ### Exported Artifacts
 
