@@ -7,7 +7,7 @@ from typing import Protocol
 
 from PIL import Image
 
-from document_intelligence_engine.domain.contracts import OCRResult, OCRToken
+from document_intelligence_engine.domain.contracts import OCRResult
 
 
 class OCRBackend(Protocol):

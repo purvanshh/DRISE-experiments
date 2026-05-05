@@ -43,7 +43,7 @@ def _validate_pdf(file_path: Path) -> None:
     try:
         info = pdfinfo_from_path(str(file_path))
         page_count = int(info.get("Pages", 0))
-    except Exception as exc:
+    except Exception:
         try:
             with fitz.open(file_path) as document:
                 page_count = document.page_count

@@ -32,7 +32,7 @@ def _load_pdf_images(file_path: Path) -> list[Image.Image]:
             fmt="png",
             thread_count=1,
         )
-    except Exception as exc:
+    except Exception:
         try:
             images = _load_pdf_images_with_fitz(file_path, settings.ingestion.pdf_dpi)
         except Exception as fitz_exc:

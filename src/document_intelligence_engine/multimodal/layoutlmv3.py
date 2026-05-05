@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from io import BytesIO
 from pathlib import Path
-from typing import Any
 
 import torch
 from PIL import Image
@@ -147,8 +146,8 @@ class LayoutLMv3InferenceService:
             entities = {
                 "document_type": "receipt",
                 "token_count": len(words),
-                "value_tokens": sum(1 for l in labels if "VALUE" in l),
-                "key_tokens": sum(1 for l in labels if "KEY" in l),
+                "value_tokens": sum(1 for label in labels if "VALUE" in label),
+                "key_tokens": sum(1 for label in labels if "KEY" in label),
             }
 
             return ModelPrediction(

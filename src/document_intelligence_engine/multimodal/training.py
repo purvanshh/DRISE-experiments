@@ -12,13 +12,10 @@ from __future__ import annotations
 
 import argparse
 import logging
-import os
-import sys
 import time
 from pathlib import Path
 from typing import Any
 
-import numpy as np
 import torch
 from seqeval.metrics import f1_score as seqeval_f1
 from seqeval.metrics import classification_report
@@ -30,7 +27,6 @@ from transformers import (
 from document_intelligence_engine.multimodal.cord_dataset import (
     ID2LABEL,
     LABEL2ID,
-    LABEL_LIST,
     NUM_LABELS,
     get_cord_dataloaders,
 )
@@ -86,8 +82,8 @@ class LayoutLMv3Trainer:
         logger.info("=== LayoutLMv3 Training on CORD ===")
         logger.info("Device: %s", self.device)
         logger.info("Epochs: %d, LR: %s, Batch: %d, Accum: %d",
-                     self.num_epochs, self.learning_rate, self.batch_size,
-                     self.gradient_accumulation_steps)
+                    self.num_epochs, self.learning_rate, self.batch_size,
+                    self.gradient_accumulation_steps)
 
         # 1. Prepare data
         logger.info("Loading CORD dataset...")
