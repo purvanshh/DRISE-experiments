@@ -86,9 +86,30 @@ def _summarize_system(records: list[dict[str, Any]]) -> dict[str, Any]:
             field: _mean_and_std_from_values([metrics.get("field_f1", {}).get(field, 0.0) for metrics in metric_rows])
             for field in field_names
         },
+        "field_f1_conditional_breakdown": {
+            field: _conditional_summary([metrics.get("field_f1_conditional", {}).get(field) for metrics in metric_rows])
+            for field in field_names
+        },
+        "exact_match_contribution": {
+            field: _mean_and_std_from_values(
+                [metrics.get("exact_match_contribution", {}).get(field, 0.0) for metrics in metric_rows]
+            )
+            for field in field_names
+        },
         "total_cost_usd": round(sum(float(metrics.get("cost_usd", 0.0) or 0.0) for metrics in metric_rows), 6),
         "total_latency_ms": round(sum(float(metrics.get("latency_ms", 0.0) or 0.0) for metrics in metric_rows), 6),
         "sample_count": len(metric_rows),
+    }
+
+
+def _conditional_summary(values: list[float | None]) -> dict[str, float]:
+    """Summarize per-field F1 restricted to documents where the field exists."""
+    present = [float(value) for value in values if value is not None]
+    if not present:
+        return {"mean": None, "count": 0}
+    return {
+        "mean": round(float(statistics.mean(present)), 6),
+        "count": len(present),
     }
 
 
@@ -227,6 +248,25 @@ def _render_markdown(summary: dict[str, Any], pairwise_stats: dict[str, Any]) ->
         lines.extend(["", "### Significance", ""])
         for comparison_name, stats in pairwise_stats.items():
             lines.append(f"- {comparison_name}: p={stats['p_value']:.6f}, statistic={stats['statistic']:.6f}")
+
+    lines.extend(["", "### Conditional Field F1 (only docs where the field exists)", ""])
+    lines.append("| System | Field | F1 | Docs |")
+    lines.append("| --- | --- | --- | --- |")
+    for system_name, metrics in summary.items():
+        breakdown = metrics.get("field_f1_conditional_breakdown", {})
+        for field, stats in sorted(breakdown.items()):
+            if stats.get("count", 0) == 0:
+                continue
+            mean = stats.get("mean")
+            lines.append(
+                "| {system} | {field} | {f1:.3f} | {count} |".format(
+                    system=system_name,
+                    field=field,
+                    f1=mean if mean is not None else 0.0,
+                    count=stats["count"],
+                )
+            )
+
     lines.append("")
     return "\n".join(lines)
 
