@@ -99,7 +99,53 @@ def _normalize_ground_truth(ground_truth: Any) -> dict[str, Any] | None:
     if not isinstance(normalized["line_items"], list):
         raise ValueError("ground_truth.line_items must be a list.")
 
+    normalized["line_items"] = _clean_ground_truth_line_items(normalized["line_items"])
+
     return normalized
+
+
+def _clean_ground_truth_line_items(line_items: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Remove annotation artifacts introduced by the dataset conversion.
+
+    The CORD conversion zips ``description``/``quantity``/``unit_price`` groups
+    by index, which produces duplicate rows with an empty description (e.g. a
+    second row carrying only the quantity or the grand-total price). These
+    artifacts make exact line-item matching impossible and are merged back into
+    the described row or dropped.
+    """
+    cleaned: list[dict[str, Any]] = []
+    for item in line_items:
+        if not isinstance(item, dict):
+            continue
+        description = str(item.get("description") or "").strip()
+        quantity = item.get("quantity")
+        unit_price = item.get("unit_price")
+
+        # The CORD conversion emits unit_price=0.0 for items where the price
+        # was not captured cleanly. A zero price is never a real unit price, so
+        # treat it as unknown rather than scoring it as a literal "0".
+        if unit_price == 0 and description:
+            unit_price = None
+            item = {**item, "unit_price": None}
+
+        if not description and quantity is None and unit_price in (None, ""):
+            continue
+
+        if not description and unit_price not in (None, ""):
+            # An orphan row that duplicates the previous described row's price
+            # (e.g. a quantity or a totals row). Fold its quantity into the
+            # described row when the price matches, otherwise drop it.
+            if cleaned and cleaned[-1].get("unit_price") == unit_price:
+                target = cleaned[-1]
+                if target.get("quantity") in (None, "") and quantity not in (None, ""):
+                    target["quantity"] = quantity
+                continue
+            if quantity in (None, "") or unit_price is None:
+                continue
+
+        cleaned.append(dict(item))
+
+    return cleaned
 
 
 def _normalize_ocr_metadata(ocr_metadata: Any, *, token_count: int) -> dict[str, Any]:
