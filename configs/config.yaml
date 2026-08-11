@@ -66,6 +66,8 @@ training:
   max_train_samples: null
   save_dir: experiments/artifacts/cord_finetuned
   eval_every_n_epochs: 1
+  include_funsd: true
+  batch_size: 4
 
 preprocessing:
   target_dpi: 200

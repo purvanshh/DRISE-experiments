@@ -21,6 +21,7 @@ from seqeval.metrics import f1_score as seqeval_f1
 from seqeval.metrics import classification_report
 from transformers import (
     LayoutLMv3ForTokenClassification,
+    LayoutLMv3Processor,
     get_linear_schedule_with_warmup,
 )
 
@@ -56,6 +57,7 @@ class LayoutLMv3Trainer:
         save_dir: str = "experiments/artifacts/cord_finetuned",
         eval_every_n_epochs: int = 1,
         device: str | None = None,
+        include_funsd: bool = False,
     ) -> None:
         self.model_name = model_name
         self.num_epochs = num_epochs
@@ -68,6 +70,7 @@ class LayoutLMv3Trainer:
         self.max_train_samples = max_train_samples
         self.save_dir = Path(save_dir)
         self.eval_every_n_epochs = eval_every_n_epochs
+        self.include_funsd = include_funsd
 
         if device is None:
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -92,6 +95,7 @@ class LayoutLMv3Trainer:
             batch_size=self.batch_size,
             max_length=self.max_length,
             max_train_samples=self.max_train_samples,
+            include_funsd=self.include_funsd,
         )
         logger.info("Train batches: %d, Val batches: %d", len(train_loader), len(val_loader))
 
@@ -264,6 +268,14 @@ class LayoutLMv3Trainer:
         save_path = self.save_dir / tag
         save_path.mkdir(parents=True, exist_ok=True)
         self._model.save_pretrained(save_path)
+        try:
+            processor = LayoutLMv3Processor.from_pretrained(
+                self.model_name,
+                apply_ocr=False,
+            )
+            processor.save_pretrained(save_path)
+        except Exception as exc:  # pragma: no cover - defensive
+            logger.warning("Could not persist processor with checkpoint: %s", exc)
         logger.info("Checkpoint saved to %s (epoch %d)", save_path, epoch)
 
 
@@ -281,6 +293,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--save-dir", default="experiments/artifacts/cord_finetuned")
     parser.add_argument("--eval-every-n-epochs", type=int, default=1)
     parser.add_argument("--device", default=None)
+    parser.add_argument("--include-funsd", action="store_true", help="Add FUNSD KEY/VALUE supervision to training.")
     return parser.parse_args()
 
 
@@ -299,6 +312,7 @@ def main() -> None:
         save_dir=args.save_dir,
         eval_every_n_epochs=args.eval_every_n_epochs,
         device=args.device,
+        include_funsd=args.include_funsd,
     )
     summary = trainer.train()
     logger.info("Training summary: %s", summary)
