@@ -233,6 +233,22 @@ def _should_suppress_line_items(line_items: Any, ocr_tokens: list[dict[str, Any]
         return False
     if _looks_receipt_like(ocr_tokens):
         return False
+
+    # Never suppress structured item rows: any item carrying a price or a
+    # quantity is a real purchased line. Only prose-like descriptions with no
+    # monetary structure are candidates for suppression.
+    structured = any(
+        isinstance(item, dict)
+        and (
+            item.get("unit_price") not in (None, "")
+            or item.get("price") not in (None, "")
+            or item.get("quantity") not in (None, "")
+        )
+        for item in line_items
+    )
+    if structured:
+        return False
+
     descriptions = [
         str(item.get("description", "")).strip()
         for item in line_items
