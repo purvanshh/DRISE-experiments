@@ -120,6 +120,17 @@ def _enforce_amount_consistency(
         rel_tol=0.0,
         abs_tol=tolerance,
     ):
+        if repair:
+            repaired, repair_flags = _try_repair_quantity_mismatch(
+                line_items,
+                float(total_amount),
+                computed_total,
+                tolerance,
+            )
+            if repaired is not None:
+                line_items_record["value"] = repaired
+                flags.extend(repair_flags)
+                return document, errors, flags
         total_amount_record["valid"] = False
         flags.append("line_items_total_mismatch")
         errors.append(
@@ -131,6 +142,49 @@ def _enforce_amount_consistency(
         )
 
     return document, errors, flags
+
+
+def _try_repair_quantity_mismatch(
+    line_items: list[Any],
+    total_amount: float,
+    computed_total: float,
+    tolerance: float,
+) -> tuple[list[Any] | None, list[str]]:
+    """Attempt to derive a missing quantity that reconciles item sum with total.
+
+    Only fires when exactly one line item has a price but no quantity, and the
+    derived quantity is a positive integer small enough to be a plausible count.
+    """
+    missing_qty_index: int | None = None
+    for index, item in enumerate(line_items):
+        if not isinstance(item, dict):
+            continue
+        price = item.get("price", item.get("unit_price"))
+        quantity = item.get("quantity")
+        if isinstance(price, (int, float)) and quantity in (None, ""):
+            if missing_qty_index is not None:
+                return None, []
+            missing_qty_index = index
+
+    if missing_qty_index is None:
+        return None, []
+
+    item = line_items[missing_qty_index]
+    price = float(item.get("price", item.get("unit_price")))
+    if price == 0:
+        return None, []
+
+    delta = total_amount - computed_total
+    candidate = round(delta / price)
+    if candidate <= 0 or candidate > 99:
+        return None, []
+    if not isclose(computed_total + candidate * price, total_amount, rel_tol=0.0, abs_tol=tolerance):
+        return None, []
+
+    repaired = [dict(entry) for entry in line_items]
+    repaired[missing_qty_index]["quantity"] = int(candidate)
+    repaired[missing_qty_index]["corrected_quantity"] = True
+    return repaired, ["corrected_quantity_derived_from_total"]
 
 
 def _error(field: str, code: str, message: str) -> dict[str, str]:
