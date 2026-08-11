@@ -105,6 +105,7 @@ def _group_bio_spans(predictions: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
         label = str(prediction.get("label", "O")).upper().strip()
         confidence = float(prediction.get("confidence", 0.0))
+        category = str(prediction.get("category", "") or "").strip()
         prefix, entity_type = _parse_label(label)
 
         if entity_type == "OTHER":
@@ -113,15 +114,12 @@ def _group_bio_spans(predictions: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 current = None
             continue
 
-        if (
-            current is None
-            or prefix == "B"
-            or current["entity_type"] != entity_type
-        ):
+        if _starts_new_span(current, prefix, entity_type, category):
             if current is not None:
                 spans.append(_finalize_span(current))
             current = {
                 "entity_type": entity_type,
+                "category": category,
                 "tokens": [text],
                 "confidences": [confidence],
             }
@@ -134,6 +132,27 @@ def _group_bio_spans(predictions: list[dict[str, Any]]) -> list[dict[str, Any]]:
         spans.append(_finalize_span(current))
 
     return spans
+
+
+def _starts_new_span(
+    current: dict[str, Any] | None,
+    prefix: str,
+    entity_type: str,
+    category: str,
+) -> bool:
+    if current is None:
+        return True
+    if current["entity_type"] != entity_type:
+        return True
+    # Semantic categories (e.g. from a receipt checkpoint) group consecutive
+    # tokens of the same category into one span even when each token is tagged
+    # B- by the upstream model.
+    if category and current.get("category") == category:
+        return False
+    if category:
+        return True
+    # Fallback BIO behaviour without category info.
+    return prefix == "B"
 
 
 def _parse_label(label: str) -> tuple[str, str]:
@@ -150,6 +169,7 @@ def _parse_label(label: str) -> tuple[str, str]:
 def _finalize_span(span: dict[str, Any]) -> dict[str, Any]:
     return {
         "entity_type": span["entity_type"],
+        "category": span.get("category", ""),
         "text": " ".join(span["tokens"]).strip(),
         "confidence": round(fmean(span["confidences"]), 6),
     }
