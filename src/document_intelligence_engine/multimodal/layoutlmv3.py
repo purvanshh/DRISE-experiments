@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from io import BytesIO
 from pathlib import Path
 
@@ -98,7 +99,6 @@ class LayoutLMv3InferenceService:
                 return ModelPrediction(
                     labels=[], confidences=[], entities={}, model_name=self._settings.model.layoutlmv3_model_name,
                 )
-
             # Normalize bboxes to 0-1000 range
             img_width, img_height = image.size
             normalized_boxes = [self._normalize_bbox(b, img_width, img_height) for b in boxes]
@@ -139,7 +139,7 @@ class LayoutLMv3InferenceService:
             else:
                 word_ids_list = word_ids
 
-            labels, confidences = self._aggregate_word_predictions(
+            labels, confidences, categories = self._aggregate_word_predictions(
                 pred_ids.cpu(), max_probs.cpu(), word_ids_list, len(words),
             )
 
@@ -155,6 +155,7 @@ class LayoutLMv3InferenceService:
                 confidences=confidences,
                 entities=entities,
                 model_name=self._settings.model.layoutlmv3_model_name,
+                categories=categories,
             )
 
         except ModelInferenceError:
@@ -199,13 +200,17 @@ class LayoutLMv3InferenceService:
         max_probs: torch.Tensor,
         word_ids: list[int | None],
         num_words: int,
-    ) -> tuple[list[str], list[float]]:
+    ) -> tuple[list[str], list[float], list[str]]:
         """Aggregate subword-level predictions back to word level.
 
         For each word, takes the prediction from its first subword token.
+        Returns (labels, confidences, categories) where ``categories`` carries
+        the semantic category of the raw model label (e.g. ``prod_item``,
+        ``total``) so downstream grouping can keep multi-word spans intact.
         """
         labels = ["O"] * num_words
         confidences = [0.0] * num_words
+        categories = [""] * num_words
         seen_words: set[int] = set()
 
         for token_idx, word_id in enumerate(word_ids):
@@ -217,8 +222,27 @@ class LayoutLMv3InferenceService:
             raw_label = self._model_id2label.get(pred_ids[token_idx].item(), ID2LABEL.get(0, "O"))
             labels[word_id] = LayoutLMv3InferenceService._remap_label(raw_label)
             confidences[word_id] = round(max_probs[token_idx].item(), 6)
+            categories[word_id] = LayoutLMv3InferenceService._semantic_category(raw_label)
 
-        return labels, confidences
+        return labels, confidences, categories
+
+    @staticmethod
+    def _semantic_category(label: str) -> str:
+        """Extract a normalized semantic category from a model label.
+
+        ``Prod_item_value`` -> ``prod_item``, ``Date_key`` -> ``date``.
+        """
+        if not label:
+            return ""
+        cleaned = label.strip()
+        if cleaned in {"O", "Ignore", "Others", "ignore", "others"}:
+            return ""
+        cleaned = re.sub(r"^(B|I)-", "", cleaned, flags=re.IGNORECASE)
+        for suffix in ("_value", "_key", ".value", ".key"):
+            if cleaned.lower().endswith(suffix):
+                cleaned = cleaned[: -len(suffix)]
+                break
+        return cleaned.strip().lower().replace(" ", "_")
 
     @staticmethod
     def _remap_label(label: str) -> str:

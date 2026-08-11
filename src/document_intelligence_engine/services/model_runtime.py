@@ -197,14 +197,18 @@ class LayoutAwareModelService:
 
         # Convert ModelPrediction to list of dicts for the postprocessing pipeline
         results = []
+        categories = getattr(prediction, "categories", []) or []
         for idx, token_dict in enumerate(ocr_tokens):
             label = prediction.labels[idx] if idx < len(prediction.labels) else "O"
             confidence = prediction.confidences[idx] if idx < len(prediction.confidences) else 0.0
-            results.append({
+            result = {
                 "text": str(token_dict.get("text", "")),
                 "label": label,
                 "confidence": round(float(confidence), 6),
-            })
+            }
+            if idx < len(categories) and categories[idx]:
+                result["category"] = categories[idx]
+            results.append(result)
         return results
 
     def predict_text_only(self, ocr_tokens: list[dict[str, Any]]) -> list[dict[str, Any]]:

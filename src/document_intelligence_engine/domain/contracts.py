@@ -34,6 +34,7 @@ class ModelPrediction(BaseModel):
     confidences: list[float]
     entities: dict[str, str | float | int | None]
     model_name: str
+    categories: list[str] = []
 
 
 class ConstraintResult(BaseModel):
