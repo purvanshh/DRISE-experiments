@@ -13,8 +13,22 @@ DATE_PATTERNS = (
     re.compile(r"\b(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\s+\d{1,2},?\s+\d{2,4}\b", re.IGNORECASE),
 )
 AMOUNT_PATTERN = re.compile(r"(?<!\d)(?:\d{1,3}(?:,\d{3})*|\d+)(?:\.\d{2})?(?!\d)")
-LINE_ITEM_PATTERN = re.compile(
-    r"^(?P<description>[A-Za-z][A-Za-z0-9 &()'.,/-]{2,}?)\s+(?P<quantity>\d+(?:\.\d+)?)\s+(?P<unit_price>\d{1,3}(?:,\d{3})*(?:\.\d{2})?)$"
+# A numeric token that may use locale thousands separators (comma or dot)
+# and either a comma or dot decimal separator (e.g. "28,000", "28.000",
+# "1,000.50", "9.500,00", "1200.50").
+_NUMERIC_TOKEN = re.compile(r"^[\d.,]+$")
+
+# Words that delimit the totals section of a receipt. Lines containing these
+# describe subtotals, taxes, tips, cash/change, or grand totals -- not items.
+_SECTION_PATTERNS = (
+    re.compile(r"\btotal\w*\b|\bsub\s*total\b", re.IGNORECASE),
+    re.compile(r"\bsub\w*\b", re.IGNORECASE),
+    re.compile(r"\bgrand\b|\bamount\s*due\b|\bbalance\s*due\b", re.IGNORECASE),
+    re.compile(r"\bcash\b|\bchang\w*\b|\bkembal\w*\b|\bbayar\w*\b|\bpembayaran\b|\btunai\b", re.IGNORECASE),
+    re.compile(r"\bcg\b|\btl\b|\brp\b|\bidr\b", re.IGNORECASE),
+    re.compile(r"\bdisc\w*\b|\bdiskon\b", re.IGNORECASE),
+    re.compile(r"\bpajak\b|\bpaj\b|\bppn\b|\bpb1\b|\bservi\w*\b|\bservice\s*charge\b", re.IGNORECASE),
+    re.compile(r"\btax\b|\btips?\b|\binc\b|\bpayment\b|\bpay\b", re.IGNORECASE),
 )
 
 
@@ -45,11 +59,18 @@ def recover_missing_entities(
     if vendor and _should_recover_field(existing_by_field, "vendor", vendor):
         recovered_entities.append(_entity("vendor", vendor, "heuristic_vendor", token_lines))
 
-    total_amount = _recover_total_amount(token_lines)
+    total_amount, total_confidence = _recover_total_amount(token_lines)
     if total_amount and _should_recover_field(existing_by_field, "total_amount", total_amount):
-        recovered_entities.append(_entity("total_amount", total_amount, "heuristic_total_amount", token_lines))
-
-    if _should_recover_line_items(existing_by_field):
+        recovered_entities.append(
+            {
+                "field": "total_amount",
+                "key": "heuristic_total_amount",
+                "value": total_amount,
+                "confidence": round(total_confidence, 6),
+                "source": "ocr_recovery",
+            }
+        )
+    if _should_recover_line_items(existing_by_field) and _is_receipt_document(token_lines):
         line_items = _recover_line_items(token_lines)
         if line_items:
             recovered_entities.append(
@@ -57,12 +78,35 @@ def recover_missing_entities(
                     "field": "line_items",
                     "key": "heuristic_line_items",
                     "value": line_items,
-                    "confidence": _line_confidence(token_lines[: min(len(line_items), len(token_lines))]),
+                    "confidence": _line_items_confidence(line_items),
                     "source": "ocr_recovery",
                 }
             )
 
     return recovered_entities
+
+
+def _line_items_confidence(line_items: list[dict[str, Any]]) -> float:
+    """Calibrate line-item confidence from structural completeness.
+
+    Items with both a price and a quantity are scored higher than items that
+    only carry a description and price, which are in turn higher than a bare
+    description-only list.
+    """
+    if not line_items:
+        return 0.5
+    scores = []
+    for item in line_items:
+        price = item.get("unit_price", item.get("price"))
+        quantity = item.get("quantity")
+        if isinstance(price, (int, float)):
+            if isinstance(quantity, (int, float)):
+                scores.append(0.78)
+            else:
+                scores.append(0.68)
+        else:
+            scores.append(0.55)
+    return round(max(0.5, min(0.78, fmean(scores))), 6)
 
 
 def _recover_invoice_number(token_lines: list[dict[str, Any]], full_text: str) -> str | None:
@@ -111,81 +155,288 @@ def _recover_vendor(token_lines: list[dict[str, Any]], field_aliases: dict[str, 
     return None
 
 
-def _recover_total_amount(token_lines: list[dict[str, Any]]) -> str | None:
-    scored_candidates: list[tuple[float, str]] = []
+def _recover_total_amount(token_lines: list[dict[str, Any]]) -> tuple[str | None, float]:
+    """Recover the grand total amount and a calibrated confidence.
+
+    Priority is GRAND TOTAL > TOTAL/AMOUNT DUE/TL > SUBTOTAL. Cash tendered,
+    change, and tax lines are never selected unless no total line exists.
+    Returns ``(value, confidence)``; confidence reflects how strongly the
+    amount is anchored to a total keyword.
+    """
+    scored_candidates: list[tuple[float, float, str, float]] = []
     for index, line in enumerate(token_lines):
-        lowered = line["text"].lower()
-        amounts = AMOUNT_PATTERN.findall(line["text"])
+        text = _merge_space_thousands(line["text"].strip())
+        lowered = text.lower()
+        # "Total Item: 1" / "Total Qty: 3" are item counts, not money.
+        if re.search(r"\btotal\s*(item|qty|count|barang)\b", lowered):
+            continue
+        amounts = _token_amounts(text)
         if not amounts:
             continue
-        score = 0.0
-        if any(keyword in lowered for keyword in ("grand total", "total", "amount due", "balance due", "cash")):
-            score += 3.0
-        if "subtotal" in lowered:
-            score += 1.0
-        score += 0.25 * index
-        scored_candidates.append((score, amounts[-1]))
-    if not scored_candidates:
+        if re.search(r"\b(grand\s+total|total\s+due|amount\s+due|balance\s+due)\b", lowered):
+            score = 6.0
+            confidence = 0.78
+        elif re.search(r"\btotal\b|\btl\b|\bnet\b", lowered):
+            score = 4.0
+            confidence = 0.72
+        elif "subtotal" in lowered or re.search(r"\bsub\b", lowered):
+            score = 1.0
+            confidence = 0.55
+        else:
+            continue
+        # Prefer later lines: grand total usually appears below subtotal/tax.
+        score += 0.2 * index
+        scored_candidates.append((score, index, amounts[-1][1], confidence))
+    if scored_candidates:
+        scored_candidates.sort(key=lambda item: item[0], reverse=True)
+        return _format_amount_return(scored_candidates[0][2]), scored_candidates[0][3]
+
+    # Fallback: the last plausible amount in the document. Huge numbers (card
+    # numbers, phone numbers) and zero are filtered out.
+    last_amount: float | None = None
+    for line in token_lines:
+        for _, value in _token_amounts(_merge_space_thousands(line["text"])):
+            if 1 <= value <= 50_000_000:
+                last_amount = value
+    if last_amount is None:
+        return None, 0.0
+    return _format_amount_return(last_amount), 0.5
+
+
+def _format_amount_return(value: float) -> str:
+    """Serialize a recovered amount back to a canonical string for normalization."""
+    if float(value).is_integer():
+        return f"{value:.0f}"
+    return f"{value:.2f}"
+
+
+def _merge_space_thousands(text: str) -> str:
+    """Merge space-separated thousands groups used by some locales.
+
+    ``"154 000"`` -> ``"154000"``, ``"18 000"`` -> ``"18000"`` while leaving
+    quantities next to prices untouched (``"1 28,000"`` stays unchanged).
+    """
+    return re.sub(r"(?<=\d) (?=\d{3}(?:\s|$))", "", text)
+
+
+def _token_amounts(text: str) -> list[tuple[str, float]]:
+    """Return ``(raw_token, float_value)`` pairs for numeric tokens in text.
+
+    Only whitespace-delimited tokens that are purely numeric characters are
+    considered, so alphanumeric tokens like ``RB0006`` or ``1.5L`` are ignored.
+    """
+    pairs: list[tuple[str, float]] = []
+    for token in text.split():
+        if not _NUMERIC_TOKEN.match(token):
+            continue
+        value = _parse_amount_token(token)
+        if value is not None:
+            pairs.append((token, value))
+    return pairs
+
+
+def _parse_amount_token(token: str) -> float | None:
+    """Parse a single numeric token with locale separator handling."""
+    text = token
+    if "," in text and "." in text:
+        if text.rfind(",") > text.rfind("."):
+            # "9.500,00" -> 9500.0 (dot thousands, comma decimal)
+            text = text.replace(".", "").replace(",", ".")
+        else:
+            # "1,000.50" -> 1000.5 (comma thousands, dot decimal)
+            text = text.replace(",", "")
+    elif "," in text:
+        parts = text.split(",")
+        if len(parts) == 2 and len(parts[0]) in (1, 2) and len(parts[1]) in (1, 2):
+            # "73,45" -> 73.45 (comma decimal)
+            text = text.replace(",", ".")
+        else:
+            # "28,000" -> 28000 (comma thousands)
+            text = text.replace(",", "")
+    elif "." in text:
+        parts = text.split(".")
+        if len(parts) == 2 and len(parts[0]) <= 3 and parts[1].isdigit() and len(parts[1]) == 3:
+            # "18.000" / "28.000" -> thousands separator
+            text = text.replace(".", "")
+        elif len(parts) > 2:
+            # "1.234.567" -> thousands separators
+            text = text.replace(".", "")
+    try:
+        return float(text)
+    except ValueError:
         return None
-    scored_candidates.sort(key=lambda item: item[0], reverse=True)
-    return scored_candidates[0][1]
+
+
+def _is_quantity(value: Any) -> bool:
+    """Return True when a numeric value looks like a line-item count (1-99)."""
+    if isinstance(value, bool):
+        return False
+    if not isinstance(value, (int, float)):
+        return False
+    return float(value).is_integer() and 1 <= float(value) <= 99
 
 
 def _recover_line_items(token_lines: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Recover line items from OCR text lines.
+
+    Supports the common receipt layouts:
+      - ``description quantity unit_price``
+      - ``description unit_price quantity line_total``
+      - ``description unit_price``
+      - ``quantity description unit_price``
+      - ``description`` followed by a ``quantity [x] unit_price`` line
+
+    Quantities may use ``x`` syntax (``2X 24,000``). Locale thousands and
+    decimal separators are handled for both comma and dot based locales.
+    """
     line_items: list[dict[str, Any]] = []
     pending_description: str | None = None
     for line in token_lines:
         text = line["text"].strip()
-        if not text or any(keyword in text.lower() for keyword in ("total", "subtotal", "tax", "cash", "change", "date", "invoice")):
+        if not text:
             continue
-        combined_match = LINE_ITEM_PATTERN.match(text)
-        if combined_match:
-            line_items.append(
-                {
-                    "description": _clean_description(combined_match.group("description")),
-                    "quantity": _parse_number(combined_match.group("quantity")),
-                    "unit_price": _parse_number(combined_match.group("unit_price")),
-                }
-            )
+        normalized = _merge_space_thousands(text)
+        if _is_section_line(normalized):
             pending_description = None
             continue
 
-        if pending_description and re.match(r"^\d+\s*x\s*\d", text, flags=re.IGNORECASE):
-            parts = AMOUNT_PATTERN.findall(text)
-            quantity_match = re.match(r"^(?P<quantity>\d+(?:\.\d+)?)", text)
-            line_items.append(
-                {
-                    "description": pending_description,
-                    "quantity": _parse_number(quantity_match.group("quantity")) if quantity_match else None,
-                    "unit_price": _parse_number(parts[-1]) if parts else None,
-                }
-            )
-            pending_description = None
-            continue
-
-        amount_matches = AMOUNT_PATTERN.findall(text)
-        if amount_matches:
-            description = re.sub(AMOUNT_PATTERN, "", text).strip(" x")
-            quantity = None
-            quantity_prefix = re.match(r"^(?P<quantity>\d+)\s+(?P<desc>.+)$", description)
-            if quantity_prefix and not description.lower().startswith(("tel", "fax")):
-                quantity = _parse_number(quantity_prefix.group("quantity"))
-                description = quantity_prefix.group("desc").strip()
-            description = _clean_description(description)
-            if description:
-                line_items.append(
-                    {
-                        "description": description,
-                        "quantity": quantity,
-                        "unit_price": _parse_number(amount_matches[-1]),
-                    }
-                )
+        item = _parse_item_line(normalized)
+        if item is None:
+            if pending_description and _token_amounts(normalized):
+                numbers = [value for _, value in _token_amounts(normalized)]
+                quantity, unit_price = _resolve_quantity_price(numbers, None)
+                if unit_price is not None and pending_description:
+                    line_items.append(
+                        {
+                            "description": pending_description,
+                            "quantity": _to_native_number(quantity) if quantity is not None else None,
+                            "unit_price": _to_native_number(unit_price),
+                        }
+                    )
                 pending_description = None
-                continue
+            elif _looks_like_description_only(normalized):
+                cleaned = _clean_description(normalized)
+                pending_description = f"{pending_description} {cleaned}".strip() if pending_description else cleaned
+            continue
 
-        if _looks_like_description_only(text):
-            pending_description = _clean_description(text)
+        if pending_description and not item.get("description"):
+            item["description"] = pending_description
+            pending_description = None
+        elif pending_description:
+            pending_description = None
+
+        if item.get("description"):
+            line_items.append(item)
     return line_items
+
+
+def _is_section_line(text: str) -> bool:
+    """Return True when a line belongs to the totals/tax/cash section."""
+    lowered = text.lower()
+    return any(pattern.search(lowered) for pattern in _SECTION_PATTERNS)
+
+
+def _is_receipt_document(token_lines: list[dict[str, Any]]) -> bool:
+    """Return True when the OCR resembles a receipt rather than a form.
+
+    Receipts contain totals-section keywords and several numeric amount tokens;
+    forms (FUNSD) generally do not. Used to avoid fabricating line items on
+    documents that have none.
+    """
+    if not token_lines:
+        return False
+    text = " ".join(line["text"] for line in token_lines).lower()
+    keyword_hits = sum(1 for pattern in _SECTION_PATTERNS if pattern.search(text))
+    amount_hits = sum(len(_token_amounts(_merge_space_thousands(line["text"]))) for line in token_lines)
+    return keyword_hits >= 1 and amount_hits >= 2
+
+
+def _parse_item_line(text: str) -> dict[str, Any] | None:
+    """Parse a single line into a line item or return None.
+
+    A line is a candidate item when it has at least one description token and
+    at least one numeric token, or when it is a pure numeric continuation line
+    (handled by the caller attaching a pending description).
+    """
+    tokens = text.split()
+    if not tokens:
+        return None
+
+    # Leading quantity: "2 Mineral Water 18 000" -> qty 2; "2X 24,000" -> qty 2.
+    lead_quantity: int | None = None
+    start = 0
+    first = tokens[0]
+    lead_match = re.match(r"^(\d{1,2})\s*(?:x)?$", first, flags=re.IGNORECASE)
+    if lead_match:
+        lead_quantity = int(lead_match.group(1))
+        start = 1
+
+    description_parts: list[str] = []
+    number_tokens: list[str] = []
+    for token in tokens[start:]:
+        if _NUMERIC_TOKEN.match(token):
+            number_tokens.append(token)
+        elif token.lower() not in {"x", "@"}:
+            description_parts.append(token)
+
+    if not number_tokens:
+        return None
+
+    numbers = [value for _, value in (_token_amounts(" ".join(number_tokens)))]
+
+    description = _clean_description(" ".join(description_parts))
+    if not description and not lead_quantity:
+        return None
+
+    quantity = float(lead_quantity) if lead_quantity is not None else None
+    quantity, unit_price = _resolve_quantity_price(numbers, quantity)
+
+    return {
+        "description": description,
+        "quantity": _to_native_number(quantity) if quantity is not None else None,
+        "unit_price": _to_native_number(unit_price) if unit_price is not None else None,
+    }
+
+
+def _resolve_quantity_price(numbers: list[float], quantity: float | None) -> tuple[float | None, float | None]:
+    """Determine (quantity, unit_price) from the numeric tokens of a line."""
+    if not numbers:
+        return quantity, None
+    if max(numbers) > 1_000_000_000:
+        return quantity, None
+    if len(numbers) == 1:
+        return quantity, numbers[0]
+    if len(numbers) == 2:
+        if quantity is not None:
+            # Leading quantity + [unit_price, line_total] -> unit_price is the
+            # first number that is not itself a quantity (e.g. "1 1 36,000").
+            return quantity, _first_price(numbers)
+        if _is_quantity(numbers[0]) and not _is_quantity(numbers[1]):
+            return numbers[0], numbers[1]
+        if _is_quantity(numbers[1]) and not _is_quantity(numbers[0]):
+            return numbers[1], numbers[0]
+        return quantity, numbers[-1]
+    if quantity is not None:
+        return quantity, _first_price(numbers)
+    if _is_quantity(numbers[0]) and not _is_quantity(numbers[1]):
+        return numbers[0], numbers[1]
+    if _is_quantity(numbers[1]) and not _is_quantity(numbers[0]):
+        return numbers[1], numbers[0]
+    return quantity, numbers[0]
+
+
+def _first_price(numbers: list[float]) -> float:
+    """First number that is not quantity-like; falls back to the first number."""
+    for number in numbers:
+        if not _is_quantity(number):
+            return number
+    return numbers[0]
+
+
+def _to_native_number(value: Any) -> int | float:
+    if isinstance(value, float) and float(value).is_integer():
+        return int(value)
+    return value
 
 
 def _group_token_lines(ocr_tokens: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -284,7 +535,7 @@ def _looks_like_valid_field_value(field: str, value: Any) -> bool:
     if field == "invoice_number":
         return bool(re.fullmatch(r"[A-Z0-9][A-Z0-9\-_/]*", text, flags=re.IGNORECASE))
     if field == "total_amount":
-        return bool(AMOUNT_PATTERN.search(text))
+        return bool(_token_amounts(_merge_space_thousands(text)))
     if field == "vendor":
         return len(text.split()) >= 2 and not any(character.isdigit() for character in text)
     return True
@@ -294,9 +545,11 @@ def _looks_like_description_only(text: str) -> bool:
     lowered = text.lower()
     if any(keyword in lowered for keyword in ("subtotal", "total", "tax", "cash", "change", "date", "invoice")):
         return False
-    return bool(re.search(r"[A-Za-z]", text)) and not AMOUNT_PATTERN.search(text)
+    return bool(re.search(r"[A-Za-z]", text)) and not _token_amounts(text)
 
 
 def _clean_description(text: str) -> str:
-    text = re.sub(r"\s+", " ", text).strip(" -x")
-    return text.strip()
+    text = re.sub(r"\s+", " ", text).strip()
+    if text.lower().startswith("x "):
+        text = text[2:].strip()
+    return text.strip(" -")
