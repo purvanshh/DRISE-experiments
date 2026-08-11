@@ -1,5 +1,9 @@
 ## Experimental Results
 
+> **Historical archive** from an early DRISE-only benchmark phase. Current
+> results live in `experiments/results/`; the DRISE pipeline has since
+> improved to 0.617 field F1 / 0.254 exact match on the cleaned ground truth.
+
 | System | Field F1 | Exact Match | Schema Valid | Hallucination | Cost/doc |
 | --- | --- | --- | --- | --- | --- |
 | drise | 0.546 | 0.015 | 1.000 | 0.112 | $0.0000 |

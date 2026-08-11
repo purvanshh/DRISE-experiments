@@ -1,5 +1,9 @@
 ## Experimental Results
 
+> **Historical archive** from a combined phase 6/7 benchmark run (schema
+> validity and hallucination instrumentation were still being calibrated).
+> Current results live in `experiments/results/`.
+
 | System | Field F1 | Exact Match | Schema Valid | Hallucination | Cost/doc |
 | --- | --- | --- | --- | --- | --- |
 | llm_only | 0.000 | 0.000 | 1.000 | 0.000 | $0.0000 |

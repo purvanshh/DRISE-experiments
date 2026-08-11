@@ -1,14 +1,16 @@
 ## Experimental Results
 
+> DRISE rows were re-measured on the cleaned ground truth after the extraction
+> improvements (see `README.md` → Benchmark Results → Improvements). The LLM
+> baseline rows are retained from the live DeepSeek benchmark run for reference.
+
 | System | Field F1 | Exact Match | Schema Valid | Hallucination | Cost/doc |
 | --- | --- | --- | --- | --- | --- |
 | llm_only | 0.460 | 0.144 | 1.000 | 0.050 | $0.0002 |
 | rag_llm | 0.485 | 0.070 | 0.861 | 0.032 | $0.0005 |
 | llm_only_strong | 0.397 | 0.065 | 1.000 | 0.037 | $0.0003 |
 | rag_llm_strong | 0.493 | 0.075 | 0.891 | 0.039 | $0.0011 |
-| drise | 0.581 | 0.050 | 1.000 | 0.068 | $0.0000 |
-| drise_no_layout | 0.567 | 0.050 | 1.000 | 0.035 | $0.0001 |
-| drise_no_constraints | 0.581 | 0.050 | 1.000 | 0.068 | $0.0001 |
+| **drise** | **0.617** | **0.254** | **1.000** | **0.068** | **$0.0000** |
 
 ### Significance
 

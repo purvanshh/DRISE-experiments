@@ -31,13 +31,16 @@ DRISE combines a **layout-aware multimodal transformer** (LayoutLMv3) with a **d
 ## 1.3 Key Features and Capabilities
 
 - **Layout-aware extraction**: LayoutLMv3 jointly encodes pixel content, text tokens, and bounding-box geometry, enabling the model to distinguish field labels from values across multi-column, tabular, and non-standard layouts.
-- **Deterministic post-processing**: Three-stage pipeline — normalization → validation → constraint enforcement — guarantees reproducibility.
+- **Semantic category propagation**: Receipt-category labels flow end-to-end so multi-word field values are grouped as single spans rather than fragmented.
+- **Deterministic post-processing**: Five-stage pipeline — grouping → recovery → normalization → validation → constraint enforcement (with optional quantity repair) — guarantees reproducibility.
+- **Locale-aware heuristic recovery**: Line items and totals are recovered from OCR with support for common receipt layouts and comma/dot decimal separators.
 - **Defense-in-depth security**: File uploads validated at extension, MIME type, magic-byte, and size level.
 - **Typed data contracts**: All pipeline stages communicate through explicit Pydantic interfaces.
 - **Built-in ablation framework**: Controlled experiments with layout removal and constraint removal are implemented out of the box.
 - **Multi-model support**: Swap between different LayoutLMv3 checkpoints — the pipeline adapts automatically.
 - **Production API**: FastAPI service with structured error mapping, per-request tracing IDs, batch parsing, and health checks.
 - **Experiment framework**: Three extraction pipelines (DRISE, LLM-only, RAG+LLM) for controlled benchmarking.
+- **Honest evaluation metrics**: Conditional per-field F1 and per-field exact-match contribution are reported so empty-field inflation is visible.
 
 ---
 
@@ -297,29 +300,30 @@ python-dotenv             # Environment variables
 
 **Responsibility**: LayoutLMv3 inference and fine-tuning.
 
-- `layoutlmv3.py` — `LayoutLMv3InferenceService`: loads a checkpoint, runs token classification with BIO labels, returns per-token predictions with softmax confidences
-- `cord_dataset.py` — `CORDDataset`: PyTorch dataset wrapping the CORD receipt dataset for fine-tuning; maps CORD labels to the project's 5-class BIO schema
-- `training.py` — Fine-tuning entry point
+- `layoutlmv3.py` — `LayoutLMv3InferenceService`: loads a checkpoint, runs token classification with BIO labels, returns per-token predictions with softmax confidences **and semantic categories** (e.g. `prod_item`, `total`) so downstream grouping can keep multi-word values intact
+- `cord_dataset.py` — `CORDDataset` / `FUNSDDataset`: PyTorch datasets for fine-tuning. Supports both CORD formats (`cord-v2` `ground_truth` JSON and `words`/`bboxes`/`ner_tags`), renders images from tokens when paths are unavailable, and maps FUNSD QUESTION/ANSWER spans to KEY/VALUE BIO labels
+- `training.py` — Fine-tuning entry point (`--include-funsd` mixes CORD + FUNSD for key supervision)
 
 ### `src/document_intelligence_engine/evaluation/`
 
 **Responsibility**: Benchmarking and metrics.
 
 - `runner.py` — `ExperimentRunner`: runs multiple pipelines across a dataset, handles resume/caching, enforces cost caps
-- `evaluator.py` — `Evaluator`: computes per-document metrics
-- `metrics.py` — Field-level F1, exact match, schema validity, hallucination rate computation
-- `report.py` — Generates experiment summary reports (CSV, JSON, visualizations)
+- `evaluator.py` — `Evaluator`: computes per-document metrics including conditional field F1 and per-field exact-match contribution
+- `metrics.py` — Field-level F1, exact match, schema validity, hallucination rate, conditional F1, and exact-match-contribution computation
+- `report.py` — Generates experiment summary reports (CSV, JSON, visualizations) with conditional F1 breakdowns
 - `stats.py` — Statistical tests (McNemar's exact test for pairwise comparison)
 
 ### `src/postprocessing/` (legacy, still actively used)
 
-**Responsibility**: Three-stage deterministic post-processing.
+**Responsibility**: Five-stage deterministic post-processing.
 
-- `pipeline.py` — `postprocess_predictions()`: runs all three stages in sequence
-- `entity_grouping.py` — Groups sequential KEY/VALUE tokens into field spans
+- `pipeline.py` — `postprocess_predictions()`: runs all stages in sequence
+- `entity_grouping.py` — Groups sequential KEY/VALUE tokens into field spans; merges consecutive same-category spans so multi-word values survive
+- `recovery.py` — Heuristic recovery of missing line items, totals, dates, invoice numbers, and vendors from OCR tokens; locale-aware parsing of receipt layouts and number formats
 - `normalization.py` — Converts dates to ISO 8601, currencies to floats, corrects OCR artifacts (`O → 0`, `l → 1`, `S → 5`)
 - `validation.py` — Regex pattern matching on fields, checks for required fields
-- `constraints.py` — Cross-field consistency (e.g., `Σ(line_items) ≈ total_amount` within tolerance)
+- `constraints.py` — Cross-field consistency (e.g., `Σ(line_items) ≈ total_amount` within tolerance) with optional quantity repair
 - `confidence.py` — Confidence thresholding, low-confidence field dropping
 
 ### `src/ingestion/`
@@ -380,8 +384,9 @@ DocumentParserService (service)
     ├── ingestion/pipeline.py (validate → load → preprocess → OCR → align)
     ├── model_runtime.py (model.predict())
     │   └── multimodal/layoutlmv3.py (LayoutLMv3InferenceService)
-    └── postprocessing/pipeline.py (group → normalize → validate → constrain → confidence)
+    └── postprocessing/pipeline.py (group → recover → normalize → validate → constrain → confidence)
         ├── postprocessing/entity_grouping.py
+        ├── postprocessing/recovery.py
         ├── postprocessing/normalization.py
         ├── postprocessing/validation.py
         ├── postprocessing/constraints.py
@@ -439,31 +444,35 @@ A client uploads a PDF. The following steps execute:
    - Model runs token classification with 5 labels: `O`, `B-KEY`, `I-KEY`, `B-VALUE`, `I-VALUE`
    - Softmax on logits → confidence scores
    - Subword-level predictions aggregated back to word level via `word_ids`
+   - Semantic categories are attached to each token so multi-word values group correctly
 
-6. **Post-processing** (`src/postprocessing/pipeline.py`, three stages):
+6. **Post-processing** (`src/postprocessing/pipeline.py`, five stages):
 
-   **Stage 1 — Entity Grouping**: Convert BIO sequences into grouped entities:
+   **Stage 1 — Entity Grouping** (`entity_grouping.py`): Convert BIO sequences into grouped entities. Consecutive tokens sharing a semantic category merge into one span (so `"Grand Total"` stays one key), then KEY→VALUE pairs are formed:
    ```
    Input: [B-KEY, I-KEY, B-VALUE, I-VALUE, O, O, B-VALUE, I-VALUE]
    Output: {"invoice_number": ["INV-1023"], "vendor": ["ABC Corp"], "total_amount": ["1200.50"]}
    ```
 
-   **Stage 2 — Normalization**:
+   **Stage 2 — Recovery** (`recovery.py`): Recover fields the model missed directly from OCR text. A token-based parser handles receipt line-item layouts (`desc qty price`, `desc price qty total`, leading-quantity rows, multi-line descriptions), and total-amount recovery applies a GRAND TOTAL > TOTAL > SUBTOTAL precedence while excluding cash/change and item-count lines. Locale comma/dot separators are understood. Line-item recovery only runs on receipt-like documents.
+
+   **Stage 3 — Normalization**:
    - Dates → ISO 8601 (`"Jan 12, 2025"` → `"2025-01-12"`)
    - Currency strings → floats (`"$1,200.50"` → `1200.50`)
    - OCR artifact correction: `O → 0`, `l → 1`, `S → 5` (applied contextually based on numeric proximity)
 
-   **Stage 3 — Validation**:
+   **Stage 4 — Validation**:
    - Regex pattern matching (e.g., `invoice_number` must match `^[A-Za-z0-9][A-Za-z0-9_/-]{1,63}$`)
    - Required fields check
    - Type checking (date must be ISO format, amount must be numeric)
 
-   **Stage 4 — Constraints**:
+   **Stage 5 — Constraints**:
    - Cross-field consistency: compute `Σ(line_items)` and compare to `total_amount` within tolerance (default: 1%)
    - If mismatch: append `line_items_sum_mismatch` flag to `_constraint_flags`
-   - Constraints are **diagnostic**, not corrective — downstream consumers decide how to handle discrepancies
+   - With `repair_constraints=True`, a missing quantity on a single item is derived from the total when the reconciliation is exact
+   - Constraints are primarily **diagnostic** — downstream consumers decide how to handle discrepancies
 
-   **Stage 5 — Confidence Policy**:
+   **Stage 6 — Confidence Policy**:
    - If field confidence < `min_field_confidence` (default: 0.60) → set `valid: false`
    - Optionally drop fields below threshold
 
@@ -591,6 +600,12 @@ Raw model predictions (list[dict])
 entity_grouping.py ──────────────► Group sequential KEY/VALUE tokens into field spans
     │  Input: [{"text": "Invoice", "label": "B-KEY"}, {"text": "#", "label": "I-KEY"}, {"text": "1023", "label": "B-VALUE"}]
     │  Output: {"invoice_number": [{"text": "1023", "label": "B-VALUE", "confidence": 0.91}]}
+    │  Same-category consecutive value tokens merge into single spans.
+    ▼
+recovery.py ─────────────────────► Recover missing fields from OCR text
+    │  Input: OCR token lines (receipt layouts, totals section)
+    │  Output: {"line_items": [{"description": "…", "quantity": 1, "unit_price": 1200.50}], "total_amount": 1200.50}
+    │  Locale-aware parsing; gated on receipt-likeness.
     ▼
 normalization.py ───────────────► Normalize values (dates → ISO, currencies → float, OCR artifacts corrected)
     │  Input: {"date": [{"text": "Jan 12, 2025"}], "total_amount": [{"text": "$1,2OO.5O"}]}
@@ -600,7 +615,7 @@ validation.py ───────────────────► Regex
     │  Input: {"invoice_number": "1023", "total_amount": 1200.50}
     │  Output: {"invoice_number": {"value": "1023", "valid": true}, "total_amount": {"value": 1200.50, "valid": true}}
     ▼
-constraints.py ──────────────────► Cross-field consistency checks (line items sum vs. total)
+constraints.py ──────────────────► Cross-field consistency checks (line items sum vs. total), optional repair
     │  Input: {"line_items": [...], "total_amount": 1200.50}
     │  Output: document + _constraint_flags: [] (or ["line_items_sum_mismatch"])
     ▼
@@ -712,7 +727,7 @@ Every inter-module communication uses Pydantic models. This is not a formal patt
 
 3. **Table structure not reconstructed**: Table cells are extracted individually, but row/column/spans are lost in the output. A "Purchased Items" table becomes a flat list.
 
-4. **Label schema mismatch**: The model is trained on CORD (receipts) which annotates field *values* not field *names*. The project maps everything to KEY/VALUE, but there's no actual KEY detection in the model — it's inferred from token position (text before value = KEY). This is brittle for non-receipt documents.
+4. **Label schema mismatch**: The published checkpoint is trained on CORD (receipts), which annotates field *values* not field *names*. Post-processing infers KEY/VALUE pairing plus heuristically recovers line items and totals. The fine-tuning path now adds FUNSD QUESTION/ANSWER supervision (`--include-funsd`), which is the only in-repo source of genuine KEY labels, but the production checkpoint still relies on inference-time recovery for the receipt structure.
 
 5. **Hallucination detection is heuristic**: The hallucination metric (`compute_hallucination_rate()`) uses fuzzy string matching against the OCR text. It flags formatting differences (e.g., `"1200.50"` vs `"1,200.50"`) as hallucination, which inflates the rate. Manual spot-checks suggest true fabrication rate is <2%, but the metric reports ~6.8%.
 
@@ -753,40 +768,42 @@ Every inter-module communication uses Pydantic models. This is not a formal patt
 
 ## 11.1 Concrete, Actionable Improvements
 
-1. **Add image enhancement preprocessing**:
+> Several items below are now partially or fully implemented; they are retained for context with status markers.
+
+1. **Add image enhancement preprocessing** *(open)*:
    - Insert a denoising stage (bilateral filter or DnCNN) before OCR
    - This addresses the OCR ceiling for degraded scans
 
-2. **Implement cross-page field resolution**:
-   - Add a "page joining" stage that tracks field references across pages
-   - Simple heuristic: collect all `total_amount` mentions, use the last one; collect all `line_items`, concatenate across pages
+2. **Implement cross-page field resolution** *(partial)*:
+   - Multi-page invoice-number conflicts are now detected and surfaced as a `multi_page_inconsistency` warning
+   - Full joining of fields across pages (e.g., total on page 2 referencing items on page 1) is still open
 
-3. **Extract and preserve table structure**:
+3. **Extract and preserve table structure** *(open)*:
    - Use the bounding box coordinates to infer row/column relationships
    - Implement table detection (detect grids of aligned boxes) and output nested structures
 
-4. **Calibrate hallucination metric**:
+4. **Calibrate hallucination metric** *(open)*:
    - Use the current metric as a "flagging" mechanism but not a direct score
    - Apply secondary filtering: exclude values that differ only in formatting (commas, currency symbols)
 
-5. **Add health endpoint with model readiness**:
-   - The `/health` endpoint currently checks service liveness but not model loaded state
-   - Add a `/health/ready` endpoint that verifies `LayoutAwareModelService.loaded == True`
+5. **Improve recovery robustness** *(implemented)*:
+   - Line-item and total recovery now use a locale-aware token parser covering the common receipt layouts and number formats
+   - Line-item recovery is gated on receipt-likeness to avoid fabricating items on forms
 
-6. **Expose more thresholds to config**:
-   - Move `min_field_confidence` from code to `config.yaml`
-   - Add environment variable override support: `DIE_POSTPROCESSING__CONFIDENCE__MIN_FIELD_CONFIDENCE=0.7`
+6. **Honest evaluation metrics** *(implemented)*:
+   - Conditional per-field F1 (only docs where the field exists) and per-field exact-match contribution are reported
+   - Ground-truth line-item artifacts are normalized at load time for fair exact-match scoring
 
-7. **Add request ID propagation**:
-   - Currently, request IDs are generated but not propagated through all stages
+7. **Add request ID propagation** *(open)*:
+   - Request IDs are generated but not propagated through all stages
    - Add a `request_id` context variable (using `contextvars`) that's logged at every stage for end-to-end tracing
 
-8. **Implement circuit breaker for LLM calls**:
+8. **Implement circuit breaker for LLM calls** *(open)*:
    - For RAG pipeline: if LLM is slow/unavailable, fall back to heuristic extraction rather than failing the entire request
 
 ## 11.2 Better Architectural Alternatives
 
-1. **Fine-tuned domain-specific model**: Instead of using `jinhybr/OCR-LayoutLMv3-Invoice`, fine-tune on the specific document distribution (invoices from the target domain). This would likely improve F1 from 0.58 to the aspirational 0.82 target.
+1. **Fine-tuned domain-specific model**: Instead of using `jinhybr/OCR-LayoutLMv3-Invoice`, fine-tune on the specific document distribution (invoices from the target domain) with `--include-funsd` supervision. This would likely improve F1 from the current ~0.62 toward the aspirational 0.82 target.
 
 2. **Hybrid retrieval + extraction**: Combine RAG-style retrieval with extraction — retrieve similar documents from a labeled corpus, use their annotations as soft labels for the current document. This could improve generalization on unseen layouts.
 
@@ -830,7 +847,7 @@ Every inter-module communication uses Pydantic models. This is not a formal patt
 | Skill | Where It's Demonstrated |
 |---|---|
 | **End-to-end ML system design** | From PDF upload to structured JSON output — full pipeline |
-| **Multimodal deep learning** | LayoutLMv3 inference, fine-tuning on CORD |
+| **Multimodal deep learning** | LayoutLMv3 inference, fine-tuning on CORD + FUNSD (key/value supervision) |
 | **API development** | FastAPI with proper error handling, validation, middleware |
 | **Experiment design and execution** | Three baseline comparison, ablation studies, McNemar statistical tests |
 | **Configuration management** | YAML + env vars + Pydantic typing |
@@ -880,8 +897,11 @@ Every inter-module communication uses Pydantic models. This is not a formal patt
 | Data contracts | `src/document_intelligence_engine/domain/contracts.py` |
 | LayoutLMv3 inference | `src/document_intelligence_engine/multimodal/layoutlmv3.py` |
 | Post-processing pipeline | `src/postprocessing/pipeline.py` |
+| Entity grouping | `src/postprocessing/entity_grouping.py` |
+| Heuristic recovery | `src/postprocessing/recovery.py` |
 | LLM client | `src/document_intelligence_engine/llm/client.py` |
 | Evaluation metrics | `src/document_intelligence_engine/evaluation/metrics.py` |
+| Evaluation harness | `scripts/eval_drise.py` |
 
 ## Key Config Values
 
@@ -905,8 +925,12 @@ python run_experiments.py --config configs/experiments.yaml
 # Parse a single document via CLI
 python -m document_intelligence_engine entrypoint path/to/document.pdf
 
-# Fine-tune on CORD
-python -m document_intelligence_engine.multimodal.training
+# Fine-tune on CORD (optionally with FUNSD key/value supervision)
+python -m document_intelligence_engine.multimodal.training --include-funsd
+
+# Score DRISE against the test set (stored results or live run)
+python scripts/eval_drise.py experiments/results/drise.json
+python scripts/eval_drise.py
 
 # Run tests
 pytest tests/
