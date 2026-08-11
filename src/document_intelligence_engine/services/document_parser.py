@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import time
 from pathlib import Path
 from typing import Any
@@ -11,7 +12,6 @@ from document_intelligence_engine.core.logging import get_logger
 from document_intelligence_engine.services.model_runtime import LayoutAwareModelService
 from ingestion.pipeline import process_document_with_metadata
 from postprocessing.pipeline import postprocess_predictions
-
 
 logger = get_logger(__name__)
 
@@ -143,7 +143,30 @@ def derive_warnings(
     ):
         warnings.append("multi_page_inconsistency")
 
+    if page_count > 1 and _detect_invoice_number_conflict(ocr_tokens):
+        warnings.append("multi_page_inconsistency")
+
     return warnings
+
+
+_INVOICE_NUMBER_TOKEN = re.compile(
+    r"^[A-Z0-9][A-Z0-9_\-/]*[-_/][A-Z0-9][A-Z0-9_\-/]*$",
+    re.IGNORECASE,
+)
+
+
+def _detect_invoice_number_conflict(ocr_tokens: list[dict[str, Any]]) -> bool:
+    """Return True when a multi-page document contains distinct invoice numbers.
+
+    Relies only on OCR tokens (page metadata may be dropped by the ingestion
+    pipeline), so it remains robust across entity-grouping changes.
+    """
+    values: set[str] = set()
+    for token in ocr_tokens:
+        text = str(token.get("text", "")).strip()
+        if _INVOICE_NUMBER_TOKEN.match(text):
+            values.add(text.upper())
+    return len(values) >= 2
 
 
 def _elapsed_ms(started_at: float) -> float:
