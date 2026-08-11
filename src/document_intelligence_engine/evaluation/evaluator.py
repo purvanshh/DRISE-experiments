@@ -35,6 +35,14 @@ class Evaluator:
             "field_f1": field_scores,
             "field_level_f1": metrics.compute_field_level_f1(prediction, reference, self.fields),
             "exact_match": metrics.compute_document_exact_match(prediction, reference, self.fields),
+            "field_f1_conditional": {
+                field: (field_scores[field] if metrics._field_present(reference.get(field)) else None)
+                for field in self.fields
+            },
+            "exact_match_contribution": {
+                field: metrics.compute_document_exact_match_without(prediction, reference, field, self.fields)
+                for field in self.fields
+            },
             "schema_valid": metrics.compute_schema_validity(prediction, self.schema),
             "hallucination_rate": metrics.compute_hallucination_rate(prediction, source_text),
             "constraint_flag_rate": 1.0 if output.get("_constraint_flags") else 0.0,

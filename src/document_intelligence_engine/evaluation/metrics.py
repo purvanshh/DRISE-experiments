@@ -107,6 +107,31 @@ def compute_document_exact_match(
     return 1.0 if _normalized_field_payload(prediction, fields) == _normalized_field_payload(ground_truth, fields) else 0.0
 
 
+def compute_document_exact_match_without(
+    prediction: dict[str, Any],
+    ground_truth: dict[str, Any],
+    excluded_field: str,
+    fields: list[str] | tuple[str, ...] = DEFAULT_FIELDS,
+) -> float:
+    """Compute exact match over all configured fields except ``excluded_field``.
+
+    Useful for quantifying how much a single field drags document-level exact
+    match down (e.g. ``line_items``).
+    """
+    subset = tuple(field for field in fields if field != excluded_field)
+    return compute_document_exact_match(prediction, ground_truth, subset)
+
+
+def _field_present(value: Any) -> bool:
+    if value is None:
+        return False
+    if isinstance(value, str):
+        return bool(value.strip())
+    if isinstance(value, (list, dict)):
+        return len(value) > 0
+    return True
+
+
 def compute_field_f1_scores(
     prediction: dict[str, Any],
     ground_truth: dict[str, Any],
