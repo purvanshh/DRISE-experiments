@@ -29,8 +29,7 @@ experiment:
     max_input_tokens: 1500
   llm_strong:
     backend: deepseek
-    model: deepseek-v4-pro
-    base_url: https://api.deepseek.com
+    model: deepseek-v4-flash
     temperature: 0.0
   retrieval:
     embedder: all-MiniLM-L6-v2
