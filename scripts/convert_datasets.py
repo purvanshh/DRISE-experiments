@@ -252,7 +252,71 @@ def _pair_questions_with_answers(spans: list[Span]) -> list[tuple[str, str]]:
     return pairs
 
 
+def _is_plausible_total_amount(value: float | None) -> bool:
+    """Return True when a numeric value is a plausible invoice total.
+
+    FUNSD forms are force-fit into the invoice schema, so the "totals" they
+    produce are frequently years (e.g. ``1991``), credit-card / phone sized
+    numbers, or stray single-digit counts. These are rejected so the ground
+    truth only carries amounts that could actually be invoice totals.
+    """
+    if value is None:
+        return False
+    if value < 1:
+        return False
+    if value >= 1800 and value <= 2100 and float(value).is_integer():
+        return False
+    if abs(value) >= 1_000_000_000_000:
+        return False
+    return True
+
+
+def _looks_like_vendor(text: str) -> bool:
+    """Return True when text plausibly names a vendor/company.
+
+    Vendors usually carry a corporate suffix (Ltd, Inc, GmbH, …) or appear as
+    an all-caps multi-word company name. Arbitrary form prose is rejected.
+    """
+    cleaned = text.strip()
+    if not cleaned:
+        return False
+    if any(character.isdigit() for character in cleaned):
+        return False
+    lowered = cleaned.lower()
+    if re.search(
+        r"\b(ltd|limited|inc|incorporated|corp|corporation|gmbh|llc|co|company|associates|group|holdings)\b",
+        lowered,
+    ):
+        return True
+    words = cleaned.split()
+    if len(words) >= 2 and cleaned.isupper() and not re.search(r"[^A-Za-z .&'\-]", cleaned):
+        return True
+    return False
+
+
+def _search_plausible_amount(text: str) -> float | None:
+    """Return the first plausible invoice-total amount in ``text``, else None."""
+    for match in AMOUNT_PATTERN.finditer(text):
+        amount = _parse_amount(match.group(0))
+        if _is_plausible_total_amount(amount):
+            return amount
+    return None
+
+
+def _is_valid_iso_date(value: str) -> bool:
+    from datetime import datetime
+
+    try:
+        datetime.fromisoformat(value)
+        return True
+    except (ValueError, TypeError):
+        return False
+
+
 def _extract_funsd_ground_truth(question_answer_pairs: list[tuple[str, str]], ocr_text: str) -> dict[str, Any]:
+    # FUNSD forms do not contain invoice numbers; leaving the field empty
+    # keeps it out of the scored fields (both sides empty) instead of scoring
+    # arbitrary form identifiers.
     invoice_number = ""
     date_value = ""
     vendor = ""
@@ -260,27 +324,28 @@ def _extract_funsd_ground_truth(question_answer_pairs: list[tuple[str, str]], oc
 
     for question, answer in question_answer_pairs:
         lowered = question.lower()
-        if not invoice_number and _contains_keyword(lowered, INVOICE_KEYWORDS):
-            invoice_number = answer.strip()
-            continue
         if not date_value and _contains_keyword(lowered, DATE_KEYWORDS):
             date_value = _normalize_date(answer)
             continue
         if not vendor and _contains_keyword(lowered, VENDOR_KEYWORDS):
-            vendor = answer.strip()
+            candidate = answer.strip()
+            if _looks_like_vendor(candidate):
+                vendor = candidate
             continue
         if total_amount is None and _contains_keyword(lowered, TOTAL_KEYWORDS):
-            total_amount = _parse_amount(answer)
+            amount = _parse_amount(answer)
+            if _is_plausible_total_amount(amount):
+                total_amount = amount
 
     if not date_value:
         date_value = _search_date(ocr_text)
 
     if total_amount is None:
-        total_amount = _search_amount_from_text(ocr_text, prefer_last=True)
+        total_amount = _search_plausible_amount(ocr_text)
 
     return {
         "invoice_number": invoice_number,
-        "date": date_value,
+        "date": date_value if _is_valid_iso_date(date_value) else "",
         "vendor": vendor,
         "total_amount": total_amount,
         "line_items": [],
