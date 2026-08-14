@@ -29,6 +29,7 @@
 - [Reproducibility](#reproducibility)
 - [Project Layout](#project-layout)
 - [Fine-Tuning](#fine-tuning)
+- [The 0.625 → 0.8704 Story](#the-0625--08704-story)
 - [Known Limitations](#known-limitations)
 - [Roadmap](#roadmap)
 - [Contact](#contact)
@@ -515,6 +516,7 @@ docker run \
 │   └── benchmark_cord_finetuned.py# Fine-tuned checkpoint benchmark (token F1, threshold sweep)
 ├── run_experiments.py             # Experiment harness entry point
 ├── inference_cord_finetuned.py    # Safe loader + inference/benchmark CLI for the fine-tuned checkpoint
+├── KAGGLE_TRAINING_CHRONICLE.md   # Full debugging chronicle of the Kaggle fine-tuning journey
 ├── pyproject.toml                 # Tooling configuration (ruff, black, pytest)
 └── requirements_lock.txt          # Frozen benchmark environment
 ```
@@ -586,6 +588,32 @@ Measured on the cached `katanaml/cord` test split (100 receipts, images rendered
 | Mean non-O confidence | 0.9986 |
 
 > The entity-level (seqeval) F1 is **not** meaningful on this split: the model detects KEY spans (`TOTAL`, `TAX`, …) from FUNSD supervision while `katanaml/cord` annotates values only, so every predicted KEY is a false positive and VALUE spans are split by key predictions. Token-level F1 is the honest comparison, and it matches the published `0.868` ballpark. Sweep thresholds with `--tune`.
+
+## The 0.625 → 0.8704 Story
+
+### Why we fine-tuned
+
+After four phases of pipeline engineering, DRISE had plateaued at **0.625 masked micro-F1**. Layout and constraint ablations were flat, which meant the post-processing stack was no longer the bottleneck — the published `jinhybr/OCR-LayoutLMv3-Invoice` checkpoint was. To break past the ceiling, the system needed an **in-domain model** trained on the actual target data distribution (CORD receipts + FUNSD forms).
+
+### Why Kaggle
+
+The dev machine (MacBook Air M4, no NVIDIA GPU) cannot train a ~500M-parameter LayoutLMv3 — CPU training ran 40 minutes/epoch with validation F1 stuck at 0.0. Kaggle's free **Tesla T4** with 16 GB VRAM and 30 weekly hours was the remote training environment.
+
+### The core challenge
+
+The fine-tuning harness silently produced `val_f1 = 0.0000` for every epoch while train loss collapsed to ~0. Root cause: the `naver-clova-ix/cord-v2` parser read compact value dictionaries from `gt_parse` (which has no `words` key), so **every training sample fell back to all-`O` labels** — the model could only ever predict background. The fix parsed word-level OCR from `valid_line` (with `is_key` → `B-KEY`), plus a `nielsr/funsd` split fallback (`validation` → `test`). Three more gotchas: Kaggle path mismatches, poisoned notebook kernels, and numpy-version pins that broke the pre-installed stack.
+
+### Results
+
+| Metric | Value |
+|---|---:|
+| Fine-tuned validation F1 (15 epochs) | **0.8704** |
+| Token-level F1 on CORD test | **0.8576** |
+| Precision / Recall (CORD test) | 0.7513 / 0.9989 |
+| Mean non-O confidence | 0.9986 |
+| Confidence threshold (sweep-verified) | 0.7 |
+
+The full debugging chronicle — every red herring, the parser bug in detail, the successful training run, checkpoint download/integration issues, and step-by-step reproduction — is documented in **[`KAGGLE_TRAINING_CHRONICLE.md`](KAGGLE_TRAINING_CHRONICLE.md)**.
 
 ## Known Limitations
 

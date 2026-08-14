@@ -1,8 +1,10 @@
 """Dataset loaders for LayoutLMv3 fine-tuning.
 
 Supports two receipt sources:
-  - CORD receipts, mapping their semantic categories to the project's 5-class
-    BIO scheme (``O``, ``B-KEY``, ``I-KEY``, ``B-VALUE``, ``I-VALUE``).
+  - CORD receipts, mapping their semantic categories (from ``valid_line``)
+    to the project's 5-class BIO scheme (``O``, ``B-KEY``, ``I-KEY``,
+    ``B-VALUE``, ``I-VALUE``). CORD tokens flagged ``is_key`` provide the
+    KEY supervision; the rest are VALUE spans.
   - FUNSD forms, whose QUESTION/ANSWER annotation is the canonical source of
     KEY (question) and VALUE (answer) supervision. Including FUNSD teaches the
     model to detect printed field names (keys) that receipts do not annotate.
@@ -79,7 +81,8 @@ def _cord_label_to_bio(cord_label: str, is_first_token: bool) -> str:
 
     CORD labels look like ``menu.nm``, ``total.total_price``, etc. These are
     the *values* printed on the receipt, so every non-O token maps to a VALUE
-    span. KEY supervision comes from FUNSD (see ``_parse_funsd_example``).
+    span. KEY supervision comes from CORD ``is_key`` tokens and FUNSD (see
+    ``_parse_cord_v2_example`` and ``_parse_funsd_example``).
     """
     if cord_label == "O" or cord_label.startswith("O"):
         return "O"
@@ -102,50 +105,49 @@ def _parse_cord_example(example: dict[str, Any], label_names: list[str]) -> dict
 
 
 def _parse_cord_v2_example(example: dict[str, Any]) -> dict[str, Any]:
+    """Parse a CORD v2 example into flat token lists.
+
+    cord-v2 keeps the OCR tokens with their geometry in ``valid_line``
+    (line -> ``words`` -> ``text``/``quad``/``is_key``) together with a
+    per-line parse ``category`` (e.g. ``menu.nm``). The ``gt_parse`` block
+    only contains field *values* without word boxes, so token supervision
+    must come from ``valid_line``. Tokens marked ``is_key`` (printed field
+    names such as ``TOTAL``/``CASH``) map to KEY spans; everything else with
+    a category maps to a VALUE span.
+    """
     gt = json.loads(example["ground_truth"])
-    gt_parse = gt.get("gt_parse", gt)
+    valid_line = gt.get("valid_line", [])
 
     words: list[str] = []
     boxes: list[list[int]] = []
     labels: list[str] = []
 
-    if isinstance(gt_parse, list):
-        for line_group in gt_parse:
-            if not isinstance(line_group, dict):
+    for line_group in valid_line:
+        if not isinstance(line_group, dict):
+            continue
+        category = line_group.get("category")
+        for word_info in line_group.get("words", []):
+            text = str(word_info.get("text", "")).strip()
+            if not text:
                 continue
-            for word_info in line_group.get("words", []):
-                text = word_info.get("text", "").strip()
-                if not text:
-                    continue
-                quad = word_info.get("quad", {})
+            quad = word_info.get("quad", {})
+            if isinstance(quad, dict):
                 x_coords = [int(quad.get(f"x{i}", 0)) for i in range(1, 5)]
                 y_coords = [int(quad.get(f"y{i}", 0)) for i in range(1, 5)]
-                box = [min(x_coords), min(y_coords), max(x_coords), max(y_coords)]
-                boxes.append(box)
-                words.append(text)
-                label = word_info.get("label", "O")
-                is_first = len(labels) == 0 or labels[-1] == "O"
-                labels.append(_cord_label_to_bio(label, is_first))
-    else:
-        for category, entries in gt_parse.items():
-            if not isinstance(entries, list):
-                continue
-            for entry in entries:
-                if not isinstance(entry, dict):
-                    continue
-                for word_info in entry.get("words", []):
-                    text = word_info.get("text", "").strip()
-                    if not text:
-                        continue
-                    quad = word_info.get("quad", {})
-                    x_coords = [int(quad.get(f"x{i}", 0)) for i in range(1, 5)]
-                    y_coords = [int(quad.get(f"y{i}", 0)) for i in range(1, 5)]
-                    box = [min(x_coords), min(y_coords), max(x_coords), max(y_coords)]
-                    boxes.append(box)
-                    words.append(text)
-                    label = category
-                    is_first = not labels or labels[-1] in ("O",)
-                    labels.append(_cord_label_to_bio(label, is_first))
+            else:
+                x_coords = y_coords = []
+            boxes.append([min(x_coords), min(y_coords), max(x_coords), max(y_coords)])
+            words.append(text)
+
+            if word_info.get("is_key"):
+                is_first = not labels or not labels[-1].endswith("-KEY")
+                label = "B-KEY" if is_first else "I-KEY"
+            elif not category or category == "O":
+                label = "O"
+            else:
+                is_first = not labels or labels[-1] == "O"
+                label = _cord_label_to_bio(str(category), is_first)
+            labels.append(label)
 
     return {"words": words, "boxes": boxes, "bio_labels": labels}
 
@@ -425,6 +427,11 @@ def get_cord_dataloaders(
     if include_funsd:
         try:
             funsd = load_dataset("nielsr/funsd")
+        except Exception as exc:  # pragma: no cover - network dependent
+            logger.warning("FUNSD unavailable (%s); continuing with CORD only", exc)
+            funsd = None
+
+        if funsd is not None:
             funsd_train_labels = _feature_label_names(funsd["train"])
             funsd_train = FUNSDDataset(
                 [dict(record) for record in funsd["train"]],
@@ -432,17 +439,21 @@ def get_cord_dataloaders(
                 max_length=max_length,
                 label_names=funsd_train_labels,
             )
+            # nielsr/funsd has no "validation" split; fall back to "test".
+            funsd_val_split = funsd.get("validation", funsd["test"])
             funsd_val = FUNSDDataset(
-                [dict(record) for record in funsd["validation"]],
+                [dict(record) for record in funsd_val_split],
                 processor,
                 max_length=max_length,
                 label_names=funsd_train_labels,
             )
             train_dataset = torch.utils.data.ConcatDataset([train_dataset, funsd_train])
             val_dataset = torch.utils.data.ConcatDataset([val_dataset, funsd_val])
-            logger.info("Included FUNSD: train += %d, val += %d", len(funsd["train"]), len(funsd["validation"]))
-        except Exception as exc:  # pragma: no cover - network dependent
-            logger.warning("FUNSD unavailable (%s); continuing with CORD only", exc)
+            logger.info(
+                "Included FUNSD: train += %d, val += %d",
+                len(funsd["train"]),
+                len(funsd_val_split),
+            )
 
     train_loader = DataLoader(
         train_dataset,

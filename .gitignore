@@ -112,6 +112,13 @@ wandb/
 *.ckpt
 checkpoints/
 
+# Locally fine-tuned CORD checkpoint (weights are gitignored; re-download
+# from the Kaggle notebook Output tab or the configured checkpoint_path).
+Drise Cord Fine-tuned Checkpoint/
+
+# Bundled code archive uploaded to Kaggle (keep local only).
+drise-code.zip
+
 # ============================================================
 # Serialized data / large files
 # ============================================================
