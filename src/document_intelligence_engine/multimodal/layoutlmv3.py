@@ -46,21 +46,19 @@ class LayoutLMv3InferenceService:
         try:
             logger.info("loading_layoutlmv3", extra={"source": model_source})
 
-            self._model = LayoutLMv3ForTokenClassification.from_pretrained(
-                model_source,
-                local_files_only=False,
-            )
-            self._model.to(self._device)
-            self._model.eval()
+            local_source = Path(model_source).expanduser()
+            if local_source.exists():
+                # Local fine-tuned checkpoint: use the safe loader so a missing
+                # preprocessor_config.json (transformers 5.x-style checkpoint on
+                # a transformers 4.x runtime) falls back to the base processor
+                # instead of crashing.
+                self._load_local_checkpoint(local_source)
+            else:
+                self._load_published_model(model_source)
+
             self._model_id2label = {
                 int(label_id): label for label_id, label in self._model.config.id2label.items()
             }
-
-            self._processor = LayoutLMv3Processor.from_pretrained(
-                model_source,
-                apply_ocr=False,
-                local_files_only=False,
-            )
 
             self._loaded = True
             logger.info(
@@ -69,6 +67,61 @@ class LayoutLMv3InferenceService:
             )
         except Exception as exc:
             raise ModelInferenceError(f"Failed to load LayoutLMv3: {exc}") from exc
+
+    def _load_local_checkpoint(self, local_source: Path) -> None:
+        """Load a local checkpoint via the project's safe loader when available.
+
+        The safe loader (inference_cord_finetuned.load_model) handles
+        checkpoints that only ship ``processor_config.json`` by falling back to
+        the base LayoutLMv3 processor. If the module is not importable (e.g. the
+        repo root is not on sys.path), replicate the same fallback inline.
+        """
+        try:
+            from inference_cord_finetuned import load_model  # type: ignore
+
+            self._model, self._processor, self._device = load_model(
+                str(local_source),
+                device=str(self._device),
+            )
+            self._model.eval()
+            return
+        except ImportError:
+            pass
+
+        # Inline fallback (identical behaviour to the safe loader).
+        self._model = LayoutLMv3ForTokenClassification.from_pretrained(
+            str(local_source),
+            local_files_only=False,
+        )
+        self._model.to(self._device)
+        self._model.eval()
+        if (local_source / "preprocessor_config.json").exists():
+            self._processor = LayoutLMv3Processor.from_pretrained(
+                str(local_source),
+                apply_ocr=False,
+                local_files_only=False,
+            )
+        else:
+            self._processor = LayoutLMv3Processor.from_pretrained(
+                "microsoft/layoutlmv3-base",
+                apply_ocr=False,
+                local_files_only=False,
+            )
+
+    def _load_published_model(self, model_source: str) -> None:
+        """Load a published (hub) LayoutLMv3 checkpoint."""
+        self._model = LayoutLMv3ForTokenClassification.from_pretrained(
+            model_source,
+            local_files_only=False,
+        )
+        self._model.to(self._device)
+        self._model.eval()
+
+        self._processor = LayoutLMv3Processor.from_pretrained(
+            model_source,
+            apply_ocr=False,
+            local_files_only=False,
+        )
 
     @torch.no_grad()
     def predict(
