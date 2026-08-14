@@ -40,6 +40,7 @@ State-of-the-art models today *can* parse almost anything — but **accuracy is 
 - **Quality**: `0.8704` F1 after a CORD + FUNSD fine-tune (`0.8576` token-level F1 on the CORD test split)
 - **Trust**: `100%` schema validity, deterministic output, per-field confidence, and constraint enforcement on every document
 - **Fairness**: Benchmarked head-to-head against LLM and RAG baselines on **201 annotated documents** with statistical-significance testing (McNemar's exact test)
+- **Latency**: `349ms`/document on **CPU** (self-hosted, no API round-trip — and the latency number in the benchmark below is CPU-bound). The same model on a GPU is expected at ~`50ms`/document, since the transformer encoder dominates inference; LLM baselines show `0.33ms` only because those cells are cache-hit round-trips, not live provider latency
 
 ---
 
@@ -383,7 +384,7 @@ The table below is the cross-system comparison from the live benchmark, measured
 | `drise_no_layout` | 0.6248 | 0.2488 | 1.0000 | 0.1802 | 381.51 | 0.000053 | 0.010651 |
 | `drise_no_constraints` | 0.6253 | 0.2488 | 1.0000 | 0.1800 | 451.30 | 0.000063 | 0.012603 |
 
-\* Both `llm_strong` baselines now run on `deepseek-v4-flash` (identical to the base systems), so their rows match the base rows. The latency cells were measured on a resumed, warm-cache run, so LLM rows reflect cache-hit round-trips rather than live provider latency; DRISE rows reflect local CPU inference.
+\* Both `llm_strong` baselines now run on `deepseek-v4-flash` (identical to the base systems), so their rows match the base rows. The latency cells were measured on a resumed, warm-cache run, so LLM rows reflect cache-hit round-trips rather than live provider latency; DRISE rows reflect local **CPU** inference (`349ms`/document is CPU-bound — the transformer encoder dominates, and GPU inference is expected at ~`50ms`/document).
 
 ### Improvements
 
@@ -642,7 +643,7 @@ Results: **0.8576 token-level F1** (P 0.7513 / R 0.9989), mean non-O confidence 
 
 ## The 0.625 → 0.8704 Story
 
-### Why we fine-tuned
+### Why I fine-tuned
 
 After four phases of pipeline engineering, DRISE had plateaued at **0.625 masked micro-F1**. Layout and constraint ablations were flat, which meant the post-processing stack was no longer the bottleneck — the published `jinhybr/OCR-LayoutLMv3-Invoice` checkpoint was. To break past the ceiling, the system needed an **in-domain model** trained on the actual target data distribution (CORD receipts + FUNSD forms).
 
