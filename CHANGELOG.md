@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.2.0 — fine-tuned CORD checkpoint + safe loader
+
+### Added
+
+- `inference_cord_finetuned.py`: safe model loader, receipt inference, locale-aware number parsing, validation-set benchmarking (token + seqeval entity F1) and a confidence-threshold sweep CLI.
+- `set_global_threshold()` / `get_global_threshold()` for runtime-adjustable confidence filtering (defaults are resolved at call time).
+- `scripts/benchmark_cord_finetuned.py`: token-level benchmark + threshold sweep on the cached `katanaml/cord` test split.
+- `LayoutLMv3InferenceService` now loads local checkpoints through the safe loader, falling back to the base processor when `preprocessor_config.json` is missing (transformers-5.x-style checkpoints on a transformers-4.x runtime).
+
+### Benchmark
+
+Fine-tuned CORD checkpoint (`Drise Cord Fine-tuned Checkpoint/`, 5-class BIO, FUNSD-mixed): **0.8576 token-level F1** on the CORD test split (P 0.7513 / R 0.9989), matching the published `0.868` token-F1 ballpark. Note the CORD entity-level F1 is not meaningful on `katanaml/cord` because the model predicts KEY spans that this split does not annotate.
+
 ## v1.1.0 — extraction improvements & honest metrics
 
 ### Added

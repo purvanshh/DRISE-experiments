@@ -178,7 +178,7 @@ UploadFile
 | **Language** | Python 3.11+ | Ecosystem for ML (PyTorch, HuggingFace), OCR (PaddleOCR, Tesseract), and APIs (FastAPI) |
 | **Web Framework** | FastAPI | Native async, OpenAPI generation, Pydantic integration, simple dependency injection |
 | **ML Model** | LayoutLMv3 (microsoft/layoutlmv3-base) | State-of-the-art multimodal document understanding; jointly encodes text, layout, and image |
-| **Fine-tuned Checkpoint** | jinhybr/OCR-LayoutLMv3-Invoice | Pre-trained on invoices; drop-in replacement for base model |
+| **Fine-tuned Checkpoint** | `Drise Cord Fine-tuned Checkpoint/` (CORD+FUNSD, 5-class BIO) | Locally fine-tuned receipt model (0.8576 token F1 on CORD test); drop-in replacement for `jinhybr/OCR-LayoutLMv3-Invoice`. Safe loader falls back to the base processor when `preprocessor_config.json` is missing |
 | **OCR Engine** | PaddleOCR (primary), Tesseract (fallback) | PaddleOCR provides better layout preservation and confidence scores |
 | **LLM Integration** | OpenAI SDK + custom caching layer | Supports OpenAI, NVIDIA, and OpenAI-compatible endpoints; disk caching for reproducibility |
 | **Retrieval** | Sentence-BERT (all-MiniLM-L6-v2) | Lightweight embeddings for RAG pipeline per-field context retrieval |
@@ -589,7 +589,7 @@ Configuration is loaded from `configs/config.yaml` with environment variable ove
 - **Experiment results**: Written to `experiments/results/{system}.json` — JSONL format with one record per document
 - **LLM cache**: `experiments/cache/llm/{sha256}.json` — cached API responses for reproducibility
 - **Retrieval cache**: `experiments/cache/retrieval/` — cached embeddings for RAG pipeline
-- **Model checkpoints**: `experiments/artifacts/cord_finetuned/` — fine-tuned model weights
+- **Model checkpoints**: `experiments/artifacts/cord_finetuned/` — fine-tuned model weights (the notebook-produced `Drise Cord Fine-tuned Checkpoint/` folder is the deployable 5-class BIO checkpoint with the safe-loader fallback)
 
 ## 7.3 Data Flow in the Post-Processing Pipeline
 

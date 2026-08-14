@@ -66,7 +66,7 @@ DRISE combines a **layout-aware multimodal transformer** (LayoutLMv3, which join
 | **Defense-in-Depth Security** | File uploads validated at extension, MIME type, and magic-byte level. Oversized files, malformed PDFs, and path-traversal attempts are rejected before processing begins |
 | **Typed Data Contracts** | `ValidatedFile`, `OCRResult`, `ModelPrediction`, `ConstraintResult` — every pipeline stage communicates through explicit Pydantic interfaces |
 | **Built-In Ablation Framework** | Controlled experiments with layout removal and constraint removal are implemented and runnable out of the box |
-| **Multi-Model Support** | Swap between `microsoft/layoutlmv3-base`, `jinhybr/OCR-LayoutLMv3-Invoice`, or any fine-tuned checkpoint — the pipeline adapts automatically |
+| **Multi-Model Support** | Swap between `microsoft/layoutlmv3-base`, `jinhybr/OCR-LayoutLMv3-Invoice`, or any fine-tuned checkpoint (e.g. the CORD+FUNSD `Drise Cord Fine-tuned Checkpoint/`) — the pipeline adapts automatically, with a safe loader for transformers-5.x-style local checkpoints |
 | **Honest Evaluation Metrics** | Conditional per-field F1 (only docs where the field exists) and per-field exact-match contribution are reported alongside the headline micro-F1, so empty-field inflation is visible |
 | **Production API** | FastAPI service with structured error mapping, per-request tracing IDs, batch parsing, health checks, and background file cleanup |
 
@@ -511,8 +511,10 @@ docker run \
 │   ├── security/                  # Security validation tests
 │   └── stress/                    # Stress and failure-mode tests
 ├── scripts/                       # CLI tools, benchmarking scripts, dataset converters
-│   └── eval_drise.py              # DRISE evaluation harness (masked F1, exact match, conditional F1)
+│   ├── eval_drise.py              # DRISE evaluation harness (masked F1, exact match, conditional F1)
+│   └── benchmark_cord_finetuned.py# Fine-tuned checkpoint benchmark (token F1, threshold sweep)
 ├── run_experiments.py             # Experiment harness entry point
+├── inference_cord_finetuned.py    # Safe loader + inference/benchmark CLI for the fine-tuned checkpoint
 ├── pyproject.toml                 # Tooling configuration (ruff, black, pytest)
 └── requirements_lock.txt          # Frozen benchmark environment
 ```
@@ -552,12 +554,45 @@ CORD annotates receipt *values* but not the printed field names, so a CORD-only 
 
 Training configuration (learning rate, epochs, warmup, gradient accumulation, batch size, `--device`) is managed through `configs/config.yaml` under the `training` section and the CLI. Checkpoints now persist the processor alongside the model so fine-tuned checkpoints load end to end. For realistic training throughput, use a CUDA device (`--device cuda`).
 
+### Fine-Tuned CORD Checkpoint (`Drise Cord Fine-tuned Checkpoint/`)
+
+The pipeline can run on a locally fine-tuned CORD checkpoint (5-class BIO scheme: `O`, `B-KEY`, `I-KEY`, `B-VALUE`, `I-VALUE`) instead of the published `jinhybr/OCR-LayoutLMv3-Invoice` model. The checkpoint was trained with FUNSD KEY supervision mixed into CORD (`--include-funsd`, 15 epochs, lr `5e-5`, batch 4, grad-accum 2).
+
+**Loading is safe by default.** Checkpoints saved with transformers 5.x may only ship `processor_config.json` (no `preprocessor_config.json`), which older transformers versions reject with `AutoProcessor.from_pretrained`. Use the project's safe loader instead:
+
+```python
+from inference_cord_finetuned import load_model, predict_receipt, set_global_threshold
+
+model, processor, device = load_model("Drise Cord Fine-tuned Checkpoint/")
+set_global_threshold(0.7)  # optional; runtime-adjustable confidence threshold
+
+result = predict_receipt(image, words, boxes, model=model, processor=processor, device=device)
+print(result["key_value_pairs"])  # KEY -> VALUE pairs + locale-parsed numeric values
+```
+
+The loader falls back to the base `microsoft/layoutlmv3-base` processor when the local checkpoint lacks `preprocessor_config.json`, so inference never hard-crashes on the file layout. The production `LayoutLMv3InferenceService` uses the same logic automatically (set `model.checkpoint_path` in `configs/config.yaml`).
+
+**Benchmark on the CORD test split** (token-level, comparable to the Kaggle `0.868` token-F1 figure):
+
+```bash
+python scripts/benchmark_cord_finetuned.py --split test --batch-size 8
+```
+
+Measured on the cached `katanaml/cord` test split (100 receipts, images rendered from tokens):
+
+| Metric | Value |
+|---|---:|
+| Token-level P / R / F1 | 0.7513 / 0.9989 / **0.8576** |
+| Mean non-O confidence | 0.9986 |
+
+> The entity-level (seqeval) F1 is **not** meaningful on this split: the model detects KEY spans (`TOTAL`, `TAX`, …) from FUNSD supervision while `katanaml/cord` annotates values only, so every predicted KEY is a false positive and VALUE spans are split by key predictions. Token-level F1 is the honest comparison, and it matches the published `0.868` ballpark. Sweep thresholds with `--tune`.
+
 ## Known Limitations
 
 | Limitation | Detail |
 |---|---|
 | **OCR ceiling** | Severely degraded scans (heavy noise, sub-100 DPI, mixed orientation) produce low-confidence tokens that downstream models cannot reliably recover |
-| **Domain generalization** | Defaults to the published `jinhybr/OCR-LayoutLMv3-Invoice` checkpoint; performance on out-of-distribution document types will degrade without targeted fine-tuning |
+| **Domain generalization** | Defaults to the published `jinhybr/OCR-LayoutLMv3-Invoice` checkpoint (or the fine-tuned `Drise Cord Fine-tuned Checkpoint/` when configured); performance on out-of-distribution document types will degrade without targeted fine-tuning |
 | **Ground-truth quality ceiling** | FUNSD forms were force-fit into the invoice schema during dataset conversion, producing unreliable `total_amount`/`vendor` labels (years, card numbers); CORD conversions emit duplicate empty-description line items. The annotation loader normalizes the CORD artifacts, but the FUNSD labels should be regenerated for a fair score |
 | **Multi-page joining** | Pages are processed independently — cross-page field references (e.g., total on page 2 referencing items on page 1) are not currently resolved (conflicts are detected and warned) |
 | **Table structure** | Table cells are extracted, but row/column/span relationships are not reconstructed in the output schema |
