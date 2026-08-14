@@ -14,8 +14,38 @@
 
 ---
 
+## The Pitch: Why DRISE Exists
+
+Document extraction is a **$6B+ enterprise problem** — every invoice, receipt, and scanned form that enters a business pipeline needs to be read, parsed, and trusted. Existing solutions force a tradeoff: OCR-only tools collapse on complex layouts, LLMs hallucinate fields and cost orders of magnitude more at scale, and template-matching breaks the moment a vendor changes their invoice format.
+
+DRISE eliminates that tradeoff. It combines a **layout-aware multimodal transformer** (LayoutLMv3) with a **deterministic post-processing pipeline** that normalizes, validates, and enforces cross-field constraints on every extraction — guaranteeing identical output for identical input with zero hallucination risk from the model layer. The system runs at **$0.000049/document** (vs $0.000152 for LLM-only), achieves **0.8704 F1** on receipt parsing after an in-domain fine-tune, and returns **100% schema-valid JSON** on every document it processes.
+
+### Why I built it
+
+State-of-the-art models today *can* parse almost anything — but **accuracy is no longer the differentiator; efficiency and cost are.** A large language model that reads an invoice at $0.00015/document is untenable at hundreds of thousands of documents a month; a hallucinated field in an AP system isn't a latency problem, it's a reconciliation problem. DRISE was built from scratch — ingestion, OCR, inference, post-processing, evaluation framework, and production API — to prove that you can get near-SOTA extraction quality at a **fraction of the cost**, with **deterministic, auditable, schema-guaranteed output** an LLM can never offer.
+
+### Who it helps and how
+
+| Who | How DRISE helps |
+|---|---|
+| **Finance / AP departments** | Automated, trustworthy invoice and receipt processing — every field validated against cross-field constraints before it reaches the ledger |
+| **Logistics & retail** | Receipt parsing and line-item reconciliation at scale, with locale-aware currency handling |
+| **Regulated industries (banking, healthcare, insurance)** | Auditable extractions with per-field confidence and constraint flags — every value traces back to its source token |
+| **Platform & product teams** | A self-hosted, per-document-cost-near-zero extraction API (`/parse-document`, `/parse-batch`) that drops into existing pipelines with no per-token API billing |
+| **Data teams building knowledge bases** | A reliable, schema-valid ingestion layer — the structured JSON feeds downstream search, analytics, and RAG without cleanup |
+
+### The bottom line
+
+- **Cost**: `$0.000049`/document, ~**3× cheaper** than the LLM-only baseline — self-hosted, no API markup
+- **Quality**: `0.8704` F1 after a CORD + FUNSD fine-tune (`0.8576` token-level F1 on the CORD test split)
+- **Trust**: `100%` schema validity, deterministic output, per-field confidence, and constraint enforcement on every document
+- **Fairness**: Benchmarked head-to-head against LLM and RAG baselines on **201 annotated documents** with statistical-significance testing (McNemar's exact test)
+
+---
+
 ## Table of Contents
 
+- [The Pitch: Why DRISE Exists](#the-pitch-why-drise-exists)
 - [Overview](#overview)
 - [Key Capabilities](#key-capabilities)
 - [System Architecture](#system-architecture)
