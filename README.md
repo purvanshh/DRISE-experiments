@@ -16,7 +16,7 @@
 
 ## The Pitch: Why DRISE Exists
 
-Document extraction is a **$6B+ enterprise problem** — every invoice, receipt, and scanned form that enters a business pipeline needs to be read, parsed, and trusted. Existing solutions force a tradeoff: OCR-only tools collapse on complex layouts, LLMs hallucinate fields and cost orders of magnitude more at scale, and template-matching breaks the moment a vendor changes their invoice format.
+Document extraction sits within a **$14.7B Document AI market**[^1] — every invoice, receipt, and scanned form that enters a business pipeline needs to be read, parsed, and trusted. Existing solutions force a tradeoff: OCR-only tools collapse on complex layouts, LLMs hallucinate fields and cost orders of magnitude more at scale, and template-matching breaks the moment a vendor changes their invoice format.
 
 DRISE eliminates that tradeoff. It combines a **layout-aware multimodal transformer** (LayoutLMv3) with a **deterministic post-processing pipeline** that normalizes, validates, and enforces cross-field constraints on every extraction — guaranteeing identical output for identical input with zero hallucination risk from the model layer. The system runs at **$0.000049/document** (vs $0.000152 for LLM-only), achieves **0.8704 F1** on receipt parsing after an in-domain fine-tune, and returns **100% schema-valid JSON** on every document it processes.
 
@@ -687,3 +687,5 @@ If you find this project useful or have suggestions, feel free to open an issue 
 
 - **GitHub**: [@purvanshh](https://github.com/purvanshh)
 - **Email**: purvanshhsahu@gmail.com
+
+[^1]: MarketsandMarkets, *Document AI Market — Global Forecast to 2030*: $14.66B (2025) → $27.62B (2030), 13.5% CAGR. https://www.marketsandmarkets.com/Market-Reports/document-ai-market-195513136.html
